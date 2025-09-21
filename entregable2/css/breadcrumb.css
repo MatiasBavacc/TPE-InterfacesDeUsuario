@@ -1,0 +1,22 @@
+/*BREADCRUMB*/
+.breadcrumb{
+      width: 55%;
+      display: flex;
+      justify-content:space-between;
+}
+
+.breadcrumb a{
+      font-size: 15px;
+      font-family: 'Cabin', sans-serif;
+      text-decoration: none;
+      color : #C0C0C0;
+      margin: 0 10px;
+      white-space: nowrap;
+}
+
+@media screen and (min-width: 1024px) {
+      .breadcrumb{
+            width: 38%;
+      }
+      
+}
