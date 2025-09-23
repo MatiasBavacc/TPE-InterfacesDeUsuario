@@ -104,36 +104,44 @@ header {
 
 .compartir {
   background-image: url('../img/compartir.png');
+  transition: 0.3s ease-out;
 }
 
 .compartir:hover {
   background-image: url('../img/compartir-hover.png');
+  transition: 0.3s ease-out;
 }
 
 .favoritos {
   background-image: url('../img/favoritos.png');
+  transition: 0.3s ease-out;
 }
 
 .favoritos:hover {
   background-image: url('../img/favoritos-hover.png');
   background-position-y: 30%;
+  transition: 0.3s ease-out;
 }
 
 .estrella {
   background-image: url('../img/estrella.png');
+  transition: 0.3s ease-out;
 }
 
 .estrella:hover {
   background-image: url('../img/estrella-hover.png');
   background-position-y: 20%;
+  transition: 0.3s ease-out;
 }
 
 .maximizar {
   background-image: url('../img/maximizar.png');
+  transition: 0.3s ease-out;
 }
 
 .maximizar:hover {
   background-image: url('../img/maximizar-hover.png');
+  transition: 0.3s ease-out;
 }
 
 /* Categorias de este juego */
@@ -161,11 +169,13 @@ header {
   font-size: 25px;
   color: var(--color-terciario);
   cursor: pointer;
+  transition: 0.3s ease-in-out;
 }
 
 .tags .rectangulo:hover {
   border: var(--color-acento) 2px solid;
   color: var(--color-acento);
+  transition: 0.3s ease-in-out;
 }
 
 /* DEscripcion del juego */
@@ -183,6 +193,11 @@ header {
 .descripcion p {
   font-size: 25px;
   margin: 0px;
+}
+
+.descripcion p::selection {
+  background: var(--color-acento);
+  color: var(--color-primario);
 }
 
 /* Como Jugar? */
