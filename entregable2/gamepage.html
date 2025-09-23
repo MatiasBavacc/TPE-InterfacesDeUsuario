@@ -4,54 +4,68 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Pac Solitaire</title>
-      <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="css/breadcrumb.css">
       <link rel="stylesheet" href="css/juego.css">
       <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-      
-      
-      <div class="game">
-            <section class="breadcrumb">
-                  <a href="./index.html">Inicio</a>
-                  <img src="img/flechita.png" alt="Flecha de separacion">
+      <header>algo</header>
+      <main class="main">
+            <div class="breadcrumb">
+                  <a href="index.html">Inicio</a>
+                  <img src="img/flechita.png" alt="Flecha de breadcrumb">
                   <a href="#">Categorias</a>
-                  <img src="img/flechita.png" alt="Flecha de separacion">
+                  <img src="img/flechita.png" alt="Flecha de breadcrumb">
                   <a href="#">Solitario</a>
-                  <img src="img/flechita.png" alt="Flecha de separacion">
+                  <img src="img/flechita.png" alt="Flecha de breadcrumb">
                   <a href="#">Pac Solitaire</a>
-      </section>
-      <!-- Imagen principal -->
-      <div class="game-canvas"></div>
-
-      <div class="game-header">
-            <div class="game-info">
-                  <!-- Título del juego -->
-                  <h2 class="game-title">Pac Solitaire</h2>
-                  <!-- Fecha de actualización -->
-                  <p class="game-updated">Actualizado 04/06/2025</p>
             </div>
 
-            <!-- Botones inferiores -->
-            <div class="game-buttons">
-                  <div class="btn-share">
-                        <div class="btn-bg"></div>
-                        <div class="icon-share"><img src="img/compartir.png" alt="Compartir"></div>
-                  </div>
-                  <div class="btn-favorite">
-                        <div class="btn-bg"></div>
-                        <div class="icon-favorite"><img src="img/Estrella.png" alt="Estrella"></div>
-                  </div>
-                  <div class="btn-star">
-                        <div class="btn-bg"></div>
-                        <div class="icon-star"><img src="img/favoritos.png" alt="Favoritos"></div>
-                  </div>
-                  <div class="btn-fullscreen">
-                        <div class="btn-bg"></div>
-                        <div class="icon-fullscreen"><img src="img/maximizar.png" alt="Fullscreen"></div>
-                  </div>
+            <div class="canvas-game"></div>
+
+            <div class="titulo">Pac Solitaire</div>
+            <div class="update">Actualizado 04/06/2025</div>
+            <div class="btns-juego">
+                  <button type="button" class="compartir"></button>
+                  <button type="button" class="favoritos"></button>
+                  <button type="button" class="estrella"></button>
+                  <button type="button" class="maximizar"></button>
             </div>
-      </div>
+            <section class="categorias">
+                  <h4>Categorias</h4>
+                  <div class="tags">
+                        <div class="rectangulo">Estrategia</div>
+                        <div class="rectangulo">Puzzle</div>
+                        <div class="rectangulo">Logica</div>
+                        <div class="rectangulo">Solitario</div>
+                  </div>
+            </section>
+            <section class="descripcion">
+                  <h4>Descripcion</h4>
+                  <p>
+                        Pac-Man creía que su destino era eterno: 
+                        huir de fantasmas en un laberinto sin fin. 
+                        Pero una fuerza oscura, el Maestro del Vacío, 
+                        lo arrastra a un nuevo universo: el tablero del Peg Solitaire. 
+                        Aquí no basta con correr, ahora cada movimiento decide quién queda y 
+                        quién desaparece. ¿Podrá Pac-Man sobrevivir en un mundo donde la soledad es la mayor amenaza?
+                  </p>
+            </section>
+            <section class="como-jugar">
+                  <h4>¿Como jugar?</h4>
+                  <p>
+                        En Pac Solitaire, selecciona con un clic o toque la ficha que quieras mover, 
+                        luego haz clic en un agujero vacío adyacente al que saltarás sobre otra ficha. 
+                        La ficha saltada se elimina automáticamente. El objetivo es quedarte con una sola ficha en el tablero.
+                  </p>
+            </section>
+            <section class="controles">
+                  <div class="controls"></div>
+                  <h4>Controles</h4>
+                  <img src="img/click-left.png" alt="Click Izquierdo">
+            </section>
+      </main>
+      
+     <footer>nada</footer>
 </body>
 </html>
