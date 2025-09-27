@@ -3,7 +3,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 20px;
+      font-size: 15px;
       font-family: 'Cobin', sans-serif;
 }
 
@@ -14,4 +14,8 @@
 
 .breadcrumb a:hover {
       color: var(--color-acento);
+}
+
+.breadcrumb img {
+      width: 20px;
 }

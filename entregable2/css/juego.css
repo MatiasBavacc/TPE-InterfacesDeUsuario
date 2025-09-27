@@ -2,12 +2,46 @@
 /* Variables de colores */
 :root {
   --color-primario: #1D1054;
-  --color-secundario: #3C3076;
-  --color-terciario: #6C60A3;
+
+  --color-primario-luz1: #4B3D86;
+  --color-primario-luz2: #6C60A3;
+  --color-primario-luz3: #3C3076;
+
+  --color-primario-sombra1: #13054A;
+  --color-primario-sombra2: #100639;
+  --color-primario-sombra3: #080220;
+
+
+  --color-secundario: #350B52;
+
+  --color-secundario-luz1: #643683;
+  --color-secundario-luz2: #4C1E6B;
+  --color-secundario-luz3: #3E0663;
+
+  --color-secundario-sombra1: #310A4C;
+  --color-secundario-sombra2: #220338;
+  --color-secundario-sombra3: #13011F;
+
+
+  --color-terciario: #0E2551;
+
+  --color-terciario-luz1: #395281;
+  --color-terciario-luz2: #213B6A;
+  --color-terciario-luz3: #172F5C;
+
+  --color-terciario-sombra1: #072255;
+  --color-terciario-sombra2: #041637;
+  --color-terciario-sombra3: #010C1F;
+
   --color-acento: #ECC47D;
+
   --color-contraste: #C0C0C0;
   --color-blanco: #FFFFFF;
+  --color-negro: #000000;
+  --color-danger: #D1242F;
 }
+
+
 
 /* Body */
 body {
@@ -31,6 +65,31 @@ header {
   grid-area: header;
 }
 
+h1 {
+  font-size: 40px;
+  font-family: 'Cobin', sans-serif;
+}
+
+h2 {
+  font-size: 35px;
+  font-family: 'Cobin', sans-serif;
+}
+
+h3 {
+  font-size: 30px;
+  font-family: 'Cobin', sans-serif;
+}
+
+h4 {
+  font-size: 25px;
+  font-family: 'Cobin', sans-serif;
+}
+
+p {
+  font-size: 20px;
+  font-family: 'Cobin', sans-serif;
+}
+
 /* Cuerpo */
 .main {
   grid-area: main;
@@ -43,16 +102,16 @@ header {
     "canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game"
     ". titulo titulo titulo . . . btns-juego btns-juego btns-juego btns-juego ."
     ". update update update . . . btns-juego btns-juego btns-juego btns-juego ."
+    "carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game"
     ". categorias categorias categorias . . . . . . . ."
-    ". descripcion descripcion descripcion descripcion descripcion descripcion . . . . ."
-    ". como-jugar como-jugar como-jugar como-jugar como-jugar como-jugar . . . . ."
+    ". descripcion descripcion descripcion descripcion descripcion descripcion ranking ranking ranking ranking ."
+    ". como-jugar como-jugar como-jugar como-jugar como-jugar como-jugar ranking ranking ranking ranking ."
     ". controles controles controles . . . . . . . .";
 }
 
 /* Juego */
 .canvas-game{
   aspect-ratio: 16/9;
-  background-color: var(--color-secundario);
   grid-area: canvas-game;
   border-radius: 50px;
   background-image: url('../img/pacSolitaire.png') ;
@@ -60,13 +119,37 @@ header {
   min-width: 600px;
   max-width: 1400px;
   margin-left: 50px;
+  background-color:rgba(0, 0, 0, 0.5) ;
+}
+
+.canvas-game .blur {
+  aspect-ratio: 16/9;
+  position: absolute;
+  width: clamp(600px,80%, 1400px);
+  border-radius: 50px;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+}
+
+/* Boton Jugar*/
+.btn-jugar {
+  width: 200px;
+  height: 80px;
+  background-color: var(--color-acento);
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 2;
 }
 
 /* Titilo Juego */
 .titulo {
   grid-area: titulo;
-  font-size: 35px;
-  font-family: 'Cobin', sans-serif;
   color: var(--color-blanco);
   white-space: nowrap;
 }
@@ -74,8 +157,6 @@ header {
 /* Ultima actualizacion del juego */
 .update {
   grid-area: update;
-  font-size: 30px;
-  font-family: 'Cobin', sans-serif;
   color: var(--color-blanco);
   white-space: nowrap;
 }
@@ -91,7 +172,7 @@ header {
 }
 
 .compartir, .favoritos, .estrella, .maximizar {
-  background-color: var(--color-terciario);
+  background-color: var(--color-terciario-luz2);
   border: none;
   width: 80px;
   max-width: 80px;
@@ -106,54 +187,94 @@ header {
   background-image: url('../img/compartir.png');
   transition: 0.3s ease-out;
 }
+.compartir:hover, .favoritos:hover, .estrella:hover, .maximizar:hover {
+  transition: 0.3s ease-out;
+  background-position-y: 40%;
+}
+
+.compartir, .favoritos, .estrella, .maximizar {
+  transition: 0.3s ease-out;
+}
 
 .compartir:hover {
   background-image: url('../img/compartir-hover.png');
-  transition: 0.3s ease-out;
 }
 
 .favoritos {
   background-image: url('../img/favoritos.png');
-  transition: 0.3s ease-out;
 }
 
 .favoritos:hover {
   background-image: url('../img/favoritos-hover.png');
-  background-position-y: 30%;
-  transition: 0.3s ease-out;
 }
 
 .estrella {
   background-image: url('../img/estrella.png');
-  transition: 0.3s ease-out;
 }
 
 .estrella:hover {
   background-image: url('../img/estrella-hover.png');
-  background-position-y: 20%;
-  transition: 0.3s ease-out;
 }
 
 .maximizar {
   background-image: url('../img/maximizar.png');
-  transition: 0.3s ease-out;
 }
 
 .maximizar:hover {
   background-image: url('../img/maximizar-hover.png');
-  transition: 0.3s ease-out;
 }
+
+/* Carrucel del Juego */
+
+.carrucel-game {
+  grid-area: carrucel-game;
+  display: flex;
+  overflow: hidden;
+  max-width: 1400px;
+  height: 300px;
+  margin-left: 50px;
+  margin-top: 50px;
+  gap: 5px;
+}
+
+.carrucel-item,
+.carrucel-item-principal {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.carrucel-item {
+  width: 25%;
+  border-radius: 50px;
+  overflow: hidden;
+  background-image: url('../img/card1-juego.png');
+}
+
+.carrucel-item:nth-child(3) {
+  background-image: url('../img/card3-juego.png') ;
+}
+
+.carrucel-item-principal {
+  width: 50%;
+  border-radius: 50px;
+  overflow: hidden;
+  background-image: url('../img/card2-juego.png');
+}
+
+
+
 
 /* Categorias de este juego */
 .categorias {
   grid-area: categorias;
-  font-size: 30px;
+  font-size: 25px;
   font-family: 'Cobin', sans-serif;
   color: var(--color-blanco);
 }
 
-.categorias h4 {
-  margin: 5px;
+.categorias h3 {
+  margin: 5px 0px;
 }
 
 .tags {
@@ -162,36 +283,36 @@ header {
 }
 
 .tags .rectangulo {
-  border: var(--color-terciario) 2px solid;
+  border: var(--color-terciario-luz1) 2px solid;
   border-radius: 10px;
   padding: 10px 20px;
   white-space: nowrap;
   font-size: 25px;
-  color: var(--color-terciario);
+  color: var(--color-terciario-luz1);
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
 
 .tags .rectangulo:hover {
   border: var(--color-acento) 2px solid;
-  color: var(--color-acento);
+  color: var(--color-primario);
+  background-color: var(--color-acento);
   transition: 0.3s ease-in-out;
 }
 
 /* DEscripcion del juego */
 .descripcion {
   grid-area: descripcion;
-  font-size: 30px;
   font-family: 'Cobin', sans-serif;
   color: var(--color-blanco);
 }
 
-.descripcion h4 {
+.descripcion h3 {
   margin: 5px;
 }
 
 .descripcion p {
-  font-size: 25px;
+  font-size: 20px;
   margin: 0px;
 }
 
@@ -203,21 +324,27 @@ header {
 /* Como Jugar? */
 .como-jugar {
   grid-area: como-jugar;
-  font-size: 30px;
   font-family: 'Cobin', sans-serif;
   color: var(--color-blanco);
 }
 
-.como-jugar h4 {
+.como-jugar h3 {
   margin: 5px;
 }
 
 .como-jugar p {
-  font-size: 25px;
+  font-size: 20px;
   margin: 0px;
 }
 
 .controles {
+  grid-area: controles;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.controles-divisor {
   grid-area: controles;
   display: flex;
   align-items: center;
@@ -226,7 +353,7 @@ header {
 
 .controls {
   background-color: var(--color-terciario);
-  border: var(--color-blanco) 2px solid;
+  border: var(--color-blanco) 3px solid;
   width: 50px;
   max-width: 50px;
   min-width: 50px;
@@ -237,18 +364,79 @@ header {
   background-image: url('../img/controls.png');
 }
 
-.controles h4 {
-  font-size: 30px;
-  font-family: 'Cobin', sans-serif;
+.controles .controles-divisor h3 {
   color: var(--color-blanco);
   margin: 5px;
 }
 
-.controles img {
+.controles .image-control  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.controles .image-control img {
   width: 67px;
   max-width: 67px;
   min-width: 67px;
   height: 84px;
+}
+
+/* RANKING */
+
+.ranking {
+  grid-area: ranking;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ranking .ranking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-acento);
+}
+
+.ranking img {
+  width: 32px;
+}
+
+.ranking progress {
+  width: 80%;
+  height: 18px;
+}
+
+.ranking progress::-webkit-progress-bar {
+  background-color: var(--color-terciario-luz2);
+  border-radius: 5px;
+}
+
+.ranking progress::-webkit-progress-value {
+  background-color: var(--color-acento);
+  border-radius: 5px;
+}
+
+.estrellas-ranking {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.estrellas-ranking .estrella-colums {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+
+.estrellas-ranking .progress-colums {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 57%;
+  color: var(--color-acento);
 }
 
 /* Footer */

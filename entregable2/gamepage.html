@@ -4,6 +4,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Pac Solitaire</title>
+      <link rel="stylesheet" href="css/reset.css">
       <link rel="stylesheet" href="css/breadcrumb.css">
       <link rel="stylesheet" href="css/juego.css">
       <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
@@ -21,18 +22,26 @@
                   <a href="#">Pac Solitaire</a>
             </div>
 
-            <div class="canvas-game"></div>
+            <div class="canvas-game">
+                  <div class="blur"></div>
+                  <div class="btn-jugar"></div>
+            </div>
 
-            <div class="titulo">Pac Solitaire</div>
-            <div class="update">Actualizado 04/06/2025</div>
+            <div class="titulo"><h2>Pac Solitaire</h2></div>
+            <div class="update"><h3>Actualizado 04/06/2025</h3></div>
             <div class="btns-juego">
                   <button type="button" class="compartir"></button>
                   <button type="button" class="favoritos"></button>
                   <button type="button" class="estrella"></button>
                   <button type="button" class="maximizar"></button>
             </div>
+            <section class="carrucel-game">
+                  <div class="carrucel-item">   </div>
+                  <div class="carrucel-item-principal">     </div>
+                  <div class="carrucel-item">   </div>
+            </section>
             <section class="categorias">
-                  <h4>Categorias</h4>
+                  <h3>Categorias</h3>
                   <div class="tags">
                         <div class="rectangulo">Estrategia</div>
                         <div class="rectangulo">Puzzle</div>
@@ -41,7 +50,7 @@
                   </div>
             </section>
             <section class="descripcion">
-                  <h4>Descripcion</h4>
+                  <h3>Descripcion</h3>
                   <p>
                         Pac-Man creía que su destino era eterno: 
                         huir de fantasmas en un laberinto sin fin. 
@@ -52,7 +61,7 @@
                   </p>
             </section>
             <section class="como-jugar">
-                  <h4>¿Como jugar?</h4>
+                  <h3>¿Como jugar?</h3>
                   <p>
                         En Pac Solitaire, selecciona con un clic o toque la ficha que quieras mover, 
                         luego haz clic en un agujero vacío adyacente al que saltarás sobre otra ficha. 
@@ -60,9 +69,76 @@
                   </p>
             </section>
             <section class="controles">
-                  <div class="controls"></div>
-                  <h4>Controles</h4>
-                  <img src="img/click-left.png" alt="Click Izquierdo">
+                  <div class="controles-divisor">
+                        <div class="controls"></div>
+                        <h3>Controles</h3>
+                  </div>
+                  <div class="image-control">
+                        <img src="img/click-left.png" alt="Click Izquierdo">
+                  </div>
+            </section>
+            <section class="ranking">
+                  <div class="ranking-header">
+                        <h3>Ranking</h3>
+                        <div class="votos">
+                              <p>Votos: 331</p>
+                        </div>
+                  </div>
+                  <div class="estrellas-ranking">
+                        <div class="estrella-colums">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                        </div>
+                        <div class="progress-colums">
+                              <progress value="83.98" max="100"></progress>
+                              <p>278</p>
+                        </div>
+                  </div>
+                  <div class="estrellas-ranking">
+                        <div class="estrella-colums">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                        </div>
+                        <div class="progress-colums">
+                              <progress value="20" max="100"></progress>
+                              <p>27</p>
+                        </div>
+                  </div>
+                  <div class="estrellas-ranking">
+                        <div class="estrella-colums">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                        </div>
+                        <div class="progress-colums">
+                              <progress value="9" max="100"></progress>
+                              <p>13</p>
+                        </div>
+                  </div>
+                  <div class="estrellas-ranking">
+                        <div class="estrella-colums">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                        </div>
+                        <div class="progress-colums">
+                              <progress value="5" max="100"></progress>
+                              <p>10</p>
+                        </div>
+                  </div>
+                  <div class="estrellas-ranking">
+                        <div class="estrella-colums">
+                              <img src="img/estrella.png" alt="Estrella">
+                        </div>
+                        <div class="progress-colums">
+                              <progress value="3" max="100"></progress>
+                              <p>3</p>
+                        </div>
+                  </div>
             </section>
       </main>
       
