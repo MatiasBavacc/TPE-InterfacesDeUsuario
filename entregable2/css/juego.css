@@ -41,6 +41,19 @@
   --color-danger: #D1242F;
 }
 
+*::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra */
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-terciario); /* Color del riel/fondo */
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-acento); /* Color del pulgar */
+  border-radius: 4px;
+}
+
 
 
 /* Body */
@@ -106,7 +119,31 @@ p {
     ". categorias categorias categorias . . . . . . . ."
     ". descripcion descripcion descripcion descripcion descripcion descripcion ranking ranking ranking ranking ."
     ". como-jugar como-jugar como-jugar como-jugar como-jugar como-jugar ranking ranking ranking ranking ."
-    ". controles controles controles . . . . . . . .";
+    ". controles controles controles . . . . . . . ."
+    ". comentarios comentarios comentarios comentarios comentarios comentarios comentarios comentarios comentarios comentarios .";
+}
+
+/* Breadcrumb */
+.breadcrumb {
+      grid-area: breadcrumb;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-family: 'Cobin', sans-serif;
+}
+
+.breadcrumb a {
+      color: var(--color-contraste);
+      text-decoration: none;
+}
+
+.breadcrumb a:hover {
+      color: var(--color-acento);
+}
+
+.breadcrumb img {
+      width: 20px;
 }
 
 /* Juego */
@@ -181,6 +218,7 @@ p {
   border-radius: 50px;
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
 }
 
 .compartir {
@@ -190,6 +228,7 @@ p {
 .compartir:hover, .favoritos:hover, .estrella:hover, .maximizar:hover {
   transition: 0.3s ease-out;
   background-position-y: 40%;
+  cursor: pointer;
 }
 
 .compartir, .favoritos, .estrella, .maximizar {
@@ -225,9 +264,11 @@ p {
 }
 
 /* Carrucel del Juego */
+.carrucel-game-section{
+  grid-area: carrucel-game;
+}
 
 .carrucel-game {
-  grid-area: carrucel-game;
   display: flex;
   overflow: hidden;
   max-width: 1400px;
@@ -242,6 +283,9 @@ p {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .carrucel-item {
@@ -438,6 +482,175 @@ p {
   width: 57%;
   color: var(--color-acento);
 }
+
+/*  Comentarios */
+.comentarios {
+  grid-area: comentarios;
+  color: var(--color-blanco);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.comentar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-comentario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100px;
+}
+
+.avatar-comentario {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-terciario-luz2);
+  border-radius: 100%;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+}
+
+
+.img-avtar-comentarios {
+  width: 60px;
+}
+
+.recuadro-comentario {
+  width: 90%;
+  max-width: 90%;
+}
+
+.recuadro-comentar, .recuadro-comentar-activo {
+  font-family: 'Cobin', sans-serif;
+  font-size: 15px;
+  border: var(--color-terciario-luz2) 2px solid;
+  border-radius: 50px;
+  width: 100%;
+  padding: 1% 4%;
+  word-break: break-word;
+  overflow: auto;
+  height: 113px;
+  resize: none;
+}
+
+.recuadro-comentar-activo {
+  border: var(--color-terciario-luz1) 2px solid;
+}
+
+.btn-comentario {
+  display: flex;
+  justify-content: flex-end;
+  width: 95%;
+  gap: 10px;
+}
+
+.btn-cancelar, .btn-comentar, .btn-cancelar-activo, .btn-comentar-activo, .btn-leer-mas, .btn-leer-menos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-terciario-sombra1);
+  border: none;
+  border-radius: 40px;
+  width: fit-content;
+  height: 30px;
+  cursor: pointer;
+  font-family: 'Cobin', sans-serif;
+  font-size: 20px;
+  white-space: nowrap;
+  padding: 1%;
+  transition: 0.3s ease-out;
+}
+
+.btn-cancelar-activo:hover, .btn-comentar-activo:hover, .btn-leer-mas:hover, .btn-leer-menos:hover {
+  background-color: var(--color-acento);
+  color: var(--color-primario);
+  transition: 0.3s ease-out;
+}
+
+.btn-cancelar-activo, .btn-comentar-activo {
+  background-color: var(--color-terciario-luz1);
+}
+
+.btn-cancelar, .btn-comentar {
+  cursor: no-drop;
+}
+
+
+.img-foto-comentarios {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 100%; 
+}
+
+.comentario {
+  display: flex;
+  gap: 20px;
+}
+
+.texto-comentado, .texto-comentado-activo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  height: 100%;
+}
+
+.texto-comentado p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.texto-comentado-activo p {
+  white-space: normal;
+  overflow: auto;
+  text-overflow: clip;
+}
+
+.fecha-comentario {
+  color: var(--color-primario-luz2);
+  font-size: 15px;
+}
+
+.btns-comentarios {
+  display: flex;
+  gap: 30px;
+}
+
+.btns-comentarios p {
+  font-size: 15px;
+}
+
+.item-btn-comentario {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-like {
+  width: 30px;
+  cursor: pointer;
+}
+
+
+
+
+/* Ocultos */
+
+.oculto {
+  display: none;
+}
+
 
 /* Footer */
 

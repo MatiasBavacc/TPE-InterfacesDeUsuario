@@ -5,7 +5,6 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Pac Solitaire</title>
       <link rel="stylesheet" href="css/reset.css">
-      <link rel="stylesheet" href="css/breadcrumb.css">
       <link rel="stylesheet" href="css/juego.css">
       <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -35,10 +34,24 @@
                   <button type="button" class="estrella"></button>
                   <button type="button" class="maximizar"></button>
             </div>
-            <section class="carrucel-game">
-                  <div class="carrucel-item">   </div>
-                  <div class="carrucel-item-principal">     </div>
-                  <div class="carrucel-item">   </div>
+            <section class="carrucel-game-section">
+                  <div class="carrucel-game">
+                        <div class="carrucel-item">   </div>
+                        <div class="carrucel-item-principal">
+                              <video autoplay muted loop poster="img/card1-juego.png">
+                                    <source src="img/card4-juego.mp4" type="video/mp4">
+                                    <!-- <source src="tu-video.webm" type="video/webm"> -->
+                                    Tu navegador no soporta el video.
+                              </video>           
+                        </div>
+                        <div class="carrucel-item">   </div>
+                  </div>
+                  <div class="nav-carrucel">
+                        <div class="carrucel-item-nav"></div>
+                        <div class="carrucel-item-nav"></div>
+                        <div class="carrucel-item-nav"></div>
+                        <div class="carrucel-item-nav"></div>
+                  </div>
             </section>
             <section class="categorias">
                   <h3>Categorias</h3>
@@ -140,8 +153,179 @@
                         </div>
                   </div>
             </section>
+            <section class="comentarios">
+                  <div class="comentar">
+                        <div class="user-comentario">
+                              <div class="avatar-comentario">
+                                    <img src="img/avatar-perfil.png" alt="Imagen de usuario" class="img-avtar-comentarios">
+                              </div>
+                              <div class="nombre-usuario">
+                                    <h3>Natalia</h3>
+                              </div>
+                        </div>
+                        <div class="recuadro-comentario">
+                              <form id="comentar"  action="" method="post">
+                                    <label for="comentar"></label>
+                                    <textarea name="comentar" class="recuadro-comentar" cols="80" rows="3" placeholder="Agregar un comentario..."></textarea>
+                                    <div class="btn-comentario">
+                                          <button type="button" class="btn-cancelar">Cancelar</button>
+                                          <button type="submit" class="btn-comentar">Comentar</button>
+                                    </div>
+                              </form>
+                        </div>
+                  </div>
+                  <div class="comentario oculto"></div>
+                  <div class="comentario">
+                        <div class="user-comentario">
+                              <div class="avatar-comentario">
+                                    <img src="img/icon-user2.png" alt="Imagen de usuario" class="img-foto-comentarios">
+                              </div>
+                              <div class="nombre-usuario">
+                                    <h3>Laila</h3>
+                              </div>
+                        </div>
+                        <div class="recuadro-comentario">
+                              <div class="texto-comentado">
+                                    <p>
+                                          Imposible el tercer nivel.
+                                    </p>
+                                    <p class="fecha-comentario">
+                                          6 de agosto de 2025.
+                                    </p>
+                                    <div class="btns-comentarios">
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-like">
+                                                      <img src="img/icon-like.png" alt="Boton de me gusta">
+                                                </button>
+                                                <p>6</p>
+                                          </div>
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-like">
+                                                      <img src="img/icon-dislike.png" alt="Boton de no me gusta">
+                                                </button>
+                                                <p>1</p>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="comentario">
+                        <div class="user-comentario">
+                              <div class="avatar-comentario">
+                                    <img src="img/icon-user1.png" alt="Imagen de usuario" class="img-foto-comentarios">
+                              </div>
+                              <div class="nombre-usuario">
+                                    <h3>Liquid</h3>
+                              </div>
+                        </div>
+                        <div class="recuadro-comentario">
+                              <div class="texto-comentado">
+                                    <p class="texto-comentario">
+                                          Sigo esperando la actualizacion.
+                                    </p>
+                                    <p class="fecha-comentario">
+                                          7 de julio de 2025
+                                    </p>
+                                    <div class="btns-comentarios">
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-like">
+                                                      <img src="img/icon-like.png" alt="Boton de me gusta">
+                                                </button>
+                                                <p>12</p>
+                                          </div>
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-like">
+                                                      <img src="img/icon-dislike.png" alt="Boton de no me gusta">
+                                                </button>
+                                                <p></p>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="comentario">
+                        <div class="user-comentario">
+                              <div class="avatar-comentario">
+                                    <img src="img/icon-user3.png" alt="Imagen de usuario" class="img-foto-comentarios">
+                              </div>
+                              <div class="nombre-usuario">
+                                    <h3>Bruninho</h3>
+                              </div>
+                        </div>
+                        <div class="recuadro-comentario">
+                              <div class="texto-comentado">
+                                    <p>
+                                          Esta re bueno juju
+                                    </p>
+                                    <p class="fecha-comentario">
+                                          15 de diciembre 2024
+                                    </p>
+                                    <div class="btns-comentarios">
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-like">
+                                                      <img src="img/icon-like.png" alt="Boton de me gusta">
+                                                </button>
+                                                <p></p>
+                                          </div>
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-like">
+                                                      <img src="img/icon-dislike.png" alt="Boton de no me gusta">
+                                                </button>
+                                                <p></p>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="comentario">
+                        <div class="user-comentario">
+                              <div class="avatar-comentario">
+                                    <img src="img/icon-user4.png" alt="Imagen de usuario" class="img-foto-comentarios">
+                              </div>
+                              <div class="nombre-usuario">
+                                    <h3>Martin</h3>
+                              </div>
+                        </div>
+                        <div class="recuadro-comentario">
+                              <div class="texto-comentado">
+                                    <p>
+                                          Estaría bueno que agreguen la mecánica del cordero, 
+                                          combinada con el evento de Halloween. Me parece podes 
+                                          hacer un speedrun de 30 minutos con el cordero, o por lo 
+                                          menos que se puedan crear tableros personalizados. Nose, 
+                                          como no creo jueguitos, no opino.
+                                    </p>
+                                    <div class="btn-comentario">
+                                          <button class="btn-leer-mas">Leer más</button>
+                                          <button class="btn-leer-menos oculto">Leer menos</button>
+                                    </div>
+                                    <p class="fecha-comentario">
+                                          23 de octubre de 2023
+                                    </p>
+                                    <div class="btns-comentarios">
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-like">
+                                                      <img src="img/icon-like.png" alt="Boton de me gusta">
+                                                </button>
+                                                <p>5</p>
+                                          </div>
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-like">
+                                                      <img src="img/icon-dislike.png" alt="Boton de no me gusta">
+                                                </button>
+                                                <p>1</p>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+
+            </section>
       </main>
       
      <footer>nada</footer>
+
+     <script src="js/page-juego.js"></script>
+
 </body>
 </html>
