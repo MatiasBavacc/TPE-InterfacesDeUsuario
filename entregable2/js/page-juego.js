@@ -6,11 +6,13 @@ document.addEventListener("DOMContentLoaded", () =>  {
       const textareaComentario = formComentario.querySelector("textarea");
       const btnCancelar = formComentario.querySelector(".btn-cancelar");
      
-
-
       /* Botones de Leer Mas y Leer Menos */
       const btnLeerMas = document.querySelector(".btn-leer-mas");
       const btnLeerMenos = document.querySelector(".btn-leer-menos");
+
+      /* Contadores de Likes y Dislikes */
+      const botonesLike = document.querySelectorAll(".btn-like");
+      const botonesDislike = document.querySelectorAll(".btn-dislike");
 
       /* Enviar o Cancelar Formulario de Comentarios */
       formComentario.addEventListener("submit", postComentario);
@@ -21,9 +23,13 @@ document.addEventListener("DOMContentLoaded", () =>  {
       btnLeerMas.addEventListener("click", toggleLeerMas);
       btnLeerMenos.addEventListener("click", toggleLeerMas);
 
-      
-
-      
+      /* Contadores de Likes y Dislikes */
+      botonesLike.forEach(boton => {
+            boton.addEventListener("click", botonLikeDislike);
+      });
+      botonesDislike.forEach(boton => {
+            boton.addEventListener("click", botonLikeDislike);
+      });
 
 });
 
@@ -35,10 +41,11 @@ document.addEventListener("DOMContentLoaded", () =>  {
  * 
  */
 function toggleLeerMas(event) {
-      const btnLeerMas = event.target;
-      const btnLeerMenos = document.querySelector(".btn-leer-menos");
+      let btnLeerMas = event.target;
+      const comentario = btnLeerMas.closest(`.comentario`);
 
-      const comentario = btnLeerMas.closest(".comentario");
+      const btnLeerMenos = comentario.querySelector(".btn-leer-menos");
+      btnLeerMas = comentario.querySelector(".btn-leer-mas");
       const textoComentado = comentario.querySelector(".texto-comentado");
 
       textoComentado.classList.toggle("texto-comentado-activo");
@@ -56,10 +63,10 @@ function postComentario(event) {
       
 
       if( textarea.value.trim() === ""){
-
+            /* Si esta vacio que no haga nada! */
       }else{
             // --- Datos que obtendrías del formulario/sesión ---
-            const nombreUsuario = document.querySelector(".comentar .nombre-usuario h3").textContent;
+            const nombreUsuario = document.querySelector(".comentar .nombre-usuario h4").textContent;
             const avatarSrc = document.querySelector(".comentar .avatar-comentario img").src;
             const nuevoComentarioTexto = textarea.value; // Texto del textarea
             const fechaActual = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -67,23 +74,17 @@ function postComentario(event) {
             const dislikesIniciales = 0; // Se inicializan en 0
             // ----------------------------------------------------
 
-
             // --- Elemento donde se insertará el nuevo comentario ---
             const seccionComentarios = document.querySelector('.comentarios');
             const divOculto = seccionComentarios.querySelector('.comentario.oculto');
 
             crearYAgregarComentario(nuevoComentarioTexto, nombreUsuario, avatarSrc, fechaActual, likesIniciales, dislikesIniciales, divOculto);
-
-
-
-
-
-
-            console.log("Comentario enviado: " + textarea.value);
             formComentario.reset();
             activarBotones({target: textarea});
       }
 }
+
+
 
 function activarBotones(event) {
       const textarea = event.target;
@@ -105,6 +106,8 @@ function activarBotones(event) {
       }
 }
 
+
+
 function vaciarFormulario(event) {
       event.preventDefault(); // 🚫 Evita que el boton recargue la página
       const formComentario = document.getElementById("comentar");
@@ -117,6 +120,19 @@ function vaciarFormulario(event) {
       }
 }
 
+function botonLikeDislike(event) {
+      let btnLike = event.currentTarget;
+      const comentario = btnLike.closest(`.comentario`);
+      let btnDisLike = comentario.querySelector(".btn-dislike");
+      let contador;
+      let otroContador;
+
+      let imgbtnLike = comentario.querySelector(".btnLike");
+      let imgbtnDislike = comentario.querySelector(".btnDislike");
+
+}
+
+
 
 
 /**
@@ -125,13 +141,15 @@ function vaciarFormulario(event) {
  * @param {string} nombre - El nombre del usuario.
  * @param {string} avatar - La URL de la imagen del avatar.
  * @param {string} fecha - La fecha de publicación.
+ * @param {number} likesIniciales - Cantidad inicial de likes (por defecto 0).
+ * @param {number} dislikesIniciales - Cantidad inicial de dislikes (por defecto 0).
  * @param {HTMLElement} divOculto - El div oculto para insertar el comentario antes.
  */
 function crearYAgregarComentario(texto, nombre, avatar, fecha, likesIniciales = 0, dislikesIniciales = 0, divOculto) {
       // Límite de caracteres para mostrar los botones "Leer Más/Menos"
       const MAX_CARACTERES = 130;
       const necesitaLeerMas = texto.length > MAX_CARACTERES;
-
+      
       // 1. Elemento Principal: <div class="comentario">
       const comentarioDiv = document.createElement('div');
       comentarioDiv.className = 'comentario';
@@ -151,12 +169,12 @@ function crearYAgregarComentario(texto, nombre, avatar, fecha, likesIniciales = 
       imgAvatar.className = 'img-foto-comentarios';
       avatarComentarioDiv.appendChild(imgAvatar);
 
-      // 2.2. Nombre: <div class="nombre-usuario"><h3>...</h3></div>
+      // 2.2. Nombre: <div class="nombre-usuario"><h4>...</h4></div>
       const nombreUsuarioDiv = document.createElement('div');
       nombreUsuarioDiv.className = 'nombre-usuario';
-      const h3Nombre = document.createElement('h3');
-      h3Nombre.textContent = nombre;
-      nombreUsuarioDiv.appendChild(h3Nombre);
+      const h4Nombre = document.createElement('h4');
+      h4Nombre.textContent = nombre;
+      nombreUsuarioDiv.appendChild(h4Nombre);
       
       // Unir Bloque de Usuario
       userComentarioDiv.appendChild(avatarComentarioDiv);
@@ -175,7 +193,7 @@ function crearYAgregarComentario(texto, nombre, avatar, fecha, likesIniciales = 
       const pTexto = document.createElement('p');
       pTexto.textContent = texto;
 
-      // 🟢 LÓGICA DE BOTONES LEER MÁS/MENOS
+      // LÓGICA DE BOTONES LEER MÁS/MENOS
       function crearBotonesLeerMasMenos() {
             const btnComentarioDiv = document.createElement('div');
             btnComentarioDiv.className = 'btn-comentario';
@@ -184,13 +202,13 @@ function crearYAgregarComentario(texto, nombre, avatar, fecha, likesIniciales = 
             const btnLeerMas = document.createElement('button');
             btnLeerMas.className = 'btn-leer-mas';
             btnLeerMas.textContent = 'Leer más';
-            btnLeerMas.addEventListener('click', toggleLeerMas); // 👈 Añadir el Event Listener
+            btnLeerMas.addEventListener('click', toggleLeerMas); // Añadir el Event Listener
             
             // Botón Leer Menos
             const btnLeerMenos = document.createElement('button');
             btnLeerMenos.className = 'btn-leer-menos oculto'; // Oculto por defecto
             btnLeerMenos.textContent = 'Leer menos';
-            btnLeerMenos.addEventListener('click', toggleLeerMas); // 👈 Añadir el Event Listener
+            btnLeerMenos.addEventListener('click', toggleLeerMas); // Añadir el Event Listener
 
             btnComentarioDiv.appendChild(btnLeerMas);
             btnComentarioDiv.appendChild(btnLeerMenos);
@@ -198,7 +216,7 @@ function crearYAgregarComentario(texto, nombre, avatar, fecha, likesIniciales = 
             // Insertar el contenedor de botones antes de la fecha
             textoComentadoDiv.appendChild(btnComentarioDiv);
             
-            // 🔴 FIN LÓGICA LEER MÁS/MENOS
+            //  FIN LÓGICA LEER MÁS/MENOS
       }
 
       // 3.1.2. Párrafo de Fecha: <p class="fecha-comentario">...</p>
@@ -217,11 +235,10 @@ function crearYAgregarComentario(texto, nombre, avatar, fecha, likesIniciales = 
 
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = 'btn-like'; // Usar la misma clase para ambos
+            btn.className = altText === 'Boton de me gusta' ? 'btn-like' : 'btn-dislike';
 
-            const img = document.createElement('img');
-            img.src = iconSrc;
-            img.alt = altText;
+            const img = document.createElement('div');
+            img.className = altText === 'Boton de me gusta' ? 'btnLike' : 'btnDislike';
             btn.appendChild(img);
 
             const pContador = document.createElement('p');
@@ -256,5 +273,4 @@ function crearYAgregarComentario(texto, nombre, avatar, fecha, likesIniciales = 
 
       // 5. Insertar en el DOM
       divOculto.parentNode.insertBefore(comentarioDiv, divOculto.nextSibling);
-
 }

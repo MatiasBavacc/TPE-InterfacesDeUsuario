@@ -432,7 +432,7 @@ p {
   grid-area: ranking;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .ranking .ranking-header {
@@ -637,13 +637,27 @@ p {
   gap: 5px;
 }
 
-.btn-like {
+.btn-like, .btn-dislike {
   width: 30px;
   cursor: pointer;
 }
 
+.btnLike, .btnDislike {
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
 
+.btnLike {
+  background-image: url('../img/icon-like.png');
+}
 
+.btnDislike {
+  background-image: url('../img/icon-dislike.png');
+}
 
 /* Ocultos */
 
