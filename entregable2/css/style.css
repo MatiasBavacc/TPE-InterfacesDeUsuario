@@ -1,169 +1,337 @@
-body{
+body {
     background-color: rgba(29, 16, 84, 1);
+    margin: 0;
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
 }
 
-/*HEADER*/
-header{
-    background-color: rgba(60, 48, 118, 1);
-    height: 60px;
-    width: 1920px;
-}
-
-.header-container {
+/* HEADER */
+.header {
+    width: 100%;
     display: flex;
+    height: 60px;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
+    padding: 2px 2px;
     background-color: rgba(60, 48, 118, 1);
+    z-index: 100;
 }
 
-.header-left,
-.header-center,
-.header-right {
+.header-left, .header-right, .header-center {
     display: flex;
     align-items: center;
+    gap: 1rem;
 }
 
-.header-left {
-    gap: 14px;
+.hamburger-menu {
+    cursor: pointer;
 }
 
-.logo-text {
-    font-size: 1.5rem;
+.hamburger-icon {
+    width: 55px;
+    height: 55px;
+}
+
+.site-name {
+    font-size: 24px;
     font-weight: bold;
+    color: rgba(217, 217, 217, 1);
+}
+
+.header-center {
+    flex-grow: 1;
+    justify-content: center;
 }
 
 .search-form {
-    background-color: rgb(108, 96, 163, 1);
-    border-radius: 50px;
-    padding: 10px 20px;
-    width: 600px;
-    height: 40px;
     display: flex;
     align-items: center;
-    gap: 14px;
+    background-color: rgba(108, 96, 163, 1);
+    border-radius: 50px;
+    padding: 0.5rem 1rem;
+    max-width: 600px;
+    max-height: 40px;
+    width: 100%;
 }
 
-.search-form input {
+.search-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 1rem;
+    color: rgba(217, 217, 217, 1);
+}
+
+.search-input {
+    background: none;
     border: none;
-    background: transparent;
-    color: rgba(255, 255, 255, 1);
+    color: rgba(217, 217, 217, 1);
     width: 100%;
+    font-size: 24px;
     outline: none;
 }
 
-.search-form input::placeholder {
-    color: #d0c4f0;
+.search-input::placeholder {
+    color: rgba(217, 217, 217, 1);
 }
 
-.user-buttons {
-    display: flex;
+.header-right {
     gap: 14px;
 }
 
 .icon-button {
-    background-color: rgb(108, 96, 163, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 14px;
+}
+
+.button-icon {
+    width: 40px;
+    height: 40px;
+}
+
+/* MAIN CONTENT */
+.home-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.game-card {
+    background-color: rgba(60, 48, 118, 1);
+    border-radius: 10px;
+    overflow: hidden;
+    color: rgba(217, 217, 217, 1);
+    height: 365px;
+    width: 350px; /* Ancho fijo para la tarjeta */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-image-top {
+    padding: 15px;
+    width: 320px;
+    height: 196px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.title-and-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.game-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.free-label {
+    background-color: transparent;
+    border: 2px solid rgba(236, 196, 125, 1);
+    color: rgba(236, 196, 125, 1);
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.game-description {
+    font-size: 0.9rem;
+    color: rgba(217, 217, 217, 0.7);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1.2rem;
+}
+
+.star-icon {
+    color: rgba(236, 196, 125, 1);
+}
+
+.interaction-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.favorite-button {
+    background-color: rgba(108, 96, 163, 1);
+    border: none;
     border-radius: 50%;
     width: 40px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
-.menu-button img,
-.search-form img,
-.icon-button img {
-    height: 40px;
-    width: 40px;
+.favorite-button img {
+    width: 24px;
+    height: 24px;
 }
 
-/*FOOTER*/
-
-footer{
-    background-color: rgb(108, 96, 163, 1);
-    height: 500px;
-    width: 1920px;
-    box-shadow: 0px -1.5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.footer-container{
-    height: 1762px;
-    width: 202px;
+.play-button {
+    background-color: rgba(236, 196, 125, 1);
+    color: rgba(60, 48, 118, 1);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 60px 80px;
-    flex-wrap: wrap;
-    gap: 250px; 
+    align-items: center;
+    gap: 5px;
 }
 
-.footer h3{
+/* FOOTER */
+.footer {
+    width: 100%;
+    height: 500px; /* Altura fija de 500px */
+    background-color: rgba(60, 48, 118, 1);
+    padding: 50px 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.links-section{
+    height: 179px;
+    width: 114px;
+}
+
+.redes-section{
+    height: 200px;
+    width: 294px;
+}
+
+.novedades-section{
+    height: 202px;
+    width: 390px;
+}
+
+.contacto-section {
+    height: 182px;
+    width: 214px;
+}
+
+.footer h3 {
     color: rgba(236, 196, 125, 1);
     font-size: 36px;
+    margin-bottom: 1rem;
     font-weight: normal;
-    text-transform: uppercase;
-    margin-bottom: 20px;
 }
 
-.footer a {
-    color: rgba(255, 255, 255, 1);
-    font-size: 20px;
-    text-decoration: none;
-}
-
-.footer p{
+.footer p {
     color: rgba(192, 192, 192, 1);
     font-size: 20px;
 }
 
-.footer-section-links ul {
+.footer ul {
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.footer-section-links li {
-    margin-bottom: 21px;
+.footer ul li::before {
+    content: "•";
+    color: rgba(217, 217, 217, 1);
+    font-size: 20px;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
 }
 
-.footer-section-redes{
+.footer ul li a {
+    color: rgba(217, 217, 217, 1);
+    font-size: 20px;
+    text-decoration: none;
+    line-height: 1.5;
+    display: inline;
+}
+
+.footer a:hover {
+    color: rgba(236, 196, 125, 1);
+    text-decoration: underline;
+}
+
+.social-icons {
     display: flex;
-    gap: 10px;
+    gap: 1rem;
+    margin-top: 10px;
 }
 
-.iconos {
+.social-icons a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+}
+
+.social-icons img {
+    width: 100%;
+    height: 100%;
+}
+
+.novedades-section {
+    max-width: 390px;
+}
+
+.novedades-section form {
     display: flex;
-    gap: 20px;
-}
-
-.iconos a i {
-    font-size: 40px;
-    color: rgba(255, 255, 255, 1);
-}
-
-.email-form {
-    height: 348px;
-    width: 44px;
-    display: flex;
-    align-items: center;
+    margin-top: 10px;
     border: 2px solid rgba(255, 255, 255, 1);
     border-radius: 5px;
     overflow: hidden;
 }
 
-.email-form input {
-    background-color: transparent;
-    padding: 10px;
-    color: rgba(255, 255, 255, 1);
+.novedades-section input {
     flex-grow: 1;
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    color: rgba(217, 217, 217, 1);
     outline: none;
+    font-size: 16px;
 }
 
-.email-form button {
-    background-color: transparent;
-    border: none;
+.novedades-section input::placeholder {
     color: rgba(255, 255, 255, 1);
+}
+
+.novedades-section button {
     padding: 10px 15px;
+    border: none;
+    background-color: rgba(236, 196, 125, 1);
+    color: rgba(60, 48, 118, 1);
     cursor: pointer;
+}
+
+.contacto-section .email-link {
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
     font-size: 20px;
+    display: block;
+    margin-top: 5px;
 }

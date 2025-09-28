@@ -6,89 +6,112 @@
             <title>El Enemigos</title>
             <link rel="stylesheet" href="css/style.css">
       </head>
+      
       <body>
-            <header class="main-header">
-                  <div class="header-container">
 
-                        <div class="header-left">
-                              <a href="#" class="menu-button" aria-label="Menu principal">
-                                    <img src="img/icon burger.png" alt="Menu">
-                              </a>
-                              <a href="/" class="logo">
-                                    <span class="logo-text">EL ENEMIGO ES</span>
-                              </a>
+            <header class="header">
+                  <div class="header-left">
+                        <div class="hamburger-menu">
+                              <img src="img/menu-grueso.png" alt="Menú" class="hamburger-icon">
                         </div>
+                        <span class="site-name">EL ENEMIGOS</span>
+                  </div>
 
-                        <div class="header-center">
-                              <form class="search-form">
-                                    <img src="img/Lupa.png" alt="Icono de Busqueda">
-                                    <input type="text" placeholder="Buscar juego">
-                              </form>
+                  <div class="header-center">
+                        <div class="search-form">
+                              <img src="img/Lupa.png" alt="Buscar" class="search-icon">
+                              <input type="text" placeholder="Buscar juego" class="search-input">
                         </div>
+                  </div>
 
-                        <div class="header-right">
-                              <div class="user-buttons">
-                                    <a href="#" class="icon-button" aria-label="Cuenta Premium">
-                                          <img src="img/icon premium.png" alt="Premium">
-                                    </a>
-                                    <a href="#" class="icon-button" aria-label="Favoritos">
-                                          <img src="img/icon favorito.png" alt="Favoritos">
-                                    </a>
-                                    <a href="#" class="icon-button" aria-label="Perfil de usuario">
-                                          <img src="img/icon perfil.png" alt="Perfil">
-                                    </a>
-                              </div>
+                  <div class="header-right">
+                        <div class="icon-button">
+                              <img src="img/premiumm.png" alt="premiumm" class="button-icon">
                         </div>
-
+                        <div class="icon-button">
+                              <img src="img/favs.png" alt="favoritos" class="button-icon">
+                        </div>
+                        <div class="icon-button">
+                              <img src="img/perfil.png" alt="perfil" class="button-icon">
+                        </div>
                   </div>
             </header>
 
 
             <main class="home">
                   <div class="home-container">
+                        
+                        <div class="game-card">
+                              <img src="img/baldur.png" alt="Juego de Ajedrez" class="card-image-top">
+                                    <div class="card-body">
+                                          <div class="card-info">
+                                                <div class="title-and-price">
+                                                      <h3 class="game-title">Juego</h3>
+                                                      <span class="free-label">GRATIS</span>
+                                                </div>
+                                                <p class="game-description">así como la tecnología está avanzando, observa este nuevo juego, es increíble</p>
+                                          </div>
+                                          <div class="card-actions">
+                                                <div class="rating">
+                                                <span class="star-icon">★</span>
+                                                <span class="rating-number">4,7</span>
+                                                </div>
+                                                <div class="interaction-buttons">
+                                                <button class="favorite-button">
+                                                      <img src="img/favs.png" alt="Favorito" class="icon-small">
+                                                </button>
+                                                <button class="play-button">
+                                                      <span class="play-icon">►</span> Jugar
+                                                </button>
+                                                </div>
+                                          </div>
+                                    </div>
+                                    </div>
 
                   </div>
             </main>
             
             <footer class="footer">
                   <div class="footer-container">
-                        <div class="footer-section-links">
-                              <h3>LINKS</h3>
-                              <ul>
-                              <li><a href="/home">Home</a></li>
-                              <li><a href="/perfil">Perfil</a></li>
-                              <li><a href="/menu">Menu</a></li>
-                              </ul>
+
+                        <div class="links-section">
+                              <h3>Links</h3>
+                                    <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">Perfil</a></li>
+                                    <li><a href="#">Menu</a></li>
+                                    </ul>
                         </div>
 
-                        <div class="footer-section-redes">
+                        <div class="redes-section">
                               <h3>Nuestras Redes</h3>
                               <p>Conectate con nosotros para estar al tanto de todas las novedades.</p>
-                              <div class="iconos">
-                                    <a href="#"><img src="img/iconoX.png" alt="Icono de X"></a>
-                                    <a href="#"><img src="img/iconoFACEBOOK.png" alt="Icono de Facebook"></a>
-                                    <a href="#"><img src="img/iconoINSTAGRAM.png" alt="Icono de Instagram"></a>
-                                    <a href="#"><img src="img/iconoLINKEDIN.png" alt="Icono de LinkedIn"></a>
-                              </div>
+                                    <div class="social-icons">
+                                          <a href="#"><img src="img/x.png" alt="Twitter" class="social-icon"></a>
+                                          <a href="#"><img src="img/ig.png" alt="Instagram" class="social-icon"></a>
+                                          <a href="#"><img src="img/facebook.png" alt="Facebook" class="social-icon"></a>
+                                          <a href="#"><img src="img/instagram.png" alt="LinkedIn" class="social-icon"></a>
+                                    </div>
                         </div>
 
-                        <div class="footer-section-novedades">
+                        <div class="novedades-section">
                               <h3>Novedades por Email</h3>
                               <p>Danos tu correo y se el primero en recibir ofertas exclusivas y en descubrir nuevos juegos.</p>
-                              <form class="email-form">
-                              <i class="fa-regular fa-envelope email-icon"></i>
-                              <input type="email" placeholder="Email">
-                              <button type="submit" aria-label="Enviar">Enviar<i class="fa-solid fa-chevron-right"></i></button>
+                              <form>
+                                    <input type="email" placeholder="Email">
+                                    <button type="submit"><i class="fas fa-arrow-right"></i></button>
                               </form>
                         </div>
 
-                        <div class="footer-section-contactanos">
+                        <div class="contacto-section">
                               <h3>Contactanos</h3>
                               <p>Si tenes alguna duda comunicate via Email con nosotros:</p>
-                              <a href="mailto:elEnemigos@gmail.com">elEnemigos@gmail.com</a>
+                              <a href="mailto:elEnemigos@gmail.com" class="email-link">elEnemigos@gmail.com</a>
                         </div>
+
                   </div>
             </footer>
         
       </body>
+
 </html>
