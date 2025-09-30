@@ -5,10 +5,28 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>El Enemigos</title>
             <link rel="stylesheet" href="css/home-style.css">
+            <link rel="stylesheet" href="css/loader.css">
             <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
       </head>
       
       <body>
+            <div id="loader-overlay">
+                  <div class="velocimetro">
+                        <svg width="300" height="150" viewBox="0 0 300 150">
+                              <!-- Arcos animados -->
+                              <path class="block block1" d="M 20 150 A 130 130 0 0 1 280 150" />
+                              <path class="block block2" d="M 20 150 A 130 130 0 0 1 280 150" />
+                              <path class="block block3" d="M 20 150 A 130 130 0 0 1 280 150" />
+                              <path class="block block4" d="M 20 150 A 130 130 0 0 1 280 150" />
+
+                              <!-- Marcas de porcentaje -->
+                              <g font-size="12" fill="white" text-anchor="middle" dominant-baseline="middle">
+                              <!-- JS insertará aquí los <text> -->
+                              </g>
+                        </svg>
+                        <div id="contador">0%</div>
+                  </div>
+            </div>
 
             <header class="header">
                   <div class="header-left">
@@ -899,6 +917,7 @@
 
                   </div>
             </footer>
+      <script src="js/loader.js"></script>
         
       </body>
 
