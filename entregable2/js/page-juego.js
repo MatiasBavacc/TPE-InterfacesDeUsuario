@@ -126,10 +126,68 @@ function botonLikeDislike(event) {
       let btnDisLike = comentario.querySelector(".btn-dislike");
       let contador;
       let otroContador;
-
       let imgbtnLike = comentario.querySelector(".btnLike");
       let imgbtnDislike = comentario.querySelector(".btnDislike");
 
+      if(btnLike.classList.contains("btn-like")){
+            contador = comentario.querySelector(".cont-like");
+            otroContador = comentario.querySelector(".cont-dislike");
+            if(contador.dataset.value === "active"){
+                  manejarContadorMenos(contador);
+                  contador.dataset.value = "inactive";
+                  actualizarEstadoBoton(imgbtnLike);
+            }else{
+                  manejarContadorMas(contador);
+                  contador.dataset.value = "active";
+                  if(otroContador.dataset.value === "active"){
+                        manejarContadorMenos(otroContador);
+                        otroContador.dataset.value = "inactive";
+                  }
+            }
+      }else{
+            contador = comentario.querySelector(".cont-dislike");
+            otroContador = comentario.querySelector(".cont-like");
+            if(contador.dataset.value === "active"){
+                  manejarContadorMenos(contador);
+                  contador.dataset.value = "inactive";
+                  actualizarEstadoBoton(imgbtnDislike);
+            }else{
+                  manejarContadorMas(contador);
+                  contador.dataset.value = "active";
+                  if(otroContador.dataset.value === "active"){
+                        otroContador.textContent = parseInt(otroContador.textContent) - 1;
+                        otroContador.dataset.value = "inactive";
+                  }
+            }
+      }
+      
+      function actualizarEstadoBoton(imgBtn1 = 0, imgBtn2 = 0) {
+            if(imgBtn1.classList.contains("btnLike")){
+                  imgBtn1.classList.toggle("btnLike-active");
+            }else{
+                  imgBtn1.classList.toggle("btnDislike-active");
+            }
+
+            if(imgBtn2.classList.contains("btnDisLike")){
+                  imgBtn2.classList.toggle("btnDisLike-active");
+            }else{
+                  imgBtn2.classList.toggle("btnLike-active");
+            }
+      }
+
+      function manejarContadorMas(contador){
+            if(contador.textContent === ""){
+                  contador.textContent = 1;
+            }else{
+                  contador.textContent = parseInt(contador.textContent) + 1;
+            }
+      }
+
+      function manejarContadorMenos(contador){
+            if(contador.textContent !== ""){
+                  contador.textContent = parseInt(contador.textContent) - 1;
+            }
+      }
 }
 
 

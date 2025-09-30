@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velocímetro con choques</title>
+<style>
+:root {
+  --color-primario: #1D1054;
+  --color-secundario: #350B52;
+  --color-terciario: #0E2551;
+  --color-acento: #ECC47D;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #111;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.velocimetro {
+  position: relative;
+  width: 300px;
+  height: 150px;
+}
+
+/* Bloques con animación */
+.block {
+  fill: none;
+  stroke-width: 20;
+  stroke-dasharray: 408; /* perímetro del semicírculo */
+  stroke-dashoffset: 408;
+  stroke-linecap: round;
+}
+
+/* Colores + animaciones (10s total) */
+.block1 {
+  stroke: var(--color-primario);
+  animation: choque1 6.25s linear forwards;
+}
+.block2 {
+  stroke: var(--color-secundario);
+  animation: choque2 8.125s linear forwards;
+}
+.block3 {
+  stroke: var(--color-terciario);
+  animation: choque3 9.375s linear forwards;
+}
+.block4 {
+  stroke: var(--color-acento);
+  animation: choque4 10s linear forwards;
+}
+
+/* Keyframes */
+@keyframes choque1 {
+  0%   { stroke-dashoffset: 407.5; }
+  10%,20%  { stroke-dashoffset: 306; }
+  30%,50%  { stroke-dashoffset: 204; }
+  60%,80%  { stroke-dashoffset: 102; }
+  90%,100% { stroke-dashoffset: 2; } /* 👈 no llega al 0 exacto */
+}
+@keyframes choque2 {
+  0%,7.7%   { stroke-dashoffset: 407.5; }
+  15.4%,30.8% { stroke-dashoffset: 306; }
+  38.5%,53.9% { stroke-dashoffset: 204; }
+  61.6%,77%   { stroke-dashoffset: 102; }
+  84.7%,100%  { stroke-dashoffset: 2; }
+}
+@keyframes choque3 {
+  0%,19.8%   { stroke-dashoffset: 407.5; }
+  26.4%,39.6% { stroke-dashoffset: 306; }
+  46.2%,59.4% { stroke-dashoffset: 204; }
+  66%,79.2%   { stroke-dashoffset: 102; }
+  85.8%,100%  { stroke-dashoffset: 2; }
+}
+@keyframes choque4 {
+  0%,31.25%  { stroke-dashoffset: 407.5; }
+  37.5%,50%  { stroke-dashoffset: 306; }
+  56.25%,68.75% { stroke-dashoffset: 204; }
+  75%,87.5%  { stroke-dashoffset: 102; }
+  93.75%,100% { stroke-dashoffset: 2; }
+}
+
+/* Contador */
+#contador {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+  <div class="velocimetro">
+    <svg width="300" height="150" viewBox="0 0 300 150">
+      <!-- Arcos animados -->
+      <path class="block block1" d="M 20 150 A 130 130 0 0 1 280 150" />
+      <path class="block block2" d="M 20 150 A 130 130 0 0 1 280 150" />
+      <path class="block block3" d="M 20 150 A 130 130 0 0 1 280 150" />
+      <path class="block block4" d="M 20 150 A 130 130 0 0 1 280 150" />
+
+      <!-- Marcas de porcentaje -->
+      <g font-size="12" fill="white" text-anchor="middle" dominant-baseline="middle">
+        <!-- JS insertará aquí los <text> -->
+      </g>
+    </svg>
+  </div>
+  <div id="contador">0%</div>
+
+<script>
+  // === Contador animado ===
+  let contador = document.getElementById("contador");
+  let tiempoTotal = 9500; // 10 segundos
+  let progreso = 0;
+  let intervalo = tiempoTotal / 100;
+
+  let timer = setInterval(() => {
+    progreso++;
+    contador.textContent = progreso + "%";
+    if (progreso >= 100) clearInterval(timer);
+  }, intervalo);
+
+  // === Marcas de porcentaje ===
+  const g = document.querySelector("svg g");
+  const cx = 150; // centro
+  const cy = 150;
+  const r = 100; // radio (un poco menor al arco de 130 para que no choque)
+  
+  for (let i = 0.5; i <= 10; i++) {
+    let ang = Math.PI - (i * Math.PI / 10); // de 180° a 0° en radianes
+    let x = cx + r * Math.cos(ang);
+    let y = cy - r * Math.sin(ang);
+    
+    let txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    txt.setAttribute("x", x);
+    txt.setAttribute("y", y);
+    txt.textContent = (i * 10) + "%";
+    g.appendChild(txt);
+  }
+</script>
+</body>
+</html>

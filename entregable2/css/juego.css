@@ -659,6 +659,13 @@ p {
   background-image: url('../img/icon-dislike.png');
 }
 
+.btnLike-active {
+  background-image: url('../img/icon-like-hover.png');
+}
+.btnDislike-active {
+  background-image: url('../img/icon-dislike-hover.png');
+}
+
 /* Ocultos */
 
 .oculto {
