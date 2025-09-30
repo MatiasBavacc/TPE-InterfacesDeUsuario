@@ -1,4 +1,3 @@
-
 /*VARIABLES DE COLORES*/
 :root {
   --color-primario: #1D1054;
@@ -64,11 +63,12 @@ p {
 body {
     background-color: var(--color-primario);
     margin: 0;
-    display: flex; 
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
-    padding: 0; 
+    padding: 0;
     font-family: 'Cobin', sans-serif;
+    overflow-x: hidden;
 }
 
 /* HEADER */
@@ -160,11 +160,13 @@ body {
 /*________________________________________________________________________________________________________________________________________________________________*/
 
 /* MAIN CONTENT */
-.home-container {
-    max-width: 1400px;
+ .home-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1623px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 40px;
+    
 }
 
 /* Espacio entre header y la card principal */
@@ -179,11 +181,11 @@ body {
     overflow: hidden;
     color: rgba(217, 217, 217, 1);
     height: 365px;
-    flex: 0 0 calc((100% - (41px * 3)) / 4); /* 4 cards with 3 gaps */
+    flex: 0 0 350px;
     max-width: 350px;
     min-width: 220px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 15px 15px 10px 15px; /* top, right, bottom, left */
+    padding: 15px 15px 10px 15px;
 }
 
 .card-image-top {
@@ -207,7 +209,7 @@ body {
 }
 
 .game-title {
-    font-size: 1.5rem;
+    font-size: 25px;
     font-weight: bold;
     margin: 0;
 }
@@ -218,12 +220,12 @@ body {
     color: color var(--color-acento);
     padding: 2px 8px;
     border-radius: 5px;
-    font-size: 0.9rem;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: normal;
 }
 
 .game-description {
-    font-size: 0.9rem;
+    font-size: 15px;
     color: rgba(217, 217, 217, 0.7);
     line-height: 1.4;
     margin: 0 0 10px 0;
@@ -237,6 +239,8 @@ body {
 }
 
 .rating {
+    width: 36px;
+    height: 18px;
     font-family: 'Cobin', sans-serif;
     display: flex;
     align-items: center;
@@ -244,8 +248,14 @@ body {
     font-size: 1.2rem;
 }
 
+.rating-number {
+    font-size: 15px;
+}
+
 .star-icon {
-    color: color var(--color-acento);
+    color: var(--color-acento);
+    vertical-align: middle;
+    margin-bottom: 2px;
 }
 
 .interaction-buttons {
@@ -303,29 +313,49 @@ body {
 
 /*CARRUSEL*/
 
-.seccion-juegos{
-    padding: 20px 0;
+ .seccion-juegos{
+     padding: 20px 0;
+     width: 100%;
+     max-width: 1623px;
+     margin-left: auto;
+     margin-right: auto;
+     height: 422px;
+     display: flex;
+     flex-direction: column;
 }
 
-.titulo-seccion {
-    color: rgba(255, 255, 255, 1);
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    padding-bottom: 10px;
+ .titulo-seccion {
+     color: rgba(255, 255, 255, 1);
+     margin-bottom: 20px;
+     font-size: 32px;
+     padding-bottom: 10px;
+     font-weight: normal;
+     align-self: flex-start;
+     margin-left: 0;
+     margin-top: 0;
+     display: block;
 }
 
-.carrusel {
-    flex-wrap: nowrap; 
+ .carrusel {
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: nowrap;
     display: flex;
     justify-content: flex-start;
-    overflow-x: auto; 
-    gap: 41px; /* Espacio entre las cards */
-    padding-bottom: 15px; /* Espacio para que no se pegue al fondo */
+    gap: 41px;
+    padding-bottom: 15px;
     width: 100%;
+    max-width: 1623px;
     min-width: 0;
-    max-width: 100%;
+    height: 422px;
     box-sizing: border-box;
-    overflow-x: auto;
+    overflow-x: visible;
+}
+
+/* margen derecho eliminado, el espacio lo da el padding del contenedor */
+.carrusel .game-card {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 @media (max-width: 1500px) {
@@ -338,11 +368,14 @@ body {
 
 /* Espaciado vertical entre carruseles */
 .seccion-juegos {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1623px;
     margin-bottom: 147px;
     padding: 0;
 }
 .seccion-juegos:last-child {
-    margin-bottom: 0;
+    margin-bottom: 106px;
 }
 
 .carrusel::-webkit-scrollbar {
@@ -393,16 +426,27 @@ body {
     height: 181px;
 }
 
-.footer h3 {
-    color: rgba(236, 196, 125, 1);
-    font-size: 36px;
-    margin-bottom: 1rem;
-    font-weight: normal;
+ .footer {
+    width: 100vw;
+    max-width: 1920px;
+    height: 600px;
+    background-color: var(--color-secundario-sombra2);
+    padding: 0 80px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.footer p {
-    color: rgba(192, 192, 192, 1);
-    font-size: 20px;
+.footer h3{
+    font-weight: normal;
+    font-size: 35px;
+    color: var(--color-acento);
+}
+
+.footer p{
+    color: var(--color-contraste);
 }
 
 .footer ul {
@@ -429,7 +473,7 @@ body {
 }
 
 .footer a:hover {
-    color: rgba(236, 196, 125, 1);
+    color: var(--color-acento);
     text-decoration: underline;
 }
 
@@ -490,4 +534,151 @@ body {
     font-size: 20px;
     display: block;
     margin-top: 5px;
+}
+
+/* -------------------- RESPONSIVE DESIGN -------------------- */
+
+@media (max-width: 1200px) {
+    .home-container {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    .game-card {
+        max-width: 220px;
+        min-width: 160px;
+        height: 320px;
+        padding: 10px 10px 8px 10px;
+    }
+    .card-image-top {
+        width: 180px;
+        height: 110px;
+    }
+    .footer {
+        width: 100vw;
+        padding: 0 10px;
+        height: auto;
+    }
+    .footer-container {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: center;
+        height: auto;
+    }
+    .links-section,
+    .redes-section,
+    .novedades-section,
+    .contacto-section,
+    .categorias-section {
+        width: 100%;
+        min-width: 180px;
+        height: auto;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .header {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 0;
+    }
+    .header-left, .header-center, .header-right {
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+    .site-name {
+        font-size: 18px;
+    }
+    .search-form {
+        max-width: 100%;
+        font-size: 18px;
+    }
+    .game-card {
+        max-width: 160px;
+        min-width: 120px;
+        height: 220px;
+        padding: 6px 6px 6px 6px;
+    }
+    .card-image-top {
+        width: 100px;
+        height: 60px;
+    }
+    .footer {
+        padding: 0 5px;
+        height: auto;
+    }
+    .footer-container {
+        gap: 20px;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: auto;
+    }
+    .links-section,
+    .redes-section,
+    .novedades-section,
+    .contacto-section,
+    .categorias-section {
+        width: 100%;
+        min-width: 120px;
+        height: auto;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+    .header {
+        flex-direction: column;
+        height: auto;
+        padding: 5px 0;
+    }
+    .header-left, .header-center, .header-right {
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+    }
+    .site-name {
+        font-size: 14px;
+    }
+    .search-form {
+        max-width: 100%;
+        font-size: 14px;
+        padding: 2px 4px;
+    }
+    .game-card {
+        max-width: 100px;
+        min-width: 80px;
+        height: 120px;
+        padding: 2px 2px 2px 2px;
+    }
+    .card-image-top {
+        width: 60px;
+        height: 30px;
+    }
+    .footer {
+        padding: 0 2px;
+        height: auto;
+    }
+    .footer-container {
+        gap: 10px;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: auto;
+    }
+    .links-section,
+    .redes-section,
+    .novedades-section,
+    .contacto-section,
+    .categorias-section {
+        width: 100%;
+        min-width: 80px;
+        height: auto;
+        margin-bottom: 5px;
+    }
 }
