@@ -1,13 +1,13 @@
 let contador = document.getElementById("contador");
 let overlay = document.getElementById("loader-overlay");
-let tiempoTotal = 9500; // 10 segundos
+let tiempoTotal = 5000; // 5.5 segundos
 let progreso = 0;
 let intervalo = tiempoTotal / 100;
 
 let timer = setInterval(() => {
   progreso++;
   contador.textContent = progreso + "%";
-  if (progreso >= 100) {
+  if (progreso >= 100.1) {
     clearInterval(timer);
     overlay.style.display = "none"; // 👈 Oculta el loader y el blur
   }

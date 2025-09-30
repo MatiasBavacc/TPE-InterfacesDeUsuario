@@ -33,19 +33,19 @@
 /* Colores + animaciones (10s total) */
 .block1 {
   stroke: var(--color-primario);
-  animation: choque1 6.25s linear forwards;
+  animation: choque1 3.125s linear forwards; /* antes 6.25s */
 }
 .block2 {
   stroke: var(--color-secundario);
-  animation: choque2 8.125s linear forwards;
+  animation: choque2 4.0625s linear forwards; /* antes 8.125s */
 }
 .block3 {
   stroke: var(--color-terciario);
-  animation: choque3 9.375s linear forwards;
+  animation: choque3 4.6875s linear forwards; /* antes 9.375s */
 }
 .block4 {
   stroke: var(--color-acento);
-  animation: choque4 10s linear forwards;
+  animation: choque4 5s linear forwards; /* antes 10s */
 }
 
 /* Keyframes */
