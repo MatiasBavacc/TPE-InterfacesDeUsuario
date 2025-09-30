@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+    <link rel="stylesheet" href="../CSS/pagina2.css"> 
+</head>
+<body>
+
+<div class="form-container">
+  <div class="form">
+    <h2 class="titulo-registro">REGISTRARSE</h2>
+
+    <form class="registro-form">
+      <label for="nombre-campo" class="campo-label">Nombre</label>
+      <input type="text" class="campo" required>
+      <label for="nombre-campo" class="campo-label">Apellido</label>
+      <input type="text" class="campo" required>
+      <label for="nombre-campo" class="campo-label">Nombre de Usuario</label>
+      <input type="text" class="campo"  required>
+      <label for="nombre-campo" class="campo-label">Gmail</label>
+      <input type="email" class="campo" required>
+      <label for="nombre-campo" class="campo-label">Contraseña</label>
+      <input type="password" class="campo"  required>
+      <label for="nombre-campo" class="campo-label">Repetir contraseña</label>
+      <input type="password" class="campo"  required>
+
+      <div class="captcha">
+        <input type="checkbox" id="robot" required>
+        <label for="robot">No soy un robot</label>
+        <img  class="captcha-img" src="../Imagenes/image 6.png" alt="captcha">
+      </div>
+
+      <button type="submit" class="btn-registro">REGISTRARSE</button>
+    </form>
+
+    <div class="si-cuenta">
+      <a class= "texto-login"href="../HTML/pagina1.html">Ya tienes cuenta? </a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

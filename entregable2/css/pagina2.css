@@ -1,0 +1,144 @@
+
+:root {
+    --luz: #D9D9D9;
+    --sombra: #000000;
+    --fondo: #072255;
+    --btn-azul: #395281;
+    --color-terciario: #6C60A3;
+    --borde: 50px;
+    --sombra-fondo: 30px 30px 58.4px 9px rgba(0, 0, 0, 0.7);
+}
+
+body {
+    background: url('../Imagenes/elenemigos.png') center / cover no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    margin: 0;
+}
+
+
+.form {
+    background: var(--fondo);
+    border: 3px solid var(--sombra);
+    box-shadow: var(--sombra-fondo);
+    border-radius: 20px;
+    padding: 0;
+    width: 700px;
+    height: 758px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+
+.titulo-registro {
+    color: var(--luz);
+    font-size: 60px;
+    margin: 35px 145px 5px; 
+    width: 500px;
+    height: 60px;
+}
+
+
+.campo {
+    margin-bottom: 5px;
+    border: none;
+    background-color: var(--luz);
+    color: var(--sombra); 
+    box-sizing: border-box;
+    width: 600px;
+    height: 30px;
+    border-radius: var(--borde);
+}
+
+
+.campo-label {
+    color: var(--luz);
+    font-size: 25px;
+    align-self: flex-start;
+    margin-left: 50px;
+}
+
+
+.registro-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+
+.btn-registro {
+    padding: 10px;
+    border: none;
+    border-radius: var(--borde);
+    background-color: var(--btn-azul);
+    color: var(--luz);
+    height: 50px;
+    width: 300px;
+    font-size: 30px;
+    margin-bottom: 17px;
+}
+
+.texto-login,
+.si-cuenta {
+    color: var(--luz);
+    font-size: 35px;
+    text-decoration: none;
+}
+
+.si-cuenta {
+    width: 310px;
+    height: 42px;
+    margin-bottom: 40px;
+    border-radius: var(--borde);
+    background-color: var(--btn-azul);
+    margin-bottom: 40px;
+}
+
+
+.captcha {
+    background-color: var(--luz);
+    padding: 15px 10px; 
+    margin: 18px auto;
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    width: 306px;
+    height: 40px;
+    gap: 11px;
+    border-radius: 3px;
+}
+
+
+.captcha input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    flex-shrink: 0;
+    accent-color: #4285f4; 
+}
+
+.captcha label {
+    color: var(--sombra);
+    font-size: 20px;
+    margin: 0;
+    flex: none;
+    white-space: nowrap;
+}
+
+.captcha img {
+    width: 53px;
+    height: 53px;
+    flex-shrink: 0;
+    margin-left: 60px;
+}
+
+.btn-registro:hover, .si-cuenta:hover {
+  background-color: var(--color-terciario); 
+  transform: scale(1.05);
+}
