@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse</title>
-    <link rel="stylesheet" href="../CSS/pagina2.css"> 
+    <link rel="stylesheet" href="css/pagina2.css"> 
 </head>
 <body>
 
@@ -12,7 +12,7 @@
   <div class="form">
     <h2 class="titulo-registro">REGISTRARSE</h2>
 
-    <form class="registro-form">
+    <form class="registro-form" action="index.html" method="post">
       <label for="nombre-campo" class="campo-label">Nombre</label>
       <input type="text" class="campo" required>
       <label for="nombre-campo" class="campo-label">Apellido</label>
@@ -29,14 +29,14 @@
       <div class="captcha">
         <input type="checkbox" id="robot" required>
         <label for="robot">No soy un robot</label>
-        <img  class="captcha-img" src="../Imagenes/image 6.png" alt="captcha">
+        <img  class="captcha-img" src="img/image 6.png" alt="captcha">
       </div>
 
       <button type="submit" class="btn-registro">REGISTRARSE</button>
     </form>
 
     <div class="si-cuenta">
-      <a class= "texto-login"href="../HTML/pagina1.html">Ya tienes cuenta? </a>
+      <a class= "texto-login"href="pagina1.html">Ya tienes cuenta? </a>
     </div>
   </div>
 

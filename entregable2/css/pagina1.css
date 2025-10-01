@@ -11,7 +11,7 @@
 
 /* Estilos generales y fondo */
 body {
-    background: url('../Imagenes/elenemigos.png') center / cover no-repeat;
+    background: url('../img/elenemigos.png') center / cover no-repeat;
     height: 100vh;
     display: flex;
     justify-content: center;
