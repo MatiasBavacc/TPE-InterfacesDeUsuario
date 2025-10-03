@@ -142,3 +142,26 @@ body {
   background-color: var(--color-terciario); 
   transform: scale(1.05);
 }
+
+.campo-contraseña {
+    display: flex;
+    align-items: center;
+    width: 600px;
+    position: relative;
+}
+
+.campo-contraseña .campo {
+    flex: 1;
+    width: 100%;
+    padding-right: 40px; 
+}
+
+.imagen-contraseña {
+    cursor: pointer;
+    position: absolute;
+    right: 13px;
+    bottom: 3px;
+    top: 3px;
+    width: 25px;
+    height: 25px;
+}

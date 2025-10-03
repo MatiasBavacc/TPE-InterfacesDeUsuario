@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="css/pagina1.css">
+    <script defer src="js/inicioYregistro.js"></script>
 </head>
 <body>
 
@@ -17,7 +18,10 @@
                 <input type="text" id="nombre-campo" class="campo">
 
                 <label for="contrasena-campo" class="campo-label">Contraseña</label>
+                <div class="campo-contraseña">
                 <input type="password" id="contrasena-campo" class="campo">
+                <img src="img/Vector.png" id="togglePassword" alt="Ver contraseña" class="imagen-contraseña">
+                </div>
 
                 <button type="submit" class="btn-login">INICIAR SESIÓN</button>
             </form>

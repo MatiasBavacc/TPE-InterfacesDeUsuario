@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse</title>
     <link rel="stylesheet" href="css/pagina2.css"> 
+    <script defer src="js/inicioYregistro.js"></script>
 </head>
 <body>
 
@@ -21,11 +22,19 @@
       <input type="text" class="campo"  required>
       <label for="nombre-campo" class="campo-label">Gmail</label>
       <input type="email" class="campo" required>
-      <label for="nombre-campo" class="campo-label">Contraseña</label>
-      <input type="password" class="campo"  required>
-      <label for="nombre-campo" class="campo-label">Repetir contraseña</label>
-      <input type="password" class="campo"  required>
 
+      <label for="contrasena-campo" class="campo-label">Contraseña</label>
+      <div class="campo-contraseña">
+        <input type="password" id="contrasena-campo" class="campo" required>
+        <img src="img/Vector.png" id="togglePassword1" alt="Ver contraseña" class="imagen-contraseña">
+      </div>
+
+      <label for="repetir-contrasena-campo" class="campo-label">Repetir contraseña</label>
+      <div class="campo-contraseña">
+        <input type="password" id="repetir-contrasena-campo" class="campo" required>
+        <img src="img/Vector.png" id="togglePassword2" alt="Ver contraseña" class="imagen-contraseña">
+      </div>
+      
       <div class="captcha">
         <input type="checkbox" id="robot" required>
         <label for="robot">No soy un robot</label>
