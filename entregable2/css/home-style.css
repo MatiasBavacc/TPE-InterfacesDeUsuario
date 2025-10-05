@@ -934,15 +934,34 @@ body {
 
 .categoria-item {
   display: flex;
-  align-items: center;
-  gap: 159px;
+  align-items: center;     /* centra texto e ícono verticalmente */
+             /* ← ajustá este valor para más o menos espacio */
   margin-left: 10px;
   margin-bottom: 8px;
 }
 
+.categoria-item a {
+  display: inline-block;
+  min-width: 100px;        /* mantiene los textos alineados visualmente */
+  color: #fff;             /* color del texto */
+  text-decoration: none;   /* sin subrayado */
+  font-size: 16px;         /* opcional: ajustá según tu diseño */
+}
+
 .icono-categoria {
-    margin-top: 5px;
-    width: 27px;  
-    height: 27px;
+  display: block;          /* evita desalineación vertical */
+  width: 27px;
+  height: 27px;
+  object-fit: contain;     /* mantiene proporciones correctas */
+  margin-top: 0;
+  margin-left: 130px;           /* asegura alineación centrada */
+}
+
+.icono-categoria-pesos{
+    margin-left: 101px; 
+}
+
+.icono-categoria-pesos-1{
+    margin-left: 72px;
 }
 
