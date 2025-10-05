@@ -4,12 +4,124 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Pac Solitaire</title>
+      <link rel="icon" type="image/x-icon" href="img/Logo.svg">
       <link rel="stylesheet" href="css/reset.css">
+      <link rel="stylesheet" href="./css/home-style.css">
       <link rel="stylesheet" href="css/juego.css">
       <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-      <header>algo</header>
+      <!-- HEADER -->
+      <header class="header">
+            <div class="header-content">
+                  <div class="header-left">
+                  <button class="hamburger-menu" aria-label="Menú">
+                        <img src="./img/icon-burger.png" alt="Menú" class="hamburger-icon">
+                  </button>
+                  <span class="site-name">ELNEMIGOS</span>
+                  </div>
+
+                  <div class="header-center">
+                  <div class="search-form">
+                        <img src="./img/Lupa.png" alt="Buscar" class="search-icon">
+                        <input type="text" placeholder="Buscar juego" class="search-input">
+                  </div>
+                  </div>
+
+                  <div class="header-right">
+                        <button class="icon-btn premium" aria-label="Premium"></button>
+                        <button class="icon-btn favs" aria-label="Favoritos"></button>
+                        <button class="icon-btn perfil" aria-label="Perfil"></button>
+                  </div>
+            </div>
+      </header>
+      <nav id="sidebar" class="sidebar-menu">
+            <div class="categorias-titulo">
+                  <span>Categorías</span>
+            </div>
+
+            <ul class="categoria-lista">
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            <li class="categoria-item">
+                  <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+            </li>
+            </ul>
+
+            <div class="categorias-titulo">
+                  <span>categorias</span>
+            </div>
+
+            <ul class="categoria-lista">
+                  <li class="categoria-item">
+                        <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+                  </li>
+            </ul>
+            </nav>
       <main class="main">
             <div class="breadcrumb">
                   <a href="index.html">Inicio</a>
@@ -24,15 +136,42 @@
             <div class="canvas-game">
                   <div class="blur"></div>
                   <div class="btn-jugar"></div>
+                  <button type="button" class="maximizar"></button>
             </div>
 
             <div class="titulo"><h2>Pac Solitaire</h2></div>
             <div class="update"><h3>Actualizado 04/06/2025</h3></div>
             <div class="btns-juego">
-                  <button type="button" class="compartir"></button>
-                  <button type="button" class="favoritos"></button>
-                  <button type="button" class="estrella"></button>
-                  <button type="button" class="maximizar"></button>
+                  <button type="button" class="compartir" id="btnCompartir"></button>
+                  <button type="button" class="favoritos" id="btnFavoritos"></button>
+                  <button type="button" class="estrella" id="btnRanking"></button>
+            </div>
+            <div class="section-compartir oculto">
+                  <p>Compartir</p>
+                  <div class="redes">
+                        <a href="#" aria-label="Compartir en X">
+                              <img src="img/x.png" alt="X">
+                        </a>
+                        <a href="#" aria-label="Compartir en Facebook">
+                              <img src="img/facebook.png" alt="Facebook">
+                        </a>
+                        <a href="#" aria-label="Compartir en Instagram">
+                              <img src="img/ig.png" alt="Instagram">
+                        </a>
+                        <a href="#" aria-label="Compartir en LinkedIn">
+                              <img src="img/linked.png" alt="LinkedIn">
+                        </a>
+                  </div>
+            </div>
+            <div class="section-ranking oculto">
+                  <p>Ranking</p>
+                  <div class="estrella-colums">
+                        <button><img src="img/estrella-hover.png" alt="Estrella"></button>
+                        <button><img src="img/estrella-hover.png" alt="Estrella"></button>
+                        <button><img src="img/estrella-hover.png" alt="Estrella"></button>
+                        <button><img src="img/estrella-hover.png" alt="Estrella"></button>
+                        <button><img src="img/estrella-hover.png" alt="Estrella"></button>
+                  </div>
             </div>
             <section class="carrucel-game-section">
                   <div class="carrucel-game">
@@ -153,8 +292,19 @@
                               <p>3</p>
                         </div>
                   </div>
+                  <div class="estrellas-ranking">
+                        <h4>Promedio</h4>
+                        <div class="estrella-colums">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                        </div>
+                  </div>
             </section>
             <section class="comentarios">
+                  <h3>Comentarios</h3>
                   <div class="comentar">
                         <div class="user-comentario">
                               <div class="avatar-comentario">
@@ -324,9 +474,70 @@
             </section>
       </main>
       
-     <footer>nada</footer>
+      <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Categorías</h3>
+                <ul>
+                    <li><a href="#">Acción</a></li>
+                    <li><a href="#">Aventura</a></li>
+                    <li><a href="#">Deporte</a></li>
+                    <li><a href="#">Estrategia</a></li>
+                    <li><a href="#">Lógica</a></li>
+                    <li><a href="#">Puzzle</a></li>
+                    <li><a href="#">RPG</a></li>
+                    <li><a href="#">Shooter</a></li>
+                    <li><a href="#">Solitario</a></li>
+                </ul>
+            </div>
 
-     <script src="js/page-juego.js"></script>
+            <div class="footer-column">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Perfil</a></li>
+                    <li><a href="#">Menú</a></li>
+                </ul>
+            </div>
 
+            <div class="footer-column">
+                <h3>Nuestras Redes</h3>
+                <p>Conéctate con nosotros para estar al tanto de todas las novedades.</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="Twitter">
+                        <img src="./img/x.png" alt="Twitter">
+                    </a>
+                    <a href="#" aria-label="Facebook">
+                        <img src="./img/facebook.png" alt="Facebook">
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                        <img src="./img/ig.png" alt="Instagram">
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <img src="./img/linked.png" alt="LinkedIn">
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Novedades por Email</h3>
+                <p>Danos tu correo y sé el primero en recibir ofertas exclusivas y en descubrir nuevos juegos.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email" aria-label="Email para newsletter">
+                    <button type="submit" aria-label="Suscribirse">→</button>
+                </form>
+            </div>
+
+            <div class="footer-column">
+                <h3>Contáctanos</h3>
+                <p>Si tenés alguna duda comunicate vía Email con nosotros:</p>
+                <a href="mailto:elEnemigos@gmail.com" class="email-link">elEnemigos@gmail.com</a>
+            </div>
+        </div>
+    </footer>
+
+      <script src="js/page-juego.js"></script>
+      <script src="js/home.js"></script>
 </body>
 </html>

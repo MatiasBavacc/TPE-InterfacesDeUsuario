@@ -13,7 +13,14 @@ document.addEventListener("DOMContentLoaded", () =>  {
       /* Contadores de Likes y Dislikes */
       const botonesLike = document.querySelectorAll(".btn-like");
       const botonesDislike = document.querySelectorAll(".btn-dislike");
+      
+      /* PopApp Compartir y Ranking */
+      const btnCompartir = document.getElementById("btnCompartir");
+      const btnRanking = document.getElementById("btnRanking");
+      const popAppCompartir = document.querySelector(".section-compartir");
+      const popAppRanking = document.querySelector(".section-ranking");
 
+      
       /* Enviar o Cancelar Formulario de Comentarios */
       formComentario.addEventListener("submit", postComentario);
       btnCancelar.addEventListener("click", vaciarFormulario);
@@ -31,8 +38,81 @@ document.addEventListener("DOMContentLoaded", () =>  {
             boton.addEventListener("click", botonLikeDislike);
       });
 
+      /* Mostrar u Ocultar PopApp Compartir y Ranking */
+      btnCompartir.addEventListener("click", tooglePopApp);
+      btnRanking.addEventListener("click", tooglePopApp);
+
+      document.addEventListener("click", (e) => {
+            // Si el click NO fue dentro de btnCompartir
+            if (!btnCompartir.contains(e.target)) {
+            popAppCompartir.classList.add("oculto");
+            }
+
+            // Si el click NO fue dentro de btnRanking
+            if (!btnRanking.contains(e.target)) {
+            popAppRanking.classList.add("oculto");
+            }
+      });
+
+
+      const btnFavoritos = document.getElementById('btnFavoritos');
+      const favsIconBtn = document.querySelector('.header-right .icon-btn.favs');
+
+      if (btnFavoritos && favsIconBtn) {
+            btnFavoritos.addEventListener('click', () => {
+                  crearCorazonVolador(btnFavoritos, favsIconBtn);
+            });
+      } else {
+            console.warn('btnFavoritos or favsIconBtn not found in the DOM');
+      }
+
+      function crearCorazonVolador(origen, destino) {
+            const corazon = document.createElement('div');
+            corazon.innerHTML = '<img src="img/icon-favorito.png" alt="Corazón">';
+            corazon.classList.add('corazon-volador');
+            document.body.appendChild(corazon);
+
+            // Obtener la posición absoluta del botón de origen
+            const origenRect = origen.getBoundingClientRect();
+            const origenTop = origenRect.top + window.scrollY; // Considera el scroll vertical
+            const origenLeft = origenRect.left + window.scrollX; // Considera el scroll horizontal
+            const origenCenterX = origenLeft + origenRect.width / 2;
+            const origenCenterY = origenTop + origenRect.height / 2;
+
+            corazon.style.left = (origenCenterX - 10) + 'px';
+            corazon.style.top = (origenCenterY - 10) + 'px';
+
+            // Obtener la posición absoluta del botón de destino
+            const destinoRect = destino.getBoundingClientRect();
+            const destinoTop = destinoRect.top + window.scrollY;
+            const destinoLeft = destinoRect.left + window.scrollX;
+            const destinoCenterX = destinoLeft + destinoRect.width / 2;
+            const destinoCenterY = destinoTop + destinoRect.height / 2;
+
+            // Define la animación
+            corazon.animate([
+                  { transform: `translate(0, 0)`, opacity: 1 },
+                  { transform: `translate(${destinoCenterX - origenCenterX}px, ${destinoCenterY - origenCenterY}px)`, opacity: 0 }
+            ], {
+                  duration: 1000,
+                  easing: 'ease-in-out',
+                  fill: 'forwards'
+            }).finished.then(() => {
+                  corazon.remove();
+            });
+      }
 });
 
+function tooglePopApp(event) {
+      const btn = event.currentTarget;
+      let popApp;
+      if(btn.classList.contains("compartir")){
+            popApp = document.querySelector(".section-compartir");
+      }else{
+            popApp = document.querySelector(".section-ranking");
+      }
+      popApp.classList.toggle("oculto");
+}
 
 /** 
  * Muestra mas o menos texto de un comentario. 

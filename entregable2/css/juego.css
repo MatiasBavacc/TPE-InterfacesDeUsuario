@@ -60,7 +60,7 @@
 body {
   margin: 0;
   background-color: var(--color-primario);
-  width: 99vw;
+  width: 100vw;
   height: 100vh;
   /* Grid */
   display: grid;
@@ -68,9 +68,9 @@ body {
   grid-template-rows: auto auto 1fr auto; /* header, breadcrumb, contenido, footer */
   gap: 20px;
   grid-template-areas:
-    ". header header header header header header header header header header ."
+    "header header header header header header header header header header header header"
     ". main main main main main main main main main main ."
-    ". footer footer footer footer footer footer footer footer footer footer .";
+    "footer footer footer footer footer footer footer footer footer footer footer footer";
 }
 
 /* HEader */
@@ -113,14 +113,15 @@ p {
   grid-template-areas:
     ". breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb ."
     "canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game"
-    ". titulo titulo titulo . . . btns-juego btns-juego btns-juego btns-juego ."
-    ". update update update . . . btns-juego btns-juego btns-juego btns-juego ."
+    ". titulo titulo titulo . . . btns-juego btns-juego btns-juego btns-juego btns-juego"
+    ". update update update . . . btns-juego btns-juego btns-juego btns-juego btns-juego"
     "carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game"
     ". categorias categorias categorias . . . . . . . ."
     ". descripcion descripcion descripcion descripcion descripcion descripcion ranking ranking ranking ranking ."
     ". como-jugar como-jugar como-jugar como-jugar como-jugar como-jugar ranking ranking ranking ranking ."
     ". controles controles controles . . . . . . . ."
     ". comentarios comentarios comentarios comentarios comentarios comentarios comentarios comentarios comentarios comentarios .";
+  margin-top: 70px;
 }
 
 /* Breadcrumb */
@@ -157,12 +158,13 @@ p {
   max-width: 1400px;
   margin-left: 50px;
   background-color:rgba(0, 0, 0, 0.5) ;
+  position: relative;
 }
 
 .canvas-game .blur {
   aspect-ratio: 16/9;
   position: absolute;
-  width: clamp(600px,80%, 1400px);
+  width: clamp(600px,100%, 1400px);
   border-radius: 50px;
   z-index: 1;
   backdrop-filter: blur(10px);
@@ -170,6 +172,27 @@ p {
 
 /* Boton Jugar*/
 .btn-jugar {
+  width: 200px;
+  height: 80px;
+  background-color: var(--color-primario);
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  background-image: url('../img/btn-jugar.png');
+  background-size: 65px;
+  background-repeat: no-repeat;
+  background-position-x: 58%;
+  background-position-y: 50%;
+  transition: 0.3s ease-out;
+}
+
+.btn-jugar:hover {
   width: 200px;
   height: 80px;
   background-color: var(--color-acento);
@@ -182,6 +205,20 @@ p {
   transform: translate(-50%, -50%);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 2;
+  background-image: url('../img/btn-jugar-hover.png');
+  background-size: 65px;
+  background-repeat: no-repeat;
+  background-position-x: 58%;
+  background-position-y: 50%;
+  transition: 0.3s ease-out;
+}
+
+
+.maximizar{
+  z-index: 10;
+  position: absolute;
+  bottom: 1%;
+  right: 1%;
 }
 
 /* Titilo Juego */
@@ -261,6 +298,42 @@ p {
 
 .maximizar:hover {
   background-image: url('../img/maximizar-hover.png');
+}
+
+/* Secciones botones */
+
+/* Seccion Compartir */
+.section-compartir {
+  position: absolute;
+  top: 94%;
+  right: 20%;
+  background-color: var(--color-terciario-luz3);
+  border: var(--color-acento) 3px solid;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  z-index: 10;
+  height: 70px;
+}
+
+/* Seccion Ranking */
+.section-ranking {
+  position: absolute;
+  top: 94%;
+  right: 10%;
+  background-color: var(--color-terciario-luz3);
+  border: var(--color-acento) 3px solid;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  z-index: 10;
+  height: 70px;
 }
 
 /* Carrucel del Juego */
@@ -439,7 +512,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--color-acento);
+  color: var(--color-blanco);
 }
 
 .ranking img {
@@ -491,6 +564,10 @@ p {
   flex-direction: column;
   gap: 20px;
   width: 100%;
+  border: var(--color-terciario-luz1) 2px solid;
+  border-radius: 50px;
+  padding: 15px;
+  margin-top: 150px;
 }
 
 .comentar {
@@ -528,10 +605,10 @@ p {
   max-width: 90%;
 }
 
-.recuadro-comentar, .recuadro-comentar-activo {
+.recuadro-comentar {
   font-family: 'Cobin', sans-serif;
-  font-size: 15px;
-  border: var(--color-terciario-luz2) 2px solid;
+  font-size: 20px;
+  border: var(--color-terciario-luz2) 2px dashed;
   border-radius: 50px;
   width: 100%;
   padding: 1% 4%;
@@ -541,8 +618,8 @@ p {
   resize: none;
 }
 
-.recuadro-comentar-activo {
-  border: var(--color-terciario-luz1) 2px solid;
+.recuadro-comentar:focus {
+  border: var(--color-terciario-luz1) 2px dashed;
 }
 
 .btn-comentario {
@@ -664,6 +741,15 @@ p {
 }
 .btnDislike-active {
   background-image: url('../img/icon-dislike-hover.png');
+}
+
+
+.corazon-volador {
+  position: absolute;
+  font-size: 20px; /* Ajusta el tamaño del corazón */
+  color: var(--color-danger);
+  pointer-events: none; /* Evita que el corazón interfiera con los clics */
+  z-index: 1000; /* Asegura que el corazón esté por encima de otros elementos */
 }
 
 /* Ocultos */
