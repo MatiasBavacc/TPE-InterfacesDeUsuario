@@ -99,3 +99,19 @@
         }, { passive: false }); // `passive: false` es necesario para que `preventDefault` funcione
     });
 })();
+
+const hamburgerBtn = document.querySelector('.hamburger-menu');
+const sidebar = document.getElementById('sidebar');
+
+hamburgerBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('active');
+});
+
+// Cierra el menú al hacer clic fuera del sidebar
+document.addEventListener('click', (e) => {
+  const isSidebar = sidebar.contains(e.target);
+  const isHamburger = hamburgerBtn.contains(e.target);
+  if (!isSidebar && !isHamburger && sidebar.classList.contains('active')) {
+    sidebar.classList.remove('active');
+  }
+});
