@@ -217,7 +217,7 @@ p {
 .maximizar{
   z-index: 10;
   position: absolute;
-  bottom: 1%;
+  top: 1%;
   right: 1%;
 }
 
@@ -286,10 +286,12 @@ p {
 
 .estrella {
   background-image: url('../img/estrella.png');
+  background-size: 50px;
 }
 
 .estrella:hover {
   background-image: url('../img/estrella-hover.png');
+  background-size: 43px;
 }
 
 .maximizar {
