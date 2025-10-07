@@ -265,3 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+function cerrarSesion(event) {
+      event.preventDefault();
+      window.location.href = 'index.html';
+}
+
