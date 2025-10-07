@@ -20,6 +20,9 @@ document.addEventListener("DOMContentLoaded", () =>  {
       const popAppCompartir = document.querySelector(".section-compartir");
       const popAppRanking = document.querySelector(".section-ranking");
 
+      /* Boton Maximizar */
+      const maximizar = document.querySelector(".maximizar");
+      const juego = document.querySelector(".canvas-game");
       
       /* Enviar o Cancelar Formulario de Comentarios */
       formComentario.addEventListener("submit", postComentario);
@@ -101,6 +104,17 @@ document.addEventListener("DOMContentLoaded", () =>  {
                   corazon.remove();
             });
       }
+
+      /* Boton Maximizar */
+      maximizar.addEventListener("click", () => {
+            if (!document.fullscreenElement) {
+                  // Entra en modo pantalla completa
+                  juego.requestFullscreen();
+            } else {
+                  // Sale de pantalla completa si ya está
+                  document.exitFullscreen();
+            }
+      });
 });
 
 function tooglePopApp(event) {

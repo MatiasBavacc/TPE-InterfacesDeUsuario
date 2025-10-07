@@ -114,4 +114,28 @@ document.addEventListener('click', (e) => {
   if (!isSidebar && !isHamburger && sidebar.classList.contains('active')) {
     sidebar.classList.remove('active');
   }
+    const profileBtn = document.querySelector('.icon-btn.perfil');
+    const profileMenu = document.querySelector('.menu-perfil');
+    const profileMenuBlur = document.querySelector('.menu-perfil-backdrop');
+    if(profileMenuBlur.contains(e.target)){
+        profileMenu.classList.toggle('oculto');
+        profileMenuBlur.classList.toggle('oculto');
+    }else if(!profileMenu.contains(e.target) && profileBtn !== e.target){
+        profileMenu.classList.add('oculto');
+        profileMenuBlur.classList.add('oculto');
+    }
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    /* Menu de perfil */
+    const profileBtn = document.querySelector('.icon-btn.perfil');
+    const profileMenu = document.querySelector('.menu-perfil');
+    const profileMenuBlur = document.querySelector('.menu-perfil-backdrop');
+    
+    profileBtn.addEventListener('click', () => {
+        profileMenu.classList.toggle('oculto');
+        profileMenuBlur.classList.toggle('oculto');
+    });
+});
+
