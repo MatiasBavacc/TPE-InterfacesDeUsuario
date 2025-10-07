@@ -299,7 +299,7 @@ p {
 
 .estrella:hover {
   background-image: url('../img/estrella-hover.png');
-  background-size: 43px;
+  background-size: 50px;
 }
 
 .maximizar {

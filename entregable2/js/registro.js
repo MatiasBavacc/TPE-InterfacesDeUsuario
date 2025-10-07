@@ -25,7 +25,7 @@ registro.addEventListener('submit', prevenirEnvio);
 
 function prevenirEnvio(event) {
   event.preventDefault();
-  window.location.href = 'index.html';
+  window.location.href = 'home.html';
 }
 
 nombreCampo.addEventListener('blur', ()=>{validarCamposRegistro(nombreCampo)});
