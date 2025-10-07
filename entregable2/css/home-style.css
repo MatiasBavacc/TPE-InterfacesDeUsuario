@@ -160,23 +160,17 @@ body {
     background: none; 
     border: none;
     padding: 0;
-    /* Mantenemos el estilo para indicar que es clickeable */
     cursor: pointer;
-    /* Eliminamos el contorno al hacer click (opcional pero recomendado) */
     outline: none;
-    /* Aseguramos que el botón no tenga ancho/alto por defecto */
     width: auto;
     height: auto;
-    /* El margen ahora se aplica al botón, NO a la imagen */
     margin-right: 10px;
 }
 
-/* Nuevo estilo para la imagen dentro del botón de búsqueda */
 .search-icon img {
     width: 20px;
     height: 20px;
-    /* La imagen no necesita margen aquí ya que se lo aplicamos al botón */
-    display: block; /* Opcional, pero bueno para la gestión de imágenes */
+    display: block;
 }
 
 .search-input::placeholder {
@@ -235,7 +229,7 @@ body {
     padding: 20px;
 }
 
-/* HERO CAROUSEL */
+/* CARRUSEL PRINCIPAL */
 .hero-carousel {
     position: relative;
     max-width: 1200px;
@@ -245,18 +239,18 @@ body {
 }
 
 .hero-slides-container {
-    /* Oculta los slides que no están a la vista */
+    /* oculta los slides que no están a la vista */
     overflow-x: hidden; 
-    /* Permite el desplazamiento si es necesario */
+    /* permite el desplazamiento si es necesario */
     overflow-y: hidden;
-    /* Usa Flexbox para colocar los slides en línea */
+    /* flexbox para colocar los slides en línea */
     display: flex;
-    /* Evita que los slides se envuelvan a la siguiente línea */
+    /* evita que los slides se envuelvan a la siguiente línea */
     flex-wrap: nowrap;
-    /* Habilita el desplazamiento programático (para JavaScript) */
+    /* (para JavaScript) */
     scroll-snap-type: x mandatory;
     width: 100%;
-    height: 570px; /* Misma altura que hero-slide */
+    height: 570px;
 }
 
 .hero-slide {
@@ -269,15 +263,14 @@ body {
 }
 
 .hero-slide::before {
-    content: ''; /* Obligatorio para pseudo-elementos */
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* 🚀 GRADIENTE: De oscuro a transparente */
-    background: linear-gradient(to right, var(--color-primario-sombra3) 0%, transparent 75%); /* Ajusta el 80% si quieres que sea más largo */
-    z-index: 1; /* Asegura que esté por encima de la imagen hero-image */
+    background: linear-gradient(to right, var(--color-primario-sombra3) 0%, transparent 75%); 
+    z-index: 1;
 }
 
 .hero-image {
@@ -356,11 +349,7 @@ body {
 }
 
 .btn-gratis-hero:hover {
-    /* Puedes usar una sombra del color acento para la transición */
-    background-color: var(--color-boton-jugar1); /* Asumiendo que tienes esta variable */
-    /* Nota: El efecto de giro del icono ya está incluido gracias a:
-       .btn-play:hover .play-icon { transform: rotate(360deg); }
-       ¡que ya tienes definido! */
+    background-color: var(--color-boton-jugar1); 
 }
 
 .premium-badge {
@@ -457,15 +446,15 @@ body {
 }
 
 .game-grid {
-    height: 400px; /* fixed height to prevent jumping */
+    height: 400px;
     display: flex;
     gap: 20px;
-    overflow-x: auto; /* allow programmatic scroll, we'll hide native scrollbar */
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    overflow-x: auto;
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
     padding-bottom: 10px;
     scroll-behavior: smooth;
-    touch-action: none; /* disable touch panning so only arrows control movement */
+    touch-action: none;
 }
 
 .game-grid::-webkit-scrollbar {
@@ -483,13 +472,13 @@ body {
 }
 
 .carousel > .game-grid > .game-card {
-    max-height: 350px; /* prevent cards from getting taller */
+    max-height: 350px;
     display: flex;
     flex-direction: column;
 }
 
 .carousel > .game-grid > .game-card .game-image {
-    flex: 0 0 180px; /* fixed image height similar to desktop */
+    flex: 0 0 180px;
     border-radius: 10px;
 }
 
@@ -498,9 +487,9 @@ body {
     overflow: hidden;
 }
 
-/* Default: Desktop - show 4 cards per view */
+/* muestra 4 cards por carrusel*/
 .carousel > .game-grid > .game-card {
-    flex: 0 0 calc((100% - 60px) / 4); /* 4 cards with gaps (approx) */
+    flex: 0 0 calc((100% - 60px) / 4);
 }
 
 .game-card:hover {
@@ -528,8 +517,8 @@ body {
 .game-title {
     font-weight:500;
     line-height: 1.3;
-    flex: 1 1 auto; /* allow to shrink and grow */
-    min-width: 0; /* important for flex children to allow truncation */
+    flex: 1 1 auto; 
+    min-width: 0; 
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -610,11 +599,8 @@ body {
 }
 
 .play-icon {
-    /* Asegura que el span se comporte como un bloque para poder girarlo */
     display: inline-block; 
-    /* Define la transición para que el giro sea suave (0.4 segundos) */
     transition: transform 0.4s ease-out; 
-    /* El margen separa el icono del texto "Jugar" si es necesario */
     margin-right: 5px; 
 }
 
@@ -638,7 +624,6 @@ body {
 }
 
 .btn-play:hover .play-icon {
-    /* Aplica una transformación de rotación de 360 grados (una vuelta completa) */
     transform: rotate(360deg);
 }
 
@@ -646,7 +631,6 @@ body {
     text-decoration: none;
 }
 
-/* Carousel container and controls */
 .carousel {
     position: relative;
     display: flex;
@@ -673,11 +657,11 @@ body {
 }
 
 .carousel-btn.prev span {
-    transform: translateY(-4px); /* Ajusta este valor para mover arriba/abajo */
+    transform: translateY(-4px); /* mover arriba/abajo */
 }
 
 .carousel-btn.next span {
-    transform: translate(2px, -4px); /* Eje X: -1px, Eje Y: -2px */
+    transform: translate(2px, -4px);
 }
 
 .carousel-btn:hover {
@@ -686,12 +670,10 @@ body {
     transform: translateY(-2px);
 }
 
-/* ensure grid (carousel viewport) takes full available width between buttons */
 .carousel > .game-grid {
-    width: calc(100% - 120px); /* leave room for buttons */
+    width: calc(100% - 120px); 
 }
 
-/* Footer social icon hover: color accent and small shadow */
 .social-icons img {
     filter: grayscale(100%);
     transition: filter 0.2s, transform 0.15s, box-shadow 0.15s;
@@ -701,11 +683,9 @@ body {
     filter: none;
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.35);
-    /* optionally tint with accent color using drop-shadow */
     filter: drop-shadow(0 0 6px rgba(236,196,125,0.6));
 }
 
-/* Newsletter form arrow bigger */
 .newsletter-form button {
     padding: 12px 16px;
     font-size: 22px;
@@ -832,7 +812,7 @@ body {
     color: var(--color-acento);
 }
 
-/* RESPONSIVE DESIGN - MOBILE FIRST */
+/* RESPONSIVE MOBILE FIRST */
 
 /* Tablets */
 @media (min-width: 768px) {
@@ -870,7 +850,7 @@ body {
         font-size: 28px;
     }
     
-    /* Tablet: 3 cards per view */
+    /* Tablet: 3 cards por carrusel */
     .carousel > .game-grid > .game-card {
         flex: 0 0 calc((100% - 40px) / 3);
     }
@@ -914,7 +894,6 @@ body {
         font-size: 32px;
     }
     
-    /* Desktop: ensure 4 cards per view */
     .carousel > .game-grid > .game-card {
         flex: 0 0 calc((100% - 60px) / 4);
     }
@@ -929,7 +908,7 @@ body {
     }
 }
 
-/* Mobile adjustments */
+/* Mobile */
 @media (max-width: 767px) {
     .header-content {
         gap: 10px;
@@ -959,7 +938,7 @@ body {
         font-size: 30px;
     }
     
-    /* Mobile: 2 cards per view */
+    /* Mobile: 2 cards por carrusel */
     .carousel > .game-grid > .game-card {
         flex: 0 0 48%;
     }
@@ -976,7 +955,7 @@ body {
 }
 
 @media (max-width: 480px) {
-    /* Mobile (small): show 1 card per view */
+    /* Mobile (mas chico): 1 card por carrusel */
     .carousel > .game-grid > .game-card {
         flex: 0 0 100%;
     }
@@ -1011,23 +990,19 @@ body {
         scroll-snap-type: x mandatory;
         height: 580px;
         margin-top: 30px;
-        /* ... estilos para scrollbar ... */
+        /* estilos para scrollbar */
     }
     .carousel-dots {
-        /* Vuelve a la posición absoluta */
         position: absolute;
-        /* Vuelve a la posición exacta de superposición */
         bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
-        /* Elimina el margen de centrado que aplicamos en el CSS base */
         margin: 0; 
     }
 }
 
 @media (max-width: 768px) {
     .main-content {
-        /* Mantiene el relleno superior e izquierdo/derecho, pero fuerza 0px en la parte inferior */
         padding-bottom: 0;
     }
 
@@ -1035,18 +1010,18 @@ body {
         margin: 0 auto 0; 
     }
     
-    /* Ocultar flechas */
+    /* ocultar flechas */
     .carousel-nav {
         display: none;
     }
     
-    /* Habilitar scroll táctil */
+    /* habilitar scroll táctil */
     .hero-slides-container {
         overflow-x: scroll;
         scroll-snap-type: x mandatory;
         height: 300px;
         margin-top: 30px;
-        /* ... estilos para scrollbar ... */
+        /* estilos para scrollbar */
     }
 
     .carousel-dots {
@@ -1352,7 +1327,6 @@ body {
   }
 
 }
-
 
 /* Ocultos */
 .oculto {
