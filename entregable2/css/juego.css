@@ -170,6 +170,13 @@ p {
   backdrop-filter: blur(10px);
 }
 
+.canvas-game:fullscreen, .canvas-game:fullscreen .blur{
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0px;
+  margin-left: 0px;
+}
+
 /* Boton Jugar*/
 .btn-jugar {
   width: 200px;
@@ -243,6 +250,7 @@ p {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  position: relative;
 }
 
 .compartir, .favoritos, .estrella, .maximizar {
@@ -307,8 +315,8 @@ p {
 /* Seccion Compartir */
 .section-compartir {
   position: absolute;
-  top: 94%;
-  right: 20%;
+  top: -75%;
+  right: 35%;
   background-color: var(--color-terciario-luz3);
   border: var(--color-acento) 3px solid;
   border-radius: 20px;
@@ -324,7 +332,7 @@ p {
 /* Seccion Ranking */
 .section-ranking {
   position: absolute;
-  top: 94%;
+  top: -75%;
   right: 10%;
   background-color: var(--color-terciario-luz3);
   border: var(--color-acento) 3px solid;
@@ -754,15 +762,203 @@ p {
   z-index: 1000; /* Asegura que el corazón esté por encima de otros elementos */
 }
 
-/* Ocultos */
-
-.oculto {
-  display: none;
-}
-
 
 /* Footer */
 
 footer {
   grid-area: footer;
 }
+
+
+/* Menu de perfil mobile*/
+
+.menu-perfil {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.menu-perfil-backdrop{
+  display: none;
+}
+
+.perfil-info{
+  display: none;
+}
+
+.perfil-acciones{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.accion-texto{
+  width: 60%;
+  display: flex;
+  white-space: nowrap;
+  margin-left: 10px;
+}
+
+.acciones-perfil, .acciones-notificaciones, .acciones-preferencias, .acciones-seguridad, .acciones-cerrar-sesion{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  border: var(--color-acento) 2px solid;
+  border-radius: 10px;
+}
+
+
+.icon-perfil-acciones, .icon-perfil-notificaciones, .icon-perfil-preferencias, .icon-perfil-seguridad, .icon-perfil-cerrar-sesion {
+  width: 50px;
+  height: 50px;
+  background-size: auto 25px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.icon-perfil-acciones {
+  background-image: url('../img/icon-avatar-perfil.png');
+}
+
+.icon-perfil-notificaciones {
+  background-image: url('../img/icon-notificacion.png');
+}
+
+.icon-perfil-preferencias {
+  background-image: url('../img/icon-preferencias.png');
+}
+
+.icon-perfil-seguridad {
+  background-image: url('../img/icon-seguridad.png');
+}
+
+.icon-perfil-cerrar-sesion{
+  background-image: url('../img/icon-logout.png');
+}
+
+
+
+
+/* Menu de perfil desktop */
+@media screen and (min-width: 1024px) {
+    
+  .menu-perfil {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--color-secundario-luz2);
+    z-index: 1000;
+    width: clamp(300px, 20%, 545px);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .menu-perfil-backdrop{
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #C0C0C0;
+    filter: blur(5px);
+    opacity: 0.5;
+    display: block;
+  }
+
+  .perfil-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .img-avatar-perfile {
+    width: 200px;
+    height: 200px;
+    background-color: var(--color-terciario-luz2);
+    border-radius: 100%;
+    overflow: hidden;
+    background-image: url('../img/avatar-perfil.png');
+    background-size: 140px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .nombre-usuario-perfil {
+    color: var(--color-acento);
+  }
+
+  .perfil-acciones{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: 50px;
+    width: 100%;
+  }
+
+  .accion-texto{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+    margin-left: 0px;
+  }
+
+  .acciones-perfil, .acciones-notificaciones, .acciones-preferencias, .acciones-seguridad, .acciones-cerrar-sesion{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    border: none;
+  }
+
+  .icon-perfil-acciones, .icon-perfil-notificaciones, .icon-perfil-preferencias, .icon-perfil-seguridad, .icon-perfil-cerrar-sesion {
+    width: 50px;
+    height: 50px;
+    background-size: auto 25px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .icon-perfil-acciones {
+    background-image: url('../img/icon-avatar-perfil.png');
+  }
+
+  .icon-perfil-notificaciones {
+    background-image: url('../img/icon-notificacion.png');
+  }
+
+  .icon-perfil-preferencias {
+    background-image: url('../img/icon-preferencias.png');
+  }
+
+  .icon-perfil-seguridad {
+    background-image: url('../img/icon-seguridad.png');
+  }
+
+  .icon-perfil-cerrar-sesion{
+    background-image: url('../img/icon-logout.png');
+  }
+
+}
+
+
+/* Ocultos */
+  .oculto {
+    display: none;
+  }
