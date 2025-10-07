@@ -7,6 +7,7 @@
     --color-terciario: #6C60A3;
     --radius: 50px;
     --shadow: 30px 30px 58.4px 9px rgba(0, 0, 0, 0.7);
+    --color-danger: #D1242F;
 }
 
 /* Estilos generales y fondo */
@@ -156,3 +157,17 @@ body {
     height: 25px;
 }
 
+
+.invalid-campo{
+    border: 2px solid var(--color-danger);
+}
+
+.danger {
+    color: var(--color-danger);
+    font-size: 15px;
+}
+
+
+.oculto {
+    display: none;
+}

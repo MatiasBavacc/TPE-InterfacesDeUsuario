@@ -6,7 +6,7 @@
     <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="css/pagina1.css">
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
-    <script defer src="js/inicioYregistro.js"></script>
+    <script defer src="js/login.js"></script>
 </head>
 <body>
 
@@ -15,10 +15,10 @@
             <h2 class="titulo-login">INICIAR SESIÓN</h2>
 
             <form class="login-form" action="index.html" method="post">
-                <label for="nombre-campo" class="campo-label">Nombre</label>
+                <label for="nombre-campo" class="campo-label">Nombre <span class="danger oculto">* Nombre no válido.</span></label>
                 <input type="text" id="nombre-campo" class="campo" required>
 
-                <label for="contrasena-campo" class="campo-label">Contraseña</label>
+                <label for="contrasena-campo" class="campo-label">Contraseña <span class="danger oculto">* Contraseña no válida.</span></label>
                 <div class="campo-contraseña">
                 <input type="password" id="contrasena-campo" class="campo" required>
                 <img src="img/Vector.png" id="togglePassword" alt="Ver contraseña" class="imagen-contraseña">
@@ -40,8 +40,5 @@
             </div>
         </div>
     </div>
-
-
-
 </body>
 </html>
