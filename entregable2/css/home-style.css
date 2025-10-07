@@ -1040,7 +1040,7 @@ body {
 
 .sidebar-menu {
   position: fixed;
-  top: 70px; 
+  top: 70px;
   left: 0;
   width: 270px;
   height: calc(100vh - 70px);
@@ -1127,10 +1127,11 @@ body {
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 480px) {
   .sidebar-menu {
+    margin-top: 40px;
     width: 270px;
-    height: 100vh;
+    height: calc(100vh - 70px);
     transform: translateX(-100%);
   }
 
