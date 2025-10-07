@@ -53,17 +53,17 @@
     <header class="header">
         <div class="header-content">
             <div class="header-left">
-                <button class="hamburger-menu" aria-label="Menú">
-                    <img src="./img/icon-burger.png" alt="Menú" class="hamburger-icon">
-                </button>
+                <button class="hamburger-menu" aria-label="Menú"></button>
                 <span class="site-name">ELNEMIGOS</span>
             </div>
 
             <div class="header-center">
-                <div class="search-form">
-                    <img src="./img/Lupa.png" alt="Buscar" class="search-icon">
-                    <input type="text" placeholder="Buscar juego" class="search-input">
-                </div>
+                <form class="search-form" action="/resultados" method="get"> 
+                    <button type="submit" class="search-icon">
+                        <img src="./img/Lupa.png" alt="Buscar">
+                    </button>
+                    <input type="text" placeholder="Buscar juego" class="search-input" name="q">
+                </form>
             </div>
 
             <div class="header-right">
@@ -172,31 +172,312 @@
     <!-- MAIN CONTENT -->
     <main class="main-content">
         <!-- HERO CAROUSEL -->
-        <section class="hero-carousel">
+        <section class="hero-carousel" id="heroCarousel">
             <button class="carousel-nav prev" aria-label="Anterior">‹</button>
-            <div class="hero-slide">
-                <img src="./img/baldur.png" alt="Baldur's Gate 3" class="hero-image">
-                <div class="hero-info">
-                    <h2 class="hero-title">a este carrusel nose si dejarlo o modificarlo</h2>
-                    <div class="platform-icons">
-                        <span class="platform-icon">Playstation</span>
-                        <span class="platform-icon">Windows</span>
-                        <span class="platform-icon">Xbox</span>
+            <div class="hero-slides-container">
+
+                <div class="hero-slide">
+                <img src="./img/pacSolitaire.png" alt="Pac Solitaire" class="hero-image">
+                    <div class="hero-info">
+                        <h2 class="hero-title">Pac Solitaire</h2>
+                        <div class="platform-icons">
+                            <span class="platform-icon">Windows</span>
+                        </div>
+                        <p class="hero-date">Fecha de lanzamiento: 4/6/2025</p>
+                        <div class="hero-rating">
+                            <span class="star">★</span>
+                            <span>4.7</span>
+                        </div>
+                        <div class="hero-tags">
+                            <span class="tag">Logica</span>
+                            <span class="tag">Puzzle</span>
+                            <span class="tag">Estrategia</span>
+                            <span class="tag">Solitario</span>
+                        </div>
+                        <a href="gamepage.html" class="hero-game-link"> 
+                            <button class="btn-play btn-gratis-hero">
+                                <span class="play-icon">▶</span>Gratis
+                            </button>
+                        </a>
                     </div>
-                    <p class="hero-date">Fecha de lanzamiento: 3 AGO 2023</p>
-                    <div class="hero-rating">
-                        <span class="star">★</span>
-                        <span>4.5</span>
-                    </div>
-                    <div class="hero-tags">
-                        <span class="tag">RPG</span>
-                        <span class="tag">Aventura</span>
-                        <span class="tag">Estrategia</span>
-                    </div>
-                    <button class="premium-badge">👑 Premium</button>
                 </div>
+
+                <div class="hero-slide">
+                <img src="./img/cod.jpg" alt="Call of Duty" class="hero-image">
+                    <div class="hero-info">
+                        <h2 class="hero-title">Call of Duty: Black Ops II</h2>
+                        <div class="platform-icons">
+                            <span class="platform-icon">Playstation</span>
+                            <span class="platform-icon">Windows</span>
+                            <span class="platform-icon">Xbox Series</span>
+                        </div>
+                        <p class="hero-date">Fecha de lanzamiento: 13/11/2012</p>
+                        <div class="hero-rating">
+                            <span class="star">★</span>
+                            <span>4.7</span>
+                        </div>
+                        <div class="hero-tags">
+                            <span class="tag">Shooter</span>
+                            <span class="tag">Accion</span>
+                        </div>
+                        <a href="gamepage.html" class="hero-game-link"> 
+                            <button class="btn-play btn-gratis-hero">
+                                <span class="play-icon">▶</span>Gratis
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-slide">
+                <img src="./img/metalgear.png" alt="metalgear" class="hero-image">
+                    <div class="hero-info">
+                        <h2 class="hero-title">Metal Gear Solid Δ: Snake Eater</h2>
+                        <div class="platform-icons">
+                            <span class="platform-icon">Playstation</span>
+                            <span class="platform-icon">Windows</span>
+                            <span class="platform-icon">Xbox</span>
+                        </div>
+                        <p class="hero-date">Fecha de lanzamiento: 28/8/2025</p>
+                        <div class="hero-rating">
+                            <span class="star">★</span>
+                            <span>3.7</span>
+                        </div>
+                        <div class="hero-tags">
+                            <span class="tag">Accion</span>
+                            <span class="tag">Aventura</span>
+                        </div>
+                        <a href="gamepage.html" class="hero-game-link"> 
+                            <button class="btn-play btn-gratis-hero">
+                                <span class="play-icon">▶</span>Gratis
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-slide">
+                <img src="./img/wow.jpg" alt="Wow" class="hero-image">
+                    <div class="hero-info">
+                        <h2 class="hero-title">World of Warcraft</h2>
+                        <div class="platform-icons">
+                            <span class="platform-icon">Windows</span>
+                            <span class="platform-icon">Android</span>
+                            <span class="platform-icon">MacOS</span>
+                        </div>
+                        <p class="hero-date">Fecha de lanzamiento: 23/11/2004</p>
+                        <div class="hero-rating">
+                            <span class="star">★</span>
+                            <span>2.6</span>
+                        </div>
+                        <div class="hero-tags">
+                            <span class="tag">RPG</span>
+                            <span class="tag">Aventura</span>
+                        </div>
+                        <a href="gamepage.html" class="hero-game-link"> 
+                            <button class="btn-play btn-gratis-hero">
+                                <span class="play-icon">▶</span>Gratis
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-slide">
+                <img src="./img/f1.jpg" alt="f1" class="hero-image">
+                    <div class="hero-info">
+                        <h2 class="hero-title">F1 2025</h2>
+                        <div class="platform-icons">
+                            <span class="platform-icon">Playstation 5</span>
+                            <span class="platform-icon">Windows</span>
+                            <span class="platform-icon">Xbox</span>
+                        </div>
+                        <p class="hero-date">Fecha de lanzamiento: 30/5/2025</p>
+                        <div class="hero-rating">
+                            <span class="star">★</span>
+                            <span>4.1</span>
+                        </div>
+                        <div class="hero-tags">
+                            <span class="tag">Carreras</span>
+                            <span class="tag">Deportes</span>
+                            <span class="tag">Simulacion</span>
+                        </div>
+                        <a href="gamepage.html" class="hero-game-link"> 
+                            <button class="btn-play btn-gratis-hero">
+                                <span class="play-icon">▶</span>Gratis
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-slide">
+                <img src="./img/rdr.jpg" alt="red dead redemption" class="hero-image">
+                    <div class="hero-info">
+                        <h2 class="hero-title">Red Dead Redemption 2</h2>
+                        <div class="platform-icons">
+                            <span class="platform-icon">Playstation 5</span>
+                            <span class="platform-icon">Windows</span>
+                            <span class="platform-icon">Xbox One</span>
+                        </div>
+                        <p class="hero-date">Fecha de lanzamiento: 26/10/2018</p>
+                        <div class="hero-rating">
+                            <span class="star">★</span>
+                            <span>4.9</span>
+                        </div>
+                        <div class="hero-tags">
+                            <span class="tag">Accion</span>
+                            <span class="tag">Aventura</span>
+                            <span class="tag">Mundo Abierto</span>
+                        </div>
+                        <a href="gamepage.html" class="hero-game-link"> 
+                            <button class="btn-play btn-gratis-hero">
+                                <span class="play-icon">▶</span>Gratis
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-slide">
+                <img src="./img/doom.jpg" alt="Doom" class="hero-image">
+                    <div class="hero-info">
+                        <h2 class="hero-title">Doom</h2>
+                        <div class="platform-icons">
+                            <span class="platform-icon">Android</span>
+                            <span class="platform-icon">Windows</span>
+                            <span class="platform-icon">Super Nintendo</span>
+                        </div>
+                        <p class="hero-date">Fecha de lanzamiento: 10/12/1993</p>
+                        <div class="hero-rating">
+                            <span class="star">★</span>
+                            <span>1.7</span>
+                        </div>
+                        <div class="hero-tags">
+                            <span class="tag">Accion</span>
+                            <span class="tag">Shooter</span>
+                        </div>
+                        <a href="gamepage.html" class="hero-game-link"> 
+                            <button class="btn-play btn-gratis-hero">
+                                <span class="play-icon">▶</span>Gratis
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-slide">
+                <img src="./img/borderlands.jpg" alt="Borderlands" class="hero-image">
+                    <div class="hero-info">
+                        <h2 class="hero-title">Borderlands</h2>
+                        <div class="platform-icons">
+                            <span class="platform-icon">Playstation</span>
+                            <span class="platform-icon">Windows</span>
+                            <span class="platform-icon">Xbox</span>
+                        </div>
+                        <p class="hero-date">Fecha de lanzamiento: 3 AGO 2023</p>
+                        <div class="hero-rating">
+                            <span class="star">★</span>
+                            <span>4.5</span>
+                        </div>
+                        <div class="hero-tags">
+                            <span class="tag">RPG</span>
+                            <span class="tag">Aventura</span>
+                            <span class="tag">Estrategia</span>
+                        </div>
+                        <button class="premium-badge">👑 Premium</button>
+                    </div>
+                </div>
+
+                <div class="hero-slide">
+                <img src="./img/silksongzzz.jpg" alt="Silksong" class="hero-image">
+                    <div class="hero-info">
+                        <h2 class="hero-title">Hollow Knight: Silksong</h2>
+                        <div class="platform-icons">
+                            <span class="platform-icon">Playstation</span>
+                            <span class="platform-icon">Nintendo Switch</span>
+                            <span class="platform-icon">Xbox</span>
+                        </div>
+                        <p class="hero-date">Fecha de lanzamiento: 4/9/2025</p>
+                        <div class="hero-rating">
+                            <span class="star">★</span>
+                            <span>4.9</span>
+                        </div>
+                        <div class="hero-tags">
+                            <span class="tag">Aventura</span>
+                            <span class="tag">Accion</span>
+                        </div>
+                        <button class="premium-badge">👑 Premium</button>
+                    </div>
+                </div>
+
+                <div class="hero-slide">
+                <img src="./img/lemans.jpg" alt="Le Mans" class="hero-image">
+                    <div class="hero-info">
+                        <h2 class="hero-title">Le Mans Ultimate</h2>
+                        <div class="platform-icons">
+                            <span class="platform-icon">Windows</span>
+                        </div>
+                        <p class="hero-date">Fecha de lanzamiento: 20/2/2024</p>
+                        <div class="hero-rating">
+                            <span class="star">★</span>
+                            <span>3.2</span>
+                        </div>
+                        <div class="hero-tags">
+                            <span class="tag">Carreras</span>
+                            <span class="tag">Simulacion</span>
+                            <span class="tag">Deportes</span>
+                        </div>
+                        <button class="premium-badge">👑 Premium</button>
+                    </div>
+                </div>
+
+                <div class="hero-slide">
+                <img src="./img/gow.jpg" alt="God of War" class="hero-image">
+                    <div class="hero-info">
+                        <h2 class="hero-title">God of War II</h2>
+                        <div class="platform-icons">
+                            <span class="platform-icon">Playstation</span>
+                        </div>
+                        <p class="hero-date">Fecha de lanzamiento: 13/3/2007</p>
+                        <div class="hero-rating">
+                            <span class="star">★</span>
+                            <span>4.7</span>
+                        </div>
+                        <div class="hero-tags">
+                            <span class="tag">Accion</span>
+                            <span class="tag">Aventura</span>
+                        </div>
+                        <a href="gamepage.html" class="hero-game-link"> 
+                            <button class="btn-play btn-gratis-hero">
+                                <span class="play-icon">▶</span>Gratis
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-slide">
+                <img src="./img/basquet.png" alt="nba" class="hero-image">
+                    <div class="hero-info">
+                        <h2 class="hero-title">NBA 2K26</h2>
+                        <div class="platform-icons">
+                            <span class="platform-icon">Playstation</span>
+                            <span class="platform-icon">Windows</span>
+                            <span class="platform-icon">Xbox</span>
+                        </div>
+                        <p class="hero-date">Fecha de lanzamiento: 5/9/2025</p>
+                        <div class="hero-rating">
+                            <span class="star">★</span>
+                            <span>3.5</span>
+                        </div>
+                        <div class="hero-tags">
+                            <span class="tag">Deportes</span>
+                        </div>
+                        <a href="gamepage.html" class="hero-game-link"> 
+                            <button class="btn-play btn-gratis-hero">
+                                <span class="play-icon">▶</span>Gratis
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
             </div>
             <button class="carousel-nav next" aria-label="Siguiente">›</button>
+
             <div class="carousel-dots">
                 <span class="dot active"></span>
                 <span class="dot"></span>
@@ -217,7 +498,7 @@
         <section class="game-section">
             <h2 class="section-title">TU PRÓXIMO DESAFÍO</h2>
             <div class="carousel">
-                <button class="carousel-btn prev" aria-label="Anterior carrusel">‹</button>
+                <button class="carousel-btn prev" aria-label="Anterior carrusel"><span>‹</span></button>
                 <div class="game-grid">
                     <article class="game-card">
                         <img src="./img/pacSolitaire.png" alt="Black" class="game-image">
@@ -236,7 +517,11 @@
                                     <div class="boton-favorito">
                                         <button class="boton-fav" type="button"></button>
                                     </div>
-                                    <button class="btn-play">▶ Jugar</button>
+                                    <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -259,7 +544,11 @@
                                     <div class="boton-favorito">
                                         <button class="boton-fav" type="button"></button>
                                     </div>
-                                    <button class="btn-play">▶ Jugar</button>
+                                    <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -282,7 +571,11 @@
                                     <div class="boton-favorito">
                                         <button class="boton-fav" type="button"></button>
                                     </div>
-                                    <button class="btn-play">▶ Jugar</button>
+                                    <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -305,13 +598,17 @@
                                     <div class="boton-favorito">
                                         <button class="boton-fav" type="button"></button>
                                     </div>
-                                    <button class="btn-play">▶ Jugar</button>
+                                    <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </article>
                     </div>
-                    <button class="carousel-btn next" aria-label="Siguiente carrusel">›</button>
+                <button class="carousel-btn next" aria-label="Siguiente carrusel"><span>›</span></button>                    
                 </div>
             </section>
 
@@ -319,7 +616,7 @@
             <section class="game-section">
                 <h2 class="section-title">PRINCIPALES PREMIUM</h2>
                 <div class="carousel">
-                    <button class="carousel-btn prev" aria-label="Anterior carrusel">‹</button>
+                    <button class="carousel-btn prev" aria-label="Anterior carrusel"><span>‹</span></button>
                     <div class="game-grid">
                         <article class="game-card">
                             <img src="./img/silksongzzz.jpg" alt="Hollow Knight" class="game-image">
@@ -338,7 +635,11 @@
                                         <div class="boton-favorito">
                                             <button class="boton-fav" type="button"></button>
                                         </div>
-                                        <button class="btn-play">▶ Jugar</button>
+                                        <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                                     </div>
                                 </div>
                             </div>
@@ -361,7 +662,11 @@
                                         <div class="boton-favorito">
                                             <button class="boton-fav" type="button"></button>
                                         </div>
-                                        <button class="btn-play">▶ Jugar</button>
+                                        <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                                     </div>
                                 </div>
                             </div>
@@ -384,7 +689,11 @@
                                         <div class="boton-favorito">
                                             <button class="boton-fav" type="button"></button>
                                         </div>
-                                        <button class="btn-play">▶ Jugar</button>
+                                        <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                                     </div>
                                 </div>
                             </div>
@@ -407,13 +716,17 @@
                                         <div class="boton-favorito">
                                             <button class="boton-fav" type="button"></button>
                                         </div>
-                                        <button class="btn-play">▶ Jugar</button>
+                                        <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                                     </div>
                                 </div>
                             </div>
                         </article>
                     </div>
-                    <button class="carousel-btn next" aria-label="Siguiente carrusel">›</button>
+                    <button class="carousel-btn next" aria-label="Siguiente carrusel"><span>›</span></button>
                 </div>
             </section>
 
@@ -421,7 +734,7 @@
             <section class="game-section">
                 <h2 class="section-title">ACCIÓN</h2>
                 <div class="carousel">
-                    <button class="carousel-btn prev" aria-label="Anterior carrusel">‹</button>
+                    <button class="carousel-btn prev" aria-label="Anterior carrusel"><span>‹</span></button>
                     <div class="game-grid">
                         <article class="game-card">
                             <img src="./img/metalgear.png" alt="Metal Gear Solid" class="game-image">
@@ -440,7 +753,11 @@
                                         <div class="boton-favorito">
                                             <button class="boton-fav" type="button"></button>
                                         </div>
-                                        <button class="btn-play">▶ Jugar</button>
+                                        <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                                     </div>
                                 </div>
                             </div>
@@ -463,7 +780,11 @@
                                         <div class="boton-favorito">
                                             <button class="boton-fav" type="button"></button>
                                         </div>
-                                        <button class="btn-play">▶ Jugar</button>
+                                        <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                                     </div>
                                 </div>
                             </div>
@@ -486,7 +807,11 @@
                                         <div class="boton-favorito">
                                             <button class="boton-fav" type="button"></button>
                                         </div>
-                                        <button class="btn-play">▶ Jugar</button>
+                                        <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                                     </div>
                                 </div>
                             </div>
@@ -509,13 +834,17 @@
                                         <div class="boton-favorito">
                                             <button class="boton-fav" type="button"></button>
                                         </div>
-                                        <button class="btn-play">▶ Jugar</button>
+                                        <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                                     </div>
                                 </div>
                             </div>
                         </article>
                     </div>
-                <button class="carousel-btn next" aria-label="Siguiente carrusel">›</button>
+                    <button class="carousel-btn next" aria-label="Siguiente carrusel"><span>›</span></button>
             </div>
         </section>
 
@@ -523,7 +852,7 @@
         <section class="game-section">
             <h2 class="section-title">RPG</h2>
             <div class="carousel">
-                <button class="carousel-btn prev" aria-label="Anterior carrusel">‹</button>
+                <button class="carousel-btn prev" aria-label="Anterior carrusel"><span>‹</span></button>
                 <div class="game-grid">
                 <article class="game-card">
                     <img src="./img/baldur.png" alt="Baldur's Gate 3" class="game-image">
@@ -542,7 +871,11 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -565,7 +898,11 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -588,7 +925,11 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -611,13 +952,17 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
                 </article>
                 </div>
-                <button class="carousel-btn next" aria-label="Siguiente carrusel">›</button>
+                <button class="carousel-btn next" aria-label="Siguiente carrusel"><span>›</span></button>
             </div>
         </section>
 
@@ -625,7 +970,7 @@
         <section class="game-section">
             <h2 class="section-title">DEPORTE</h2>
             <div class="carousel">
-                <button class="carousel-btn prev" aria-label="Anterior carrusel">‹</button>
+                <button class="carousel-btn prev" aria-label="Anterior carrusel"><span>‹</span></button>
                 <div class="game-grid">
                 <article class="game-card">
                     <img src="./img/basquet.png" alt="NBA 2K26" class="game-image">
@@ -644,7 +989,11 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -667,7 +1016,11 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -690,7 +1043,11 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -713,13 +1070,17 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
                 </article>
                 </div>
-                <button class="carousel-btn next" aria-label="Siguiente carrusel">›</button>
+                <button class="carousel-btn next" aria-label="Siguiente carrusel"><span>›</span></button>
             </div>
         </section>
 
@@ -727,7 +1088,7 @@
         <section class="game-section">
             <h2 class="section-title">AVENTURA</h2>
             <div class="carousel">
-                <button class="carousel-btn prev" aria-label="Anterior carrusel">‹</button>
+                <button class="carousel-btn prev" aria-label="Anterior carrusel"><span>‹</span></button>
                 <div class="game-grid">
                 <article class="game-card">
                     <img src="./img/uncharted.jpg" alt="Uncharted 4" class="game-image">
@@ -746,7 +1107,11 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -769,7 +1134,11 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -792,7 +1161,11 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -815,13 +1188,17 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
                 </article>
                 </div>
-                <button class="carousel-btn next" aria-label="Siguiente carrusel">›</button>
+                <button class="carousel-btn next" aria-label="Siguiente carrusel"><span>›</span></button>
             </div>
         </section>
 
@@ -829,7 +1206,7 @@
         <section class="game-section">
             <h2 class="section-title">SHOOTER</h2>
             <div class="carousel">
-                <button class="carousel-btn prev" aria-label="Anterior carrusel">‹</button>
+                <button class="carousel-btn prev" aria-label="Anterior carrusel"><span>‹</span></button>
                 <div class="game-grid">
                 <article class="game-card">
                     <img src="./img/black.jpg" alt="Black" class="game-image">
@@ -848,7 +1225,11 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -871,7 +1252,11 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -894,7 +1279,11 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -917,13 +1306,17 @@
                                 <div class="boton-favorito">
                                     <button class="boton-fav" type="button"></button>
                                 </div>
-                                <button class="btn-play">▶ Jugar</button>
+                                <a href="gamepage.html">
+                                        <button class="btn-play">
+                                            <span class="play-icon">▶</span>Jugar
+                                        </button>
+                                    </a>
                             </div>
                         </div>
                     </div>
                 </article>
                 </div>
-                <button class="carousel-btn next" aria-label="Siguiente carrusel">›</button>
+                <button class="carousel-btn next" aria-label="Siguiente carrusel"><span>›</span></button>
             </div>
         </section>
     </main>

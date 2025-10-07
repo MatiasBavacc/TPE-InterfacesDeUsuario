@@ -92,16 +92,28 @@ body {
 }
 
 .hamburger-menu {
-    background: none;
+    /* Estilos base del botón */
+    background: none; /* Sin fondo de color inicial */
     border: none;
     cursor: pointer;
     padding: 0;
-}
+    
+    /* El tamaño del botón será el mismo que el de tu icono */
+    width: 44px; /* Según el tamaño de tu imagen original */
+    height: 30px; /* Según el tamaño de tu imagen original */
+    
+    /* 🚀 IMAGEN POR DEFECTO: La imagen que tienes actualmente */
+    background-image: url('../img/icon-burger.png'); /* Ruta a tu imagen de menú normal */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain; /* Asegura que la imagen quepa dentro del botón */
+}    
 
-.hamburger-icon {
-    width: 44px;
-    height: 31px;
-    display: block;
+.hamburger-menu:hover {
+    /* Aquí usaremos la imagen que me acabas de pasar (la que tiene los colores de hover) */
+    background-image: url('../img/icon-burger-hover.png'); /* Asume que la guardaste con este nombre */
+    width: 44px; /* Según el tamaño de tu imagen original */
+    height: 30px
 }
 
 .site-name {
@@ -140,6 +152,30 @@ body {
     width: 100%;
     font-size: 25px;
     outline: none;
+}
+
+.search-icon {
+    /* RESET de estilos de botón */
+    background: none; 
+    border: none;
+    padding: 0;
+    /* Mantenemos el estilo para indicar que es clickeable */
+    cursor: pointer;
+    /* Eliminamos el contorno al hacer click (opcional pero recomendado) */
+    outline: none;
+    /* Aseguramos que el botón no tenga ancho/alto por defecto */
+    width: auto;
+    height: auto;
+    /* El margen ahora se aplica al botón, NO a la imagen */
+    margin-right: 10px;
+}
+
+/* Nuevo estilo para la imagen dentro del botón de búsqueda */
+.search-icon img {
+    width: 20px;
+    height: 20px;
+    /* La imagen no necesita margen aquí ya que se lo aplicamos al botón */
+    display: block; /* Opcional, pero bueno para la gestión de imágenes */
 }
 
 .search-input::placeholder {
@@ -204,14 +240,43 @@ body {
     max-width: 1200px;
     margin: 0 auto 40px;
     border-radius: 15px;
-    overflow: hidden;
+    overflow: visible;
+}
+
+.hero-slides-container {
+    /* Oculta los slides que no están a la vista */
+    overflow-x: hidden; 
+    /* Permite el desplazamiento si es necesario */
+    overflow-y: hidden;
+    /* Usa Flexbox para colocar los slides en línea */
+    display: flex;
+    /* Evita que los slides se envuelvan a la siguiente línea */
+    flex-wrap: nowrap;
+    /* Habilita el desplazamiento programático (para JavaScript) */
+    scroll-snap-type: x mandatory;
+    width: 100%;
+    height: 570px; /* Misma altura que hero-slide */
 }
 
 .hero-slide {
+    border-radius: 45px;
     position: relative;
+    min-width: 100%;
+    height: 570px;
+    scroll-snap-align: start; 
+    overflow: hidden;
+}
+
+.hero-slide::before {
+    content: ''; /* Obligatorio para pseudo-elementos */
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 400px;
-    background: linear-gradient(to right, rgba(0,0,0,0.8), transparent);
+    height: 100%;
+    /* 🚀 GRADIENTE: De oscuro a transparente */
+    background: linear-gradient(to right, var(--color-primario-sombra3) 0%, transparent 75%); /* Ajusta el 80% si quieres que sea más largo */
+    z-index: 1; /* Asegura que esté por encima de la imagen hero-image */
 }
 
 .hero-image {
@@ -221,7 +286,8 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -1;
+    z-index: 0;
+    border-radius: 50px;
 }
 
 .hero-info {
@@ -232,10 +298,10 @@ body {
     flex-direction: column;
     justify-content: center;
     max-width: 500px;
+    z-index: 2; 
 }
 
 .hero-title {
-    font-size: 32px;
     font-weight: bold;
     margin-bottom: 15px;
 }
@@ -255,9 +321,7 @@ body {
 }
 
 .hero-date {
-    font-size: 14px;
     margin-bottom: 10px;
-    opacity: 0.9;
 }
 
 .hero-rating {
@@ -265,7 +329,7 @@ body {
     align-items: center;
     gap: 5px;
     margin-bottom: 10px;
-    font-size: 16px;
+
 }
 
 .hero-tags {
@@ -279,7 +343,23 @@ body {
     background-color: rgba(255, 255, 255, 0.15);
     padding: 5px 12px;
     border-radius: 15px;
-    font-size: 12px;
+}
+
+.hero-game-link {
+    text-decoration: none;
+}
+
+.btn-gratis-hero {
+    background-color: var(--color-acento); 
+    color: var(--color-primario); 
+}
+
+.btn-gratis-hero:hover {
+    /* Puedes usar una sombra del color acento para la transición */
+    background-color: var(--color-boton-jugar1); /* Asumiendo que tienes esta variable */
+    /* Nota: El efecto de giro del icono ya está incluido gracias a:
+       .btn-play:hover .play-icon { transform: rotate(360deg); }
+       ¡que ya tienes definido! */
 }
 
 .premium-badge {
@@ -295,10 +375,9 @@ body {
 
 .carousel-nav {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    top: 45%;
+    background-color: var(--color-primario-luz3);
+    color: var(--color-acento);
     border: none;
     font-size: 40px;
     width: 50px;
@@ -308,28 +387,34 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 10px var(--color-secundario-sombra2);
     transition: background-color 0.3s;
 }
 
 .carousel-nav:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: var(--color-secundario-sombra2);
+    transform: translateY(-2px);
 }
 
 .carousel-nav.prev {
-    left: 10px;
+    padding-bottom: 7px;
+    padding-right: -3px;
+    left: -70px;
 }
 
 .carousel-nav.next {
-    right: 10px;
+    padding-bottom: 7px;
+    padding-left: 3px;
+    right: -70px;
 }
 
 .carousel-dots {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    margin: 15px auto;
+    width: fit-content;
     display: flex;
     gap: 8px;
+    z-index: 3;
 }
 
 .dot {
@@ -498,12 +583,26 @@ body {
     height: 35px;
     border-radius: 50px;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: calc(50% + 1px) calc(50% + 0px);
     cursor: pointer;
 }
 
 .boton-fav:hover {
     background-image: url('../img/icon-favorito-hover.png');
+}
+
+.boton-fav.activo {
+    background-image: url('../img/icon-favorito-hover.png');
+    background-color: var(--color-acento);
+}
+
+.play-icon {
+    /* Asegura que el span se comporte como un bloque para poder girarlo */
+    display: inline-block; 
+    /* Define la transición para que el giro sea suave (0.4 segundos) */
+    transition: transform 0.4s ease-out; 
+    /* El margen separa el icono del texto "Jugar" si es necesario */
+    margin-right: 5px; 
 }
 
 .btn-play {
@@ -517,12 +616,20 @@ body {
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 5px;
     transition: background-color 0.3s;
 }
 
 .btn-play:hover {
     background-color: var(--color-boton-jugar);
+}
+
+.btn-play:hover .play-icon {
+    /* Aplica una transformación de rotación de 360 grados (una vuelta completa) */
+    transform: rotate(360deg);
+}
+
+.game-actions a {
+    text-decoration: none;
 }
 
 /* Carousel container and controls */
@@ -540,7 +647,7 @@ body {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    font-size: 30px;
+    font-size: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -549,6 +656,14 @@ body {
     margin: 0 10px;
     transition: background-color 0.2s, transform 0.15s;
     box-shadow: 0 4px 10px var(--color-secundario-sombra2);
+}
+
+.carousel-btn.prev span {
+    transform: translateY(-4px); /* Ajusta este valor para mover arriba/abajo */
+}
+
+.carousel-btn.next span {
+    transform: translate(2px, -4px); /* Eje X: -1px, Eje Y: -2px */
 }
 
 .carousel-btn:hover {
@@ -776,7 +891,7 @@ body {
     }
     
     .hero-slide {
-        height: 500px;
+        height: 570px;
     }
     
     .section-title {
@@ -870,6 +985,56 @@ body {
     .btn-play {
         padding: 6px 12px;
         font-size: 12px;
+    }
+}
+
+@media (min-width: 769px) {
+
+    .hero-slides-container {
+        overflow-x: hidden;
+        scroll-snap-type: x mandatory;
+        height: 580px;
+        margin-top: 30px;
+        /* ... estilos para scrollbar ... */
+    }
+    .carousel-dots {
+        /* Vuelve a la posición absoluta */
+        position: absolute;
+        /* Vuelve a la posición exacta de superposición */
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        /* Elimina el margen de centrado que aplicamos en el CSS base */
+        margin: 0; 
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        /* Mantiene el relleno superior e izquierdo/derecho, pero fuerza 0px en la parte inferior */
+        padding-bottom: 0 !important;
+    }
+
+    .hero-carousel {
+        margin: 0 auto 0 !important; 
+    }
+    
+    /* Ocultar flechas */
+    .carousel-nav {
+        display: none;
+    }
+    
+    /* Habilitar scroll táctil */
+    .hero-slides-container {
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        height: 300px;
+        margin-top: 30px;
+        /* ... estilos para scrollbar ... */
+    }
+
+    .carousel-dots {
+        display: flex;
     }
 }
 
