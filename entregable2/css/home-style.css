@@ -1028,11 +1028,11 @@ body {
 @media (max-width: 768px) {
     .main-content {
         /* Mantiene el relleno superior e izquierdo/derecho, pero fuerza 0px en la parte inferior */
-        padding-bottom: 0 !important;
+        padding-bottom: 0;
     }
 
     .hero-carousel {
-        margin: 0 auto 0 !important; 
+        margin: 0 auto 0; 
     }
     
     /* Ocultar flechas */
