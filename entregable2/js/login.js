@@ -3,6 +3,7 @@ const toggleImg1 = document.getElementById('togglePassword');
 const login = document.querySelector('.login-form');
 const nombreCampo = document.getElementById('nombre-campo');
 const contrasenaCampo = document.getElementById('contrasena-campo');
+const contAvisor = document.querySelector('.avisor-contador');
 
 nombreCampo.addEventListener('blur', ()=>{validarCamposRegistro(nombreCampo)});
 contrasenaCampo.addEventListener('blur', ()=>{validarCamposRegistro(contrasenaCampo)});
@@ -19,7 +20,9 @@ login.addEventListener('submit', prevenirEnvio);
 
 function prevenirEnvio(event) {
       event.preventDefault();
-      window.location.href = 'home.html';
+      const blurBg = document.querySelector('.blur-background');
+      blurBg.classList.remove('oculto');
+      cuentaRegresiva()
 }
 
 
@@ -49,3 +52,16 @@ function validarCamposRegistro(campo) {
   
 }
 
+function cuentaRegresiva() {
+      let contador = 3;
+
+      const intervalo = setInterval(() => {
+            if (contador > 0) {
+                  contAvisor.textContent = contador;
+                  contador--;
+            } else {
+                  clearInterval(intervalo);
+                  window.location.href = 'home.html';
+            }
+      }, 1000);
+}

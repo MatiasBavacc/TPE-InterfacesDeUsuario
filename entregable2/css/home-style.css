@@ -487,6 +487,17 @@ body {
     flex-direction: column;
 }
 
+.game-card {
+  animation: agrandar 1s linear;
+  animation-timeline: scroll-cards;
+  animation-range: entry 0% cover 50%;
+}
+
+@keyframes agrandar {
+  from { transform: scale(0.5); }
+  to { transform: scale(1); }
+}
+
 .carousel > .game-grid > .game-card .game-image {
     flex: 0 0 180px;
     border-radius: 10px;
