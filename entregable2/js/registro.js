@@ -6,6 +6,7 @@ const registro = document.querySelector('.registro-form');
 const nombreCampo = document.getElementById('nombre-campo');
 const apellidoCampo = document.getElementById('apellido-campo');
 const gmailCampo = document.getElementById('gmail-campo');
+const contAvisor = document.querySelector('.avisor-contador');
 
 toggleImg1.addEventListener('click', () => {
   const isPassword = passwordInput1.type === 'password';
@@ -25,7 +26,9 @@ registro.addEventListener('submit', prevenirEnvio);
 
 function prevenirEnvio(event) {
   event.preventDefault();
-  window.location.href = 'home.html';
+  const blurBg = document.querySelector('.blur-background');
+  blurBg.classList.remove('oculto');
+  cuentaRegresiva()
 }
 
 nombreCampo.addEventListener('blur', ()=>{validarCamposRegistro(nombreCampo)});
@@ -106,4 +109,16 @@ function validarContraseñas(campo){
   }
 }
 
+function cuentaRegresiva() {
+      let contador = 3;
 
+      const intervalo = setInterval(() => {
+            if (contador > 0) {
+                  contAvisor.textContent = contador;
+                  contador--;
+            } else {
+                  clearInterval(intervalo);
+                  window.location.href = 'home.html';
+            }
+      }, 1000);
+}
