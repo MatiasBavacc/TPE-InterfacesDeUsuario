@@ -477,17 +477,6 @@ body {
     flex-direction: column;
 }
 
-.game-card {
-  animation: agrandar 1s linear;
-  animation-timeline: scroll-cards;
-  animation-range: entry 0% cover 50%;
-}
-
-@keyframes agrandar {
-  from { transform: scale(0.5); }
-  to { transform: scale(1); }
-}
-
 .carousel > .game-grid > .game-card .game-image {
     flex: 0 0 180px;
     border-radius: 10px;
@@ -1342,4 +1331,22 @@ body {
 /* Ocultos */
 .oculto {
 display: none;
+}
+
+
+.buscarJuego {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid var(--color-acento);
+    border-radius: 10px;
+    padding: 5px;
+    width: 50%;
+    height: 100vh;
+    max-width: 400px;
+    font-size: 20px;
+    background-color: var(--color-primario-luz3);
+    color: var(--color-blanco);
+    z-index: 1001;
 }
