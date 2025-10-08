@@ -124,6 +124,10 @@ p {
   margin-top: 70px;
 }
 
+.site-logo{
+    margin-top: 3px;
+}
+
 /* Breadcrumb */
 .breadcrumb {
       grid-area: breadcrumb;

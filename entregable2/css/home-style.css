@@ -250,14 +250,15 @@ body {
     /* (para JavaScript) */
     scroll-snap-type: x mandatory;
     width: 100%;
-    height: 570px;
+    height: 580px;
+    border-radius: 50px;
 }
 
 .hero-slide {
     border-radius: 45px;
     position: relative;
     min-width: 100%;
-    height: 570px;
+    height: 580px;
     scroll-snap-align: start; 
     overflow: hidden;
 }
@@ -271,6 +272,7 @@ body {
     height: 100%;
     background: linear-gradient(to right, var(--color-primario-sombra3) 0%, transparent 75%); 
     z-index: 1;
+    border-radius: 50px;
 }
 
 .hero-image {
@@ -281,6 +283,14 @@ body {
     height: 100%;
     object-fit: cover;
     z-index: 0;
+    border-radius: 50px;
+    transform: scale(1.5); /* Escala inicial (encogida) */
+    transition: transform 0.5s ease-in-out;
+}
+
+.hero-slide.active-slide .hero-image {
+    /* --- REGLA NUEVA --- */
+    transform: scale(1); /* Escala normal */
     border-radius: 50px;
 }
 
@@ -454,7 +464,7 @@ body {
     scrollbar-width: none; 
     padding-bottom: 10px;
     scroll-behavior: smooth;
-    touch-action: none;
+    touch-action: pan-y;
 }
 
 .game-grid::-webkit-scrollbar {

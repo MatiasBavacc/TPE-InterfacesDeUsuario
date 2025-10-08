@@ -13,13 +13,26 @@
     
     // Empieza en el slide 0.
     let currentSlideIndex = 0;
+    let autoSlideInterval;
+    const slideDuration = 3000; 
 
     function getSlideWidth() {
         return slidesContainer.clientWidth;
     }
 
+    function updateActiveSlide(newIndex) {
+        slides.forEach((slide, index) => {
+            if (index === newIndex) {
+                slide.classList.add('active-slide');
+            } else {
+                slide.classList.remove('active-slide');
+            }
+        });
+    }
+
     // funcion principal de navegacion (Mueve el carrusel y actualiza los puntos)
     function goToSlide(index) {
+        stopAutoSlide(); 
         // indice dentro de los limites (0 a total de slides - 1)
         if (index < 0) {
             // ir al ultimo slide si intentamos ir 'antes' del primero
@@ -43,6 +56,26 @@
 
         // llama a la funcion para actualizar la UI (los puntos)
         updateDots();
+        updateActiveSlide(currentSlideIndex);
+        startAutoSlide();
+    }
+
+    function nextSlide() {
+        // La función goToSlide se encarga del 'loop' al llegar al final
+        goToSlide(currentSlideIndex + 1); 
+    }
+
+    function startAutoSlide() {
+        // Asegura que solo haya un temporizador corriendo
+        stopAutoSlide(); 
+        autoSlideInterval = setInterval(nextSlide, slideDuration);
+    }
+
+     function stopAutoSlide() {
+        if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = null;
+        }
     }
 
     // funcion para actualizar los puntos (UI)
@@ -90,11 +123,26 @@
         if (newIndex !== currentSlideIndex) {
             currentSlideIndex = newIndex;
             updateDots();
+            updateActiveSlide(currentSlideIndex);
+
+            stopAutoSlide();
+            startAutoSlide();
         }
     });
 
+    [prevButton, nextButton, ...dots].forEach(element => {
+        if (element) {
+            element.addEventListener('click', stopAutoSlide);
+        }
+    });
+
+    heroCarousel.addEventListener('mouseenter', stopAutoSlide);
+    heroCarousel.addEventListener('mouseleave', startAutoSlide);
+
     // inicia el carrusel con el primer dot activo
     updateDots();
+    updateActiveSlide(currentSlideIndex);
+    startAutoSlide();
 
 })();
 
@@ -150,6 +198,7 @@
                 grid.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
             });
         }
+        
 
         // --- control de teclado (accesibilidad) ---
         // permite la activacion de los botones con Enter o Espacio
