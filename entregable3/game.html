@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Pac Solitaire</title>
+      <link rel="icon" type="image/x-icon" href="img/Logo.svg">
+      <link rel="stylesheet" href="css/reset.css">
+      <link rel="stylesheet" href="./css/home-style.css">
+      <link rel="stylesheet" href="css/juego.css">
+      <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+      <!-- HEADER -->
+      <header class="header">
+            <div class="header-content">
+                  <div class="header-left">
+                  <button class="hamburger-menu" aria-label="Menú">
+                        <img src="./img/icon-burger.png" alt="Menú" class="hamburger-icon">
+                  </button>
+                  <div class="site-logo">
+                    <img src="./img/TituloLogo.png" alt="logo" srcset="">
+                  </div>
+                  </div>
+
+                  <div class="header-center">
+                  <div class="search-form">
+                        <img src="./img/Lupa.png" alt="Buscar" class="search-icon">
+                        <input type="text" placeholder="Buscar juego" class="search-input">
+                  </div>
+                  </div>
+
+                  <div class="header-right">
+                        <button class="icon-btn premium" aria-label="Premium"></button>
+                        <button class="icon-btn favs" aria-label="Favoritos"></button>
+                        <button class="icon-btn perfil" aria-label="Perfil"></button>
+                  </div>
+            </div>
+
+            <!-- Menu de perfil -->
+            <div class="menu-perfil-backdrop oculto"></div>
+            <div class="menu-perfil oculto">
+                  <div class="perfil-info">
+                        <div class="img-avatar-perfile"></div>
+                        <div class="nombre-usuario-perfil">
+                              <h4>Natalia Natalia</h4>
+                        </div>
+                  </div>
+                  <div class="perfil-acciones">
+                        <div class="acciones-perfil">
+                              <p class="accion-texto">Perfil</p>
+                              <div class="icon-perfil-acciones"></div>
+                        </div>
+                        <div class="acciones-notificaciones">
+                              <p class="accion-texto">Notificaciones</p>
+                              <div class="icon-perfil-notificaciones"></div>
+                        </div>
+                        <div class="acciones-preferencias">
+                              <p class="accion-texto">Preferencias</p>
+                              <div class="icon-perfil-preferencias"></div>
+                        </div>
+                        <div class="acciones-seguridad">
+                              <p class="accion-texto">Seguridad</p>
+                              <div class="icon-perfil-seguridad"></div>
+                        </div>
+                        <div class="acciones-cerrar-sesion" onclick="cerrarSesion(event)">
+                              <p class="accion-texto">Cerrar Sesión</p>
+                              <div class="icon-perfil-cerrar-sesion"></div>
+                        </div>
+                  </div>
+            </div>
+      </header>
+
+      
+       
+      <nav id="sidebar" class="sidebar-menu">
+            <div class="categorias-titulo">
+                  <span>Categorias</span>
+            </div>
+
+            <ul class="categoria-lista">
+                  <li class="categoria-item">
+                        <a>Accion</a> <img src="./img/accion.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Aventura</a> <img src="./img/fontisto_map.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Fantasia</a> <img src="./img/fantasia.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Rol</a> <img src="./img/gorro-mago.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Estrategia</a> <img src="./img/Group.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Shooters</a> <img src="./img/mdi_gun.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Deportes</a> <img src="./img/mdi_football.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Carreras</a> <img src="./img/vaadin_flag-checkered.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Lucha</a> <img src="./img/mdi_boxing-glove.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Multijugador</a> <img src="./img/mdi_users.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Cooperativo</a> <img src="./img/ri_team-fill.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Battle Royale</a> <img src="./img/material-symbols_crown.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Supervivencia</a> <img src="./img/mingcute_tent-fill.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Sandbox</a> <img src="./img/lucide_blocks.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Casual</a> <img src="./img/fe_smile.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Ciencia Ficción</a> <img src="./img/material-symbols_robot.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Terror</a> <img src="./img/material-symbols_skull.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Medieval</a> <img src="./img/material-symbols_castle-rounded.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Simulacion</a> <img src="./img/tabler_tools.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Musica</a> <img src="./img/mdi_music.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Cartas</a> <img src="./img/mdi_cards.png" alt="" class="icono-categoria">
+                  </li>
+            </ul>
+
+            <div class="categorias-titulo">
+                  <span>Precio</span>
+            </div>
+
+            <ul class="categoria-lista">
+                  <li class="categoria-item">
+                        <a>Gratis</a> <img src="./img/mdi_dollar-off.png" alt="" class="icono-categoria">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Hasta $20</a> 
+                        <img src="./img/mdi_dollar.png" alt="" class="icono-categoria"> 
+                  </li>
+                  <li class="categoria-item">
+                        <a>$20 a $60</a> <img src="./img/mdi_dollar.png" alt="" class="icono-categoria-pesos">
+                        <img src="./img/mdi_dollar.png" alt="">
+                  </li>
+                  <li class="categoria-item">
+                        <a>Mas de $60</a> <img src="./img/mdi_dollar.png" alt="" class="icono-categoria-pesos-1">
+                        <img src="./img/mdi_dollar.png" alt="" >
+                        <img src="./img/mdi_dollar.png" alt="" >
+                  </li>
+            </ul>
+      </nav>
+
+      
+
+      <!-- MAIN -->
+      <main class="main">
+            <div class="breadcrumb">
+                  <a href="index.html">Inicio</a>
+                  <img src="img/flechita.png" alt="Flecha de breadcrumb">
+                  <a href="#">Categorias</a>
+                  <img src="img/flechita.png" alt="Flecha de breadcrumb">
+                  <a href="#">Solitario</a>
+                  <img src="img/flechita.png" alt="Flecha de breadcrumb">
+                  <a href="#">Pac Solitaire</a>
+            </div>
+
+            <div class="canvas-game">
+                  <div class="blur"></div>
+                  <div class="btn-jugar"></div>
+                  <button type="button" class="maximizar"></button>
+            </div>
+
+            <div class="titulo"><h2>Pac Solitaire</h2></div>
+            <div class="update"><h3>Actualizado 04/06/2025</h3></div>
+            <div class="btns-juego">
+                  <button type="button" class="compartir" id="btnCompartir"></button>
+                  <button type="button" class="favoritos" id="btnFavoritos"></button>
+                  <button type="button" class="estrella" id="btnRanking"></button>
+
+                  <div class="section-ranking oculto">
+                        <p>Ranking</p>
+                        <div class="estrella-colums">
+                              <button><img src="img/estrella-hover.png" alt="Estrella"></button>
+                              <button><img src="img/estrella-hover.png" alt="Estrella"></button>
+                              <button><img src="img/estrella-hover.png" alt="Estrella"></button>
+                              <button><img src="img/estrella-hover.png" alt="Estrella"></button>
+                              <button><img src="img/estrella-hover.png" alt="Estrella"></button>
+                        </div>
+                  </div>
+                  <div class="section-compartir oculto">
+                        <p>Compartir</p>
+                        <div class="redes">
+                              <a href="#" aria-label="Compartir en X">
+                                    <img src="img/x.png" alt="X">
+                              </a>
+                              <a href="#" aria-label="Compartir en Facebook">
+                                    <img src="img/facebook.png" alt="Facebook">
+                              </a>
+                              <a href="#" aria-label="Compartir en Instagram">
+                                    <img src="img/ig.png" alt="Instagram">
+                              </a>
+                              <a href="#" aria-label="Compartir en LinkedIn">
+                                    <img src="img/linked.png" alt="LinkedIn">
+                              </a>
+                        </div>
+                  </div>
+            </div>
+            
+            
+            <section class="carrucel-game-section">
+                  <div class="carrucel-game">
+                        <div class="carrucel-item">   </div>
+                        <div class="carrucel-item-principal">
+                              <video controls muted loop poster="img/card1-juego.png">
+
+                                    <source src="img/card4-juego.mp4" type="video/mp4">
+                                    <!-- <source src="tu-video.webm" type="video/webm"> -->
+                                    Tu navegador no soporta el video.
+                              </video>           
+                        </div>
+                        <div class="carrucel-item">   </div>
+                  </div>
+                  <div class="nav-carrucel">
+                        <div class="carrucel-item-nav"></div>
+                        <div class="carrucel-item-nav"></div>
+                        <div class="carrucel-item-nav"></div>
+                        <div class="carrucel-item-nav"></div>
+                  </div>
+            </section>
+            <section class="categorias">
+                  <h3>Categorias</h3>
+                  <div class="tags">
+                        <div class="rectangulo">Estrategia</div>
+                        <div class="rectangulo">Puzzle</div>
+                        <div class="rectangulo">Logica</div>
+                        <div class="rectangulo">Solitario</div>
+                  </div>
+            </section>
+            <section class="descripcion">
+                  <h3>Descripcion</h3>
+                  <p>
+                        Pac-Man creía que su destino era eterno: 
+                        huir de fantasmas en un laberinto sin fin. 
+                        Pero una fuerza oscura, el Maestro del Vacío, 
+                        lo arrastra a un nuevo universo: el tablero del Peg Solitaire. 
+                        Aquí no basta con correr, ahora cada movimiento decide quién queda y 
+                        quién desaparece. ¿Podrá Pac-Man sobrevivir en un mundo donde la soledad es la mayor amenaza?
+                  </p>
+            </section>
+            <section class="como-jugar">
+                  <h3>¿Como jugar?</h3>
+                  <p>
+                        En Pac Solitaire, selecciona con un clic o toque la ficha que quieras mover, 
+                        luego haz clic en un agujero vacío adyacente al que saltarás sobre otra ficha. 
+                        La ficha saltada se elimina automáticamente. El objetivo es quedarte con una sola ficha en el tablero.
+                  </p>
+            </section>
+            <section class="controles">
+                  <div class="controles-divisor">
+                        <div class="controls"></div>
+                        <h3>Controles</h3>
+                  </div>
+                  <div class="image-control">
+                        <img src="img/click-left.png" alt="Click Izquierdo">
+                  </div>
+            </section>
+            <section class="ranking">
+                  <div class="ranking-header">
+                        <h3>Ranking</h3>
+                        <div class="votos">
+                              <p>Votos: 331</p>
+                        </div>
+                  </div>
+                  <div class="estrellas-ranking">
+                        <div class="estrella-colums">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                        </div>
+                        <div class="progress-colums">
+                              <progress value="83.98" max="100"></progress>
+                              <p>278</p>
+                        </div>
+                  </div>
+                  <div class="estrellas-ranking">
+                        <div class="estrella-colums">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                        </div>
+                        <div class="progress-colums">
+                              <progress value="20" max="100"></progress>
+                              <p>27</p>
+                        </div>
+                  </div>
+                  <div class="estrellas-ranking">
+                        <div class="estrella-colums">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                        </div>
+                        <div class="progress-colums">
+                              <progress value="9" max="100"></progress>
+                              <p>13</p>
+                        </div>
+                  </div>
+                  <div class="estrellas-ranking">
+                        <div class="estrella-colums">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                        </div>
+                        <div class="progress-colums">
+                              <progress value="5" max="100"></progress>
+                              <p>10</p>
+                        </div>
+                  </div>
+                  <div class="estrellas-ranking">
+                        <div class="estrella-colums">
+                              <img src="img/estrella.png" alt="Estrella">
+                        </div>
+                        <div class="progress-colums">
+                              <progress value="3" max="100"></progress>
+                              <p>3</p>
+                        </div>
+                  </div>
+                  <div class="estrellas-ranking">
+                        <h4>Promedio</h4>
+                        <div class="estrella-colums">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                              <img src="img/estrella.png" alt="Estrella">
+                        </div>
+                  </div>
+            </section>
+            <section class="comentarios">
+                  <h3>Comentarios</h3>
+                  <div class="comentar">
+                        <div class="user-comentario">
+                              <div class="avatar-comentario">
+                                    <img src="img/avatar-perfil.png" alt="Imagen de usuario" class="img-avtar-comentarios">
+                              </div>
+                              <div class="nombre-usuario">
+                                    <h4>Natalia</h4>
+                              </div>
+                        </div>
+                        <div class="recuadro-comentario">
+                              <form id="comentar"  action="" method="post">
+                                    <label for="comentar"></label>
+                                    <textarea name="comentar" class="recuadro-comentar" cols="80" rows="3" placeholder="Agregar un comentario..."></textarea>
+                                    <div class="btn-comentario">
+                                          <button type="button" class="btn-cancelar">Cancelar</button>
+                                          <button type="submit" class="btn-comentar">Comentar</button>
+                                    </div>
+                              </form>
+                        </div>
+                  </div>
+                  <div class="comentario oculto"></div>
+                  <div class="comentario">
+                        <div class="user-comentario">
+                              <div class="avatar-comentario">
+                                    <img src="img/icon-user2.png" alt="Imagen de usuario" class="img-foto-comentarios">
+                              </div>
+                              <div class="nombre-usuario">
+                                    <h4>Laila</h4>
+                              </div>
+                        </div>
+                        <div class="recuadro-comentario">
+                              <div class="texto-comentado">
+                                    <p>
+                                          Imposible el tercer nivel.
+                                    </p>
+                                    <p class="fecha-comentario">
+                                          6 de agosto de 2025.
+                                    </p>
+                                    <div class="btns-comentarios">
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-like">
+                                                      <div class="btnLike"></div>
+                                                </button>
+                                                <p class="cont-like">6</p>
+                                          </div>
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-dislike">
+                                                      <div class="btnDislike"></div>
+                                                </button>
+                                                <p class="cont-dislike">1</p>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="comentario">
+                        <div class="user-comentario">
+                              <div class="avatar-comentario">
+                                    <img src="img/icon-user1.png" alt="Imagen de usuario" class="img-foto-comentarios">
+                              </div>
+                              <div class="nombre-usuario">
+                                    <h4>Liquid</h4>
+                              </div>
+                        </div>
+                        <div class="recuadro-comentario">
+                              <div class="texto-comentado">
+                                    <p class="texto-comentario">
+                                          Sigo esperando la actualizacion.
+                                    </p>
+                                    <p class="fecha-comentario">
+                                          7 de julio de 2025
+                                    </p>
+                                    <div class="btns-comentarios">
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-like">
+                                                      <div class="btnLike"></div>
+                                                </button>
+                                                <p class="cont-like">12</p>
+                                          </div>
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-dislike">
+                                                      <div class="btnDislike"></div>
+                                                </button>
+                                                <p class="cont-dislike"></p>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="comentario">
+                        <div class="user-comentario">
+                              <div class="avatar-comentario">
+                                    <img src="img/icon-user3.png" alt="Imagen de usuario" class="img-foto-comentarios">
+                              </div>
+                              <div class="nombre-usuario">
+                                    <h4>Bruninho</h4>
+                              </div>
+                        </div>
+                        <div class="recuadro-comentario">
+                              <div class="texto-comentado">
+                                    <p>
+                                          Esta re bueno juju
+                                    </p>
+                                    <p class="fecha-comentario">
+                                          15 de diciembre 2024
+                                    </p>
+                                    <div class="btns-comentarios">
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-like">
+                                                      <div class="btnLike"></div>
+                                                </button>
+                                                <p class="cont-like"></p>
+                                          </div>
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-dislike">
+                                                      <div class="btnDislike"></div>
+                                                </button>
+                                                <p class="cont-dislike"></p>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="comentario">
+                        <div class="user-comentario">
+                              <div class="avatar-comentario">
+                                    <img src="img/icon-user4.png" alt="Imagen de usuario" class="img-foto-comentarios">
+                              </div>
+                              <div class="nombre-usuario">
+                                    <h4>Martin</h4>
+                              </div>
+                        </div>
+                        <div class="recuadro-comentario">
+                              <div class="texto-comentado">
+                                    <p>
+                                          Estaría bueno que agreguen la mecánica del cordero, 
+                                          combinada con el evento de Halloween. Me parece podes 
+                                          hacer un speedrun de 30 minutos con el cordero, o por lo 
+                                          menos que se puedan crear tableros personalizados. Nose, 
+                                          como no creo jueguitos, no opino.
+                                    </p>
+                                    <div class="btn-comentario">
+                                          <button class="btn-leer-mas">Leer más</button>
+                                          <button class="btn-leer-menos oculto">Leer menos</button>
+                                    </div>
+                                    <p class="fecha-comentario">
+                                          23 de octubre de 2023
+                                    </p>
+                                    <div class="btns-comentarios">
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-like">
+                                                      <div class="btnLike"></div>
+                                                </button>
+                                                <p class="cont-like">5</p>
+                                          </div>
+                                          <div class="item-btn-comentario">
+                                                <button type="button" class="btn-dislike">
+                                                      <div class="btnDislike"></div>
+                                                </button>
+                                                <p class="cont-dislike">1</p>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+
+            </section>
+      </main>
+      
+      <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Categorías</h3>
+                <ul>
+                    <li><a href="#">Acción</a></li>
+                    <li><a href="#">Aventura</a></li>
+                    <li><a href="#">Deporte</a></li>
+                    <li><a href="#">Estrategia</a></li>
+                    <li><a href="#">Lógica</a></li>
+                    <li><a href="#">Puzzle</a></li>
+                    <li><a href="#">RPG</a></li>
+                    <li><a href="#">Shooter</a></li>
+                    <li><a href="#">Solitario</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Perfil</a></li>
+                    <li><a href="#">Menú</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Nuestras Redes</h3>
+                <p>Conéctate con nosotros para estar al tanto de todas las novedades.</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="Twitter">
+                        <img src="./img/x.png" alt="Twitter">
+                    </a>
+                    <a href="#" aria-label="Facebook">
+                        <img src="./img/facebook.png" alt="Facebook">
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                        <img src="./img/ig.png" alt="Instagram">
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <img src="./img/linked.png" alt="LinkedIn">
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Novedades por Email</h3>
+                <p>Danos tu correo y sé el primero en recibir ofertas exclusivas y en descubrir nuevos juegos.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email" aria-label="Email para newsletter">
+                    <button type="submit" aria-label="Suscribirse">→</button>
+                </form>
+            </div>
+
+            <div class="footer-column">
+                <h3>Contáctanos</h3>
+                <p>Si tenés alguna duda comunicate vía Email con nosotros:</p>
+                <a href="mailto:elEnemigos@gmail.com" class="email-link">elEnemigos@gmail.com</a>
+            </div>
+        </div>
+    </footer>
+
+      <script src="js/page-juego.js"></script>
+      <script src="js/home.js"></script>
+</body>
+</html>

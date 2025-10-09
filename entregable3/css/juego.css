@@ -1,0 +1,968 @@
+
+/* Variables de colores */
+:root {
+  --color-primario: #1D1054;
+
+  --color-primario-luz1: #4B3D86;
+  --color-primario-luz2: #6C60A3;
+  --color-primario-luz3: #3C3076;
+
+  --color-primario-sombra1: #13054A;
+  --color-primario-sombra2: #100639;
+  --color-primario-sombra3: #080220;
+
+
+  --color-secundario: #350B52;
+
+  --color-secundario-luz1: #643683;
+  --color-secundario-luz2: #4C1E6B;
+  --color-secundario-luz3: #3E0663;
+
+  --color-secundario-sombra1: #310A4C;
+  --color-secundario-sombra2: #220338;
+  --color-secundario-sombra3: #13011F;
+
+
+  --color-terciario: #0E2551;
+
+  --color-terciario-luz1: #395281;
+  --color-terciario-luz2: #213B6A;
+  --color-terciario-luz3: #172F5C;
+
+  --color-terciario-sombra1: #072255;
+  --color-terciario-sombra2: #041637;
+  --color-terciario-sombra3: #010C1F;
+
+  --color-acento: #ECC47D;
+
+  --color-contraste: #C0C0C0;
+  --color-blanco: #FFFFFF;
+  --color-negro: #000000;
+  --color-danger: #D1242F;
+}
+
+*::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra */
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-terciario); /* Color del riel/fondo */
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-acento); /* Color del pulgar */
+  border-radius: 4px;
+}
+
+
+
+/* Body */
+body {
+  margin: 0;
+  background-color: var(--color-primario);
+  width: 100vw;
+  height: 100vh;
+  /* Grid */
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* 12 columnas iguales */
+  grid-template-rows: auto auto 1fr auto; /* header, breadcrumb, contenido, footer */
+  gap: 20px;
+  grid-template-areas:
+    "header header header header header header header header header header header header"
+    ". main main main main main main main main main main ."
+    "footer footer footer footer footer footer footer footer footer footer footer footer";
+}
+
+/* HEader */
+header {
+  grid-area: header;
+}
+
+h1 {
+  font-size: 40px;
+  font-family: 'Cobin', sans-serif;
+}
+
+h2 {
+  font-size: 35px;
+  font-family: 'Cobin', sans-serif;
+}
+
+h3 {
+  font-size: 30px;
+  font-family: 'Cobin', sans-serif;
+}
+
+h4 {
+  font-size: 25px;
+  font-family: 'Cobin', sans-serif;
+}
+
+p {
+  font-size: 20px;
+  font-family: 'Cobin', sans-serif;
+}
+
+/* Cuerpo */
+.main {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: repeat(12, 0.5fr); /* 12 columnas iguales */
+  grid-template-rows: auto auto 1fr auto; /* header, breadcrumb, contenido, footer */
+  gap: 20px;
+  grid-template-areas:
+    ". breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb ."
+    "canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game canvas-game"
+    ". titulo titulo titulo . . . btns-juego btns-juego btns-juego btns-juego btns-juego"
+    ". update update update . . . btns-juego btns-juego btns-juego btns-juego btns-juego"
+    "carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game carrucel-game"
+    ". categorias categorias categorias . . . . . . . ."
+    ". descripcion descripcion descripcion descripcion descripcion descripcion ranking ranking ranking ranking ."
+    ". como-jugar como-jugar como-jugar como-jugar como-jugar como-jugar ranking ranking ranking ranking ."
+    ". controles controles controles . . . . . . . ."
+    ". comentarios comentarios comentarios comentarios comentarios comentarios comentarios comentarios comentarios comentarios .";
+  margin-top: 70px;
+}
+
+.site-logo{
+    margin-top: 3px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+      grid-area: breadcrumb;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-family: 'Cobin', sans-serif;
+}
+
+.breadcrumb a {
+      color: var(--color-contraste);
+      text-decoration: none;
+}
+
+.breadcrumb a:hover {
+      color: var(--color-acento);
+}
+
+.breadcrumb img {
+      width: 20px;
+}
+
+/* Juego */
+.canvas-game{
+  aspect-ratio: 16/9;
+  grid-area: canvas-game;
+  border-radius: 50px;
+  background-image: url('../img/pacSolitaire.png') ;
+  background-size: cover;
+  min-width: 600px;
+  max-width: 1400px;
+  margin-left: 50px;
+  background-color:rgba(0, 0, 0, 0.5) ;
+  position: relative;
+}
+
+.canvas-game .blur {
+  aspect-ratio: 16/9;
+  position: absolute;
+  width: clamp(600px,100%, 1400px);
+  border-radius: 50px;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+}
+
+.canvas-game:fullscreen, .canvas-game:fullscreen .blur{
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0px;
+  margin-left: 0px;
+}
+
+/* Boton Jugar*/
+.btn-jugar {
+  width: 200px;
+  height: 80px;
+  background-color: var(--color-primario);
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  background-image: url('../img/btn-jugar.png');
+  background-size: 65px;
+  background-repeat: no-repeat;
+  background-position-x: 58%;
+  background-position-y: 50%;
+  transition: 0.3s ease-out;
+}
+
+.btn-jugar:hover {
+  width: 200px;
+  height: 80px;
+  background-color: var(--color-acento);
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  background-image: url('../img/btn-jugar-hover.png');
+  background-size: 65px;
+  background-repeat: no-repeat;
+  background-position-x: 58%;
+  background-position-y: 50%;
+  transition: 0.3s ease-out;
+}
+
+
+.maximizar{
+  z-index: 10;
+  position: absolute;
+  top: 1%;
+  right: 1%;
+}
+
+/* Titilo Juego */
+.titulo {
+  grid-area: titulo;
+  color: var(--color-blanco);
+  white-space: nowrap;
+}
+
+/* Ultima actualizacion del juego */
+.update {
+  grid-area: update;
+  color: var(--color-blanco);
+  white-space: nowrap;
+}
+
+/* Botonos de Juego */
+.btns-juego {
+  grid-area: btns-juego;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.compartir, .favoritos, .estrella, .maximizar {
+  background-color: var(--color-terciario-luz2);
+  border: none;
+  width: 80px;
+  max-width: 80px;
+  min-width: 80px;
+  height: 80px;
+  border-radius: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.compartir {
+  background-image: url('../img/compartir.png');
+  transition: 0.3s ease-out;
+}
+.compartir:hover, .favoritos:hover, .estrella:hover, .maximizar:hover {
+  transition: 0.3s ease-out;
+  background-position-y: 40%;
+  cursor: pointer;
+}
+
+.compartir, .favoritos, .estrella, .maximizar {
+  transition: 0.3s ease-out;
+}
+
+.compartir:hover {
+  background-image: url('../img/compartir-hover.png');
+}
+
+.favoritos {
+  background-image: url('../img/favoritos.png');
+}
+
+.favoritos:hover {
+  background-image: url('../img/favoritos-hover.png');
+}
+
+.estrella {
+  background-image: url('../img/estrella.png');
+  background-size: 50px;
+}
+
+.estrella:hover {
+  background-image: url('../img/estrella-hover.png');
+  background-size: 50px;
+}
+
+.maximizar {
+  background-image: url('../img/maximizar.png');
+}
+
+.maximizar:hover {
+  background-image: url('../img/maximizar-hover.png');
+}
+
+/* Secciones botones */
+
+/* Seccion Compartir */
+.section-compartir {
+  position: absolute;
+  top: -75%;
+  right: 35%;
+  background-color: var(--color-terciario-luz3);
+  border: var(--color-acento) 3px solid;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  z-index: 10;
+  height: 70px;
+}
+
+/* Seccion Ranking */
+.section-ranking {
+  position: absolute;
+  top: -75%;
+  right: 10%;
+  background-color: var(--color-terciario-luz3);
+  border: var(--color-acento) 3px solid;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  z-index: 10;
+  height: 70px;
+}
+
+/* Carrucel del Juego */
+.carrucel-game-section{
+  grid-area: carrucel-game;
+}
+
+.carrucel-game {
+  display: flex;
+  overflow: hidden;
+  max-width: 1400px;
+  height: 300px;
+  margin-left: 50px;
+  margin-top: 50px;
+  gap: 5px;
+}
+
+.carrucel-item,
+.carrucel-item-principal {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrucel-item {
+  width: 25%;
+  border-radius: 50px;
+  overflow: hidden;
+  background-image: url('../img/card1-juego.png');
+}
+
+.carrucel-item:nth-child(3) {
+  background-image: url('../img/card3-juego.png') ;
+}
+
+.carrucel-item-principal {
+  width: 50%;
+  border-radius: 50px;
+  overflow: hidden;
+  background-image: url('../img/card2-juego.png');
+}
+
+
+
+
+/* Categorias de este juego */
+.categorias {
+  grid-area: categorias;
+  font-size: 25px;
+  font-family: 'Cobin', sans-serif;
+  color: var(--color-blanco);
+}
+
+.categorias h3 {
+  margin: 5px 0px;
+}
+
+.tags {
+  display: flex;
+  gap: 10px;
+}
+
+.tags .rectangulo {
+  border: var(--color-terciario-luz1) 2px solid;
+  border-radius: 10px;
+  padding: 10px 20px;
+  white-space: nowrap;
+  font-size: 25px;
+  color: var(--color-terciario-luz1);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.tags .rectangulo:hover {
+  border: var(--color-acento) 2px solid;
+  color: var(--color-primario);
+  background-color: var(--color-acento);
+  transition: 0.3s ease-in-out;
+}
+
+/* DEscripcion del juego */
+.descripcion {
+  grid-area: descripcion;
+  font-family: 'Cobin', sans-serif;
+  color: var(--color-blanco);
+}
+
+.descripcion h3 {
+  margin: 5px;
+}
+
+.descripcion p {
+  font-size: 20px;
+  margin: 0px;
+}
+
+.descripcion p::selection {
+  background: var(--color-acento);
+  color: var(--color-primario);
+}
+
+/* Como Jugar? */
+.como-jugar {
+  grid-area: como-jugar;
+  font-family: 'Cobin', sans-serif;
+  color: var(--color-blanco);
+}
+
+.como-jugar h3 {
+  margin: 5px;
+}
+
+.como-jugar p {
+  font-size: 20px;
+  margin: 0px;
+}
+
+.controles {
+  grid-area: controles;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.controles-divisor {
+  grid-area: controles;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.controls {
+  background-color: var(--color-terciario);
+  border: var(--color-blanco) 3px solid;
+  width: 50px;
+  max-width: 50px;
+  min-width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../img/controls.png');
+}
+
+.controles .controles-divisor h3 {
+  color: var(--color-blanco);
+  margin: 5px;
+}
+
+.controles .image-control  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.controles .image-control img {
+  width: 67px;
+  max-width: 67px;
+  min-width: 67px;
+  height: 84px;
+}
+
+/* RANKING */
+
+.ranking {
+  grid-area: ranking;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.ranking .ranking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-blanco);
+}
+
+.ranking img {
+  width: 32px;
+}
+
+.ranking progress {
+  width: 80%;
+  height: 18px;
+}
+
+.ranking progress::-webkit-progress-bar {
+  background-color: var(--color-terciario-luz2);
+  border-radius: 5px;
+}
+
+.ranking progress::-webkit-progress-value {
+  background-color: var(--color-acento);
+  border-radius: 5px;
+}
+
+.estrellas-ranking {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.estrellas-ranking .estrella-colums {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+
+.estrellas-ranking .progress-colums {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 57%;
+  color: var(--color-acento);
+}
+
+/*  Comentarios */
+.comentarios {
+  grid-area: comentarios;
+  color: var(--color-blanco);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  border: var(--color-terciario-luz1) 2px solid;
+  border-radius: 50px;
+  padding: 15px;
+  margin-top: 150px;
+}
+
+.comentar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-comentario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100px;
+}
+
+.avatar-comentario {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-terciario-luz2);
+  border-radius: 100%;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+}
+
+
+.img-avtar-comentarios {
+  width: 60px;
+}
+
+.recuadro-comentario {
+  width: 90%;
+  max-width: 90%;
+}
+
+.recuadro-comentar {
+  font-family: 'Cobin', sans-serif;
+  font-size: 20px;
+  border: var(--color-terciario-luz2) 2px dashed;
+  border-radius: 50px;
+  width: 100%;
+  padding: 1% 4%;
+  word-break: break-word;
+  overflow: auto;
+  height: 113px;
+  resize: none;
+}
+
+.recuadro-comentar:focus {
+  border: var(--color-terciario-luz1) 2px dashed;
+}
+
+.btn-comentario {
+  display: flex;
+  justify-content: flex-end;
+  width: 95%;
+  gap: 10px;
+}
+
+.btn-cancelar, .btn-comentar, .btn-cancelar-activo, .btn-comentar-activo, .btn-leer-mas, .btn-leer-menos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-terciario-sombra1);
+  border: none;
+  border-radius: 40px;
+  width: fit-content;
+  height: 30px;
+  cursor: pointer;
+  font-family: 'Cobin', sans-serif;
+  font-size: 20px;
+  white-space: nowrap;
+  padding: 1%;
+  transition: 0.3s ease-out;
+}
+
+.btn-cancelar-activo:hover, .btn-comentar-activo:hover, .btn-leer-mas:hover, .btn-leer-menos:hover {
+  background-color: var(--color-acento);
+  color: var(--color-primario);
+  transition: 0.3s ease-out;
+}
+
+.btn-cancelar-activo, .btn-comentar-activo {
+  background-color: var(--color-terciario-luz1);
+}
+
+.btn-cancelar, .btn-comentar {
+  cursor: no-drop;
+}
+
+
+.img-foto-comentarios {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 100%; 
+}
+
+.comentario {
+  display: flex;
+  gap: 20px;
+}
+
+.texto-comentado, .texto-comentado-activo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  height: 100%;
+}
+
+.texto-comentado p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.texto-comentado-activo p {
+  white-space: normal;
+  overflow: auto;
+  text-overflow: clip;
+}
+
+.fecha-comentario {
+  color: var(--color-primario-luz2);
+  font-size: 15px;
+}
+
+.btns-comentarios {
+  display: flex;
+  gap: 30px;
+}
+
+.btns-comentarios p {
+  font-size: 15px;
+}
+
+.item-btn-comentario {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-like, .btn-dislike {
+  width: 30px;
+  cursor: pointer;
+}
+
+.btnLike, .btnDislike {
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.btnLike {
+  background-image: url('../img/icon-like.png');
+}
+
+.btnDislike {
+  background-image: url('../img/icon-dislike.png');
+}
+
+.btnLike-active {
+  background-image: url('../img/icon-like-hover.png');
+}
+.btnDislike-active {
+  background-image: url('../img/icon-dislike-hover.png');
+}
+
+
+.corazon-volador {
+  position: absolute;
+  font-size: 20px; /* Ajusta el tamaño del corazón */
+  color: var(--color-danger);
+  pointer-events: none; /* Evita que el corazón interfiera con los clics */
+  z-index: 1000; /* Asegura que el corazón esté por encima de otros elementos */
+}
+
+
+/* Footer */
+
+footer {
+  grid-area: footer;
+}
+
+
+/* Menu de perfil mobile*/
+
+.menu-perfil {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.menu-perfil-backdrop{
+  display: none;
+}
+
+.perfil-info{
+  display: none;
+}
+
+.perfil-acciones{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.accion-texto{
+  width: 60%;
+  display: flex;
+  white-space: nowrap;
+  margin-left: 10px;
+}
+
+.acciones-perfil, .acciones-notificaciones, .acciones-preferencias, .acciones-seguridad, .acciones-cerrar-sesion{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  border: var(--color-acento) 2px solid;
+  border-radius: 10px;
+}
+
+
+.icon-perfil-acciones, .icon-perfil-notificaciones, .icon-perfil-preferencias, .icon-perfil-seguridad, .icon-perfil-cerrar-sesion {
+  width: 50px;
+  height: 50px;
+  background-size: auto 25px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.icon-perfil-acciones {
+  background-image: url('../img/icon-avatar-perfil.png');
+}
+
+.icon-perfil-notificaciones {
+  background-image: url('../img/icon-notificacion.png');
+}
+
+.icon-perfil-preferencias {
+  background-image: url('../img/icon-preferencias.png');
+}
+
+.icon-perfil-seguridad {
+  background-image: url('../img/icon-seguridad.png');
+}
+
+.icon-perfil-cerrar-sesion{
+  background-image: url('../img/icon-logout.png');
+}
+
+
+
+
+/* Menu de perfil desktop */
+@media screen and (min-width: 1024px) {
+    
+  .menu-perfil {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--color-secundario-luz2);
+    z-index: 1000;
+    width: clamp(300px, 20%, 545px);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .menu-perfil-backdrop{
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #C0C0C0;
+    filter: blur(5px);
+    opacity: 0.5;
+    display: block;
+  }
+
+  .perfil-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .img-avatar-perfile {
+    width: 200px;
+    height: 200px;
+    background-color: var(--color-terciario-luz2);
+    border-radius: 100%;
+    overflow: hidden;
+    background-image: url('../img/avatar-perfil.png');
+    background-size: 140px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .nombre-usuario-perfil {
+    color: var(--color-acento);
+  }
+
+  .perfil-acciones{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: 50px;
+    width: 100%;
+  }
+
+  .accion-texto{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+    margin-left: 0px;
+  }
+
+  .acciones-perfil, .acciones-notificaciones, .acciones-preferencias, .acciones-seguridad, .acciones-cerrar-sesion{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    border: none;
+  }
+
+  .icon-perfil-acciones, .icon-perfil-notificaciones, .icon-perfil-preferencias, .icon-perfil-seguridad, .icon-perfil-cerrar-sesion {
+    width: 50px;
+    height: 50px;
+    background-size: auto 25px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .icon-perfil-acciones {
+    background-image: url('../img/icon-avatar-perfil.png');
+  }
+
+  .icon-perfil-notificaciones {
+    background-image: url('../img/icon-notificacion.png');
+  }
+
+  .icon-perfil-preferencias {
+    background-image: url('../img/icon-preferencias.png');
+  }
+
+  .icon-perfil-seguridad {
+    background-image: url('../img/icon-seguridad.png');
+  }
+
+  .icon-perfil-cerrar-sesion{
+    background-image: url('../img/icon-logout.png');
+  }
+
+}
+
+
+/* Ocultos */
+  .oculto {
+    display: none;
+  }

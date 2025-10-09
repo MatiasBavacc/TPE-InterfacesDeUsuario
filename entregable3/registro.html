@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+    <link rel="stylesheet" href="css/pagina2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet"> 
+    <script defer src="js/registro.js"></script>
+</head>
+<body>
+
+<div class="form-container">
+  <div class="form">
+    <h2 class="titulo-registro">REGISTRARSE</h2>
+
+    <form class="registro-form" action="index.html" method="post">
+      <label for="nombre-campo" class="campo-label">Nombre <span class="danger oculto">* Campo no válido.</span></label>
+      <input type="text" class="campo" id="nombre-campo" required>
+
+      <label for="apellido-campo" class="campo-label">Apellido <span class="danger oculto">* Campo no válido.</span></label>
+      <input type="text" class="campo" id="apellido-campo" required>
+
+      <label for="nombre-usuario-campo" class="campo-label">Nombre de Usuario</label>
+      <input type="text" class="campo" id="nombre-usuario-campo">
+
+      <label for="gmail-campo" class="campo-label">Gmail <span class="danger oculto">* Faltan ingresar datos.</span></label>
+      <input type="email" class="campo" id="gmail-campo" required>
+
+      <label for="contrasena-campo" class="campo-label">Contraseña <span class="danger oculto">* Campo invalido.</span></label>
+      <div class="campo-contraseña">
+        <input type="password" id="contrasena-campo" class="campo" required>
+        <img src="img/Vector.png" id="togglePassword" alt="Ver contraseña" class="imagen-contraseña">
+      </div>
+
+      <label for="repetir-contrasena-campo" class="campo-label">Repetir contraseña <span class="danger oculto">* Las contraseñas no coinciden</span></label>
+      <div class="campo-contraseña">
+        <input type="password" id="repetir-contrasena-campo" class="campo" required>
+        <img src="img/Vector.png" id="togglePassword2" alt="Ver contraseña" class="imagen-contraseña">
+      </div>
+
+      <div class="captcha">
+        <input type="checkbox" id="robot" required>
+        <label for="robot">No soy un robot</label>
+        <img  class="captcha-img" src="img/image 6.png" alt="captcha">
+      </div>
+
+      <button type="submit" class="btn-registro">REGISTRARSE</button>
+    </form>
+
+    <div class="si-cuenta">
+      <a class= "texto-login"href="index.html">Ya tienes cuenta? </a>
+    </div>
+  </div>
+
+</div>
+  <!-- <div class="aviso"><h2>Redireccionando en <span class="avisor-contador">3</span> segundos...</h2></div> -->
+  <div class="blur-background oculto">
+      <div class="check-registro">
+          <h4>Te has registrado correctamente.</h4>
+          <h4>Redireccionando en <span class="avisor-contador">3</span> segundos...</h4>
+      </div>
+  </div>
+</body>
+</html>
