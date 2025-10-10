@@ -962,6 +962,31 @@ footer {
 }
 
 
+#canvas-game {
+  border-radius: 50px;
+  background-color: rgba(230, 22, 22, 0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Ocultos */
   .oculto {
     display: none;

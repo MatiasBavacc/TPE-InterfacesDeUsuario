@@ -9,6 +9,9 @@
       <link rel="stylesheet" href="./css/home-style.css">
       <link rel="stylesheet" href="css/juego.css">
       <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
+      <script type="module" src="js/blocka.js"></script>
+      <script type="module" src="js/figura.js"></script>
+      <script type="module" src="js/Imagen.js"></script>
 </head>
 <body>
       <!-- HEADER -->
@@ -183,9 +186,10 @@
             </div>
 
             <div class="canvas-game">
-                  <div class="blur"></div>
+                  <!-- <div class="blur"></div>
                   <div class="btn-jugar"></div>
-                  <button type="button" class="maximizar"></button>
+                  <button type="button" class="maximizar"></button> -->
+                  <canvas id="canvas-game" width="1400" height="787"></canvas>
             </div>
 
             <div class="titulo"><h2>Pac Solitaire</h2></div>
