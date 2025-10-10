@@ -22,7 +22,7 @@ constructor(x, y, ancho, alto, color, sprite, contexto) {
 
       getColor(){ return this.color; }
 
-      getSprite() { return this.sprite; } // Devuelve la instancia de Imagen
+      getSprite() { return this.sprite; } 
 
       setPosX(x){ this.x = x; }
 
@@ -35,26 +35,16 @@ constructor(x, y, ancho, alto, color, sprite, contexto) {
             this.ctx.fillStyle = this.getColor();
             this.ctx.strokeStyle = this.getColor();
             this.ctx.lineWidth = 4;
-            this.ctx.strokeRect(this.getPosX(), this.getPosY(), this.getAncho(), this.getAlto());
-            this.ctx.fillRect(this.getPosX(), this.getPosY(), this.getAncho(), this.getAlto());
+            this.ctx.strokeRect(-this.ancho / 2, -this.alto / 2, this.ancho, this.alto);
+            this.ctx.fillRect(-this.ancho / 2, -this.alto / 2, this.ancho, this.alto);
             this.ctx.restore();
-      }
-
-      dibujarImagen() {
-            // Delega el dibujo al objeto Imagen
-            if (!this.sprite) return; 
-            this.sprite.dibujar(
-                  this.ctx, 
-                  this.getPosX(), 
-                  this.getPosY(), 
-                  this.getAncho(), 
-                  this.getAlto()
-            );
       }
 
       dibujarFiguraCompleta() {
             this.dibujarFigura();
-            this.dibujarImagen();
+            if (this.sprite) {
+                  this.sprite.dibujar(this.ctx, this.ancho, this.alto);
+            }
       }
       
       estaDentro(x, y) {
@@ -77,28 +67,14 @@ constructor(x, y, ancho, alto, color, sprite, contexto) {
       }
     
       // D. Modificar rotarFigura para que use this.angulo
-      rotarFigura() { // Ya no necesita el argumento angulo, usa this.angulo
+      rotarFigura() { 
             this.ctx.save();
             
             const centroX = this.x + this.ancho / 2;
             const centroY = this.y + this.alto / 2;
             this.ctx.translate(centroX, centroY);
-            // Usa this.angulo
             this.ctx.rotate(this.angulo * Math.PI / 180); // <<< USAR this.angulo
-
-            // ... el resto del código de rotarFigura es igual
-            // Dibujar la forma base (centrada en (0,0))
-            this.ctx.fillStyle = this.getColor();
-            this.ctx.fillRect(-this.ancho / 2, -this.alto / 2, this.ancho, this.alto);
-
-            // Dibujar la imagen/sprite (centrada en (0,0))
-            if (this.sprite && this.sprite.getImagen().complete) {
-                  this.ctx.drawImage(
-                  this.sprite.getImagen(),
-                  this.sprite.getEjeXinicial(), this.sprite.getEjeYinicial(), this.sprite.getAnchoRecorte(), this.sprite.getAltoRecorte(), // recorte
-                  -this.ancho / 2, -this.alto / 2, this.ancho, this.alto // destino centrado
-                  );
-            }
+            this.dibujarFiguraCompleta();
 
             this.ctx.restore();
       }

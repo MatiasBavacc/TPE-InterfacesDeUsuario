@@ -1,11 +1,15 @@
 class Imagen {
-      constructor(src, ejeXinicial, ejeYinicial, anchoRecorte, altoRecorte) {
+      constructor(src, ejeXinicial, ejeYinicial, anchoRecorte, altoRecorte, filtro) {
+            this.imageOriginal = new Image();
+            this.imageOriginal.src = src;
             this.image = new Image();
             this.image.src = src;
             this.ejeXinicial = ejeXinicial;
             this.ejeYinicial = ejeYinicial;
             this.anchoRecorte = anchoRecorte;
             this.altoRecorte = altoRecorte;
+            this.filtro = filtro;
+            this.aplicarFiltro();
       }
 
       getImagen() { return this.image; }
@@ -18,36 +22,60 @@ class Imagen {
 
       getAltoRecorte() { return this.altoRecorte; }
       
-      dibujar(ctx, posX, posY, ancho, alto) {
+
+      dibujar(ctx, ancho, alto) {
             const img = this.getImagen();
             if (!img.complete) return; 
 
             ctx.drawImage(
-                  img, 
-                  this.ejeXinicial, this.ejeYinicial, this.anchoRecorte, this.altoRecorte, // Fuente (recorte)
-                  posX, posY, ancho, alto // Destino (en el canvas)
+                  img,
+                  this.getEjeXinicial(),
+                  this.getEjeYinicial(),
+                  this.getAnchoRecorte(),
+                  this.getAltoRecorte(),
+                  -ancho / 2,  // centrado horizontal
+                  -alto / 2,   // centrado vertical
+                  ancho,
+                  alto
             );
       }
 
-      aplicarFiltro(ctx, posX = this.ejeXinicial, posY = this.ejeYinicial, ancho = this.anchoRecorte, alto = this.altoRecorte, filtro) {
+      aplicarFiltro() {
             const img = this.getImagen();
             if (!img.complete) return;
+
             const imageData = this.getImageDataFromImage(img);
-            for(let i = posX; i < posX + ancho; i++) {
-                  for(let j = posY; j < posY + alto; j++) {
-                        const pixel = this.getPixel(imageData, i, j);
-                        filtro.setR(pixel.r);
-                        filtro.setG(pixel.g);
-                        filtro.setB(pixel.b);
-                        filtro.setA(pixel.a);
-                        const r = filtro.getR(pixel.r);
-                        const g = filtro.getG(pixel.g);
-                        const b = filtro.getB(pixel.b);
-                        const a = filtro.getA(pixel.a);
-                        this.setPixel(imageData, i, j, r, g, b, a);
+
+            for (let y = 0; y < imageData.height; y++) {
+                  for (let x = 0; x < imageData.width; x++) {
+                        const pixel = this.getPixel(imageData, x, y);
+                        this.filtro.setR(pixel.r);
+                        this.filtro.setG(pixel.g);
+                        this.filtro.setB(pixel.b);
+                        this.filtro.setA(pixel.a);
+                        this.setPixel(
+                        imageData, x, y,
+                        this.filtro.getR(pixel.r),
+                        this.filtro.getG(pixel.g),
+                        this.filtro.getB(pixel.b),
+                        this.filtro.getA(pixel.a)
+                        );
                   }
-                  ctx.putImageData(imageData, this.ejeXinicial, this.ejeYinicial);
             }
+
+            // Crear canvas temporal solo para reemplazar la textura
+            const tempCanvas = document.createElement("canvas");
+            const tempCtx = tempCanvas.getContext("2d");
+            tempCanvas.width = imageData.width;
+            tempCanvas.height = imageData.height;
+            tempCtx.putImageData(imageData, 0, 0);
+
+            // Actualizar la imagen en memoria
+            this.image.src = tempCanvas.toDataURL();
+      }
+
+      sacarFiltro() {
+            this.image.src = this.imageOriginal.src;
       }
 
       setPixel(imageData, x, y, r, g, b, a) {

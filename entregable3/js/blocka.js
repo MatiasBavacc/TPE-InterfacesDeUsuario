@@ -1,10 +1,15 @@
 "use strict";
 import Figura from "./figura.js";
 import Imagen from "./Imagen.js";
-import Filtro from "./filtro.js";
-import FiltroNegativo from "./filtroNegativo.js";
-import FiltroBrillo30 from "./filtroBrillo30.js";
-import FiltroEscalaDeGrises from "./filtroEscalaDeGrises.js";
+import Filtro from './filtro.js';
+import FiltroNegativo from './filtroNegativo.js';
+import FiltroGrises from './filtroEscalaDeGrises.js';
+import FiltroBrillo30 from './filtroBrillo30.js';
+import FiltroSepia  from './filtroSepia.js';
+import FiltroContraste from './filtroContraste.js';
+import FiltroAzul from './filtroAzul.js';
+
+
 
 /** @type { HTMLCanvasElement} */
 let canvas = document.getElementById("canvas-game");
@@ -30,7 +35,6 @@ image.src = "img/peak.jpg";
 imagenes.push(image);
 
 
-// Fallback si la imagen original no carga (para que el ejemplo funcione)
 imagenes[3].onerror = () => {
       console.warn(`No se pudo cargar ${imagenes[3].src}. Usando imagen de fallback.`);
       imagenes[3].src = "https://placehold.co/1400x787/38bdf8/0369a1/png?text=Algo+Salio+Mal";
@@ -39,14 +43,15 @@ imagenes[3].onerror = () => {
 let figuras = [];
 
 imagenes[3].onload = () => {
-      figuras = cantidadFiguras(3, 2, imagenes[3]);
-      canvas.addEventListener('mousedown', handleClick);
+      figuras = cantidadFiguras(4, 2, imagenes[3]);
+      canvas.addEventListener('mousedown', eventoClick);
 
       canvas.addEventListener('contextmenu', (e) => {
             e.preventDefault();
-      }); // Evita y tambien Peron, pero mas Evita que se abra el menú contextual en clic derecho
+      }); 
 
-      gameLoop(figuras); // Usamos un loop para mostrar la rotación de un trozo.
+      gameLoop(figuras);
+      /* sacarFiltro(figuras); */
 };
 
 
@@ -56,7 +61,6 @@ function dibujarFiguras(figuras) {
             let figura = figuras[i];
             figura.rotarFigura();
       }
-      figuras[0].sprite.aplicarFiltro(ctx, 0, 0, figuras[0].getAncho(), figuras[0].getAlto(), new FiltroEscalaDeGrises());
 }
 
 function cantidadFiguras(cantW, cantH, image, posX = 400, posY = 250) {
@@ -74,7 +78,8 @@ function cantidadFiguras(cantW, cantH, image, posX = 400, posY = 250) {
                         i * anchoFijo, // Eje X inicial (recorte)
                         j * altoFijo,  // Eje Y inicial (recorte)
                         anchoFijo,     // Ancho de recorte
-                        altoFijo       // Alto de recorte
+                        altoFijo,       // Alto de recorte
+                        seleccionarFiltro(Math.round(Math.random() * 6 + 1))
                   );
 
                   // 2. Crear la FIGURA y pasarle el objeto IMAGEN
@@ -100,15 +105,13 @@ function gameLoop(figuras) {
       requestAnimationFrame(() => gameLoop(figuras));
 }
 
-function handleClick(event) {
+function eventoClick(event) {
     
       const boton = event.button; // 0 = Izquierdo, 2 = Derecho
 
       if (boton !== 0 && boton !== 2) {
             return; 
       }
-
-      // ... código para obtener mouseX y mouseY ...
 
       // Obtener la posición del clic respecto al canvas
       const rect = canvas.getBoundingClientRect();
@@ -133,33 +136,40 @@ function handleClick(event) {
                   break; 
             }
       }
+
 }
 
-// --- Funciones Utilitarias de Píxel (Mantenidas para referencia) ---
-
-function setPixel(imageData, x, y, r, g, b, a) {
-      const index = (x + y * imageData.width) * 4;
-      imageData.data[index + 0] = r;
-      imageData.data[index + 1] = g;
-      imageData.data[index + 2] = b;
-      imageData.data[index + 3] = a;
+function seleccionarFiltro(number) {
+      let filtro;
+      switch (number) {
+            case 1:
+                  filtro = new FiltroNegativo();
+                  break;
+            case 2:
+                  filtro = new FiltroGrises();
+                  break;
+            case 3:
+                  filtro = new FiltroBrillo30();
+                  break;
+            case 4:
+                  filtro = new FiltroSepia();
+                  break;
+            case 5:
+                  filtro = new FiltroContraste(1.6);
+                  break;
+            case 6:
+                  filtro = new FiltroAzul();
+                  break;
+            default:
+                  filtro = new Filtro(); // Filtro neutro (no cambia nada)
+      }
+      return filtro;
 }
 
-function getPixel(imageData, x, y) {
-      const index = (x + y * imageData.width) * 4;
-      const r = imageData.data[index + 0];
-      const g = imageData.data[index + 1];
-      const b = imageData.data[index + 2];
-      const a = imageData.data[index + 3];
-      return { r, g, b, a };
-}
 
 
-function getImageDataFromImage(img) {
-      const tempCanvas = document.createElement("canvas");
-      const tempCtx = tempCanvas.getContext("2d");
-      tempCanvas.width = img.width;
-      tempCanvas.height = img.height;
-      tempCtx.drawImage(img, 0, 0);
-      return tempCtx.getImageData(0, 0, img.width, img.height);
+function sacarFiltro(figuras) {
+      for (let figura of figuras) {
+            figura.getSprite().sacarFiltro();
+      }
 }
