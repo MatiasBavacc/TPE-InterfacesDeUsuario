@@ -1,6 +1,10 @@
 "use strict";
 import Figura from "./figura.js";
 import Imagen from "./Imagen.js";
+import Filtro from "./filtro.js";
+import FiltroNegativo from "./filtroNegativo.js";
+import FiltroBrillo30 from "./filtroBrillo30.js";
+import FiltroEscalaDeGrises from "./filtroEscalaDeGrises.js";
 
 /** @type { HTMLCanvasElement} */
 let canvas = document.getElementById("canvas-game");
@@ -25,6 +29,7 @@ imagenes.push(image);
 image.src = "img/peak.jpg";
 imagenes.push(image);
 
+
 // Fallback si la imagen original no carga (para que el ejemplo funcione)
 imagenes[3].onerror = () => {
       console.warn(`No se pudo cargar ${imagenes[3].src}. Usando imagen de fallback.`);
@@ -46,11 +51,12 @@ imagenes[3].onload = () => {
 
 
 function dibujarFiguras(figuras) {
-    ctx.clearRect(0, 0, gameWidth, gameHeight); // Limpia el canvas
-    for (let i = 0; i < figuras.length; i++) {
-        let figura = figuras[i];
-        figura.rotarFigura(); // <<< USAR rotarFigura para todas
-    }
+      ctx.clearRect(0, 0, gameWidth, gameHeight); // Limpia el canvas
+      for (let i = 0; i < figuras.length; i++) {
+            let figura = figuras[i];
+            figura.rotarFigura();
+      }
+      figuras[0].sprite.aplicarFiltro(ctx, 0, 0, figuras[0].getAncho(), figuras[0].getAlto(), new FiltroEscalaDeGrises());
 }
 
 function cantidadFiguras(cantW, cantH, image, posX = 400, posY = 250) {
