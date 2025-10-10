@@ -174,17 +174,22 @@ function seleccionarFiltro(number) {
 }
 
 function rotarFiguras(figuras, grados = 0) {
-      let random = Math.random();
-      if(grados === 0){
-            if(random < 0.3){
-                  grados = -90;
-            }else if(random >= 0.3 && random < 0.5){
-                  grados = 90;
-            }else{
-                  grados = 180;
-            }
-      }
+      let random = 0;
+      let nuevoGrado = grados;
       for (let figura of figuras) {
+            if(nuevoGrado === 0){
+                  grados = 0;
+                  random = Math.round(Math.random() * 10 + 1);
+            }
+            if(grados === 0){
+                  if(random < 4){
+                        grados = -90;
+                  }else if(random >= 4 && random < 7){
+                        grados = 90;
+                  }else{
+                        grados = 180;
+                  }
+            }
             figura.rotar(grados);
       }
 }
