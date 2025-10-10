@@ -33,8 +33,8 @@ class Imagen {
                   this.getEjeYinicial(),
                   this.getAnchoRecorte(),
                   this.getAltoRecorte(),
-                  -ancho / 2,  // centrado horizontal
-                  -alto / 2,   // centrado vertical
+                  -ancho / 2,
+                  -alto / 2,
                   ancho,
                   alto
             );
@@ -63,14 +63,12 @@ class Imagen {
                   }
             }
 
-            // Crear canvas temporal solo para reemplazar la textura
             const tempCanvas = document.createElement("canvas");
             const tempCtx = tempCanvas.getContext("2d");
             tempCanvas.width = imageData.width;
             tempCanvas.height = imageData.height;
             tempCtx.putImageData(imageData, 0, 0);
 
-            // Actualizar la imagen en memoria
             this.image.src = tempCanvas.toDataURL();
       }
 

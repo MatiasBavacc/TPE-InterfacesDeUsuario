@@ -10,6 +10,10 @@ constructor(x, y, ancho, alto, color, sprite, contexto) {
             this.sprite = sprite; 
             this.ctx = contexto;
             this.angulo = 0;
+
+            this.xCorrecto = x;
+            this.yCorrecto = y;
+            this.anguloCorrecto = 0;
       }
 
       getPosX(){ return this.x; }
@@ -48,35 +52,36 @@ constructor(x, y, ancho, alto, color, sprite, contexto) {
       }
       
       estaDentro(x, y) {
-            // Simple verificación de rectángulo (funciona bien si la figura no está rotada)
             return (x >= this.x && x <= this.x + this.ancho &&
-                  y >= this.y && y <= this.y + this.alto);
+                    y >= this.y && y <= this.y + this.alto);
       }
     
       rotar(grados) {
-            // 1. Suma/resta los grados al ángulo actual
             this.angulo = this.angulo + grados; 
 
-            // 2. Aplica el módulo 360 para mantenerlo dentro del rango [0, 359]
             this.angulo = this.angulo % 360;
 
-            // 3. Normaliza a positivo (maneja ángulos negativos resultantes del módulo, e.g., -90 a 270)
             if (this.angulo < 0) {
                   this.angulo += 360;
             }
       }
     
-      // D. Modificar rotarFigura para que use this.angulo
+
       rotarFigura() { 
             this.ctx.save();
             
             const centroX = this.x + this.ancho / 2;
             const centroY = this.y + this.alto / 2;
             this.ctx.translate(centroX, centroY);
-            this.ctx.rotate(this.angulo * Math.PI / 180); // <<< USAR this.angulo
+            this.ctx.rotate(this.angulo * Math.PI / 180);
             this.dibujarFiguraCompleta();
 
             this.ctx.restore();
+      }
+
+      posicionCorrecta() {
+            const enAngulo = this.angulo % 360 === this.anguloCorrecto % 360;
+            return enAngulo;
       }
 
 }

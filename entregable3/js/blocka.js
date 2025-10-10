@@ -1,13 +1,13 @@
 "use strict";
 import Figura from "./figura.js";
 import Imagen from "./Imagen.js";
-import Filtro from './filtro.js';
-import FiltroNegativo from './filtroNegativo.js';
-import FiltroGrises from './filtroEscalaDeGrises.js';
-import FiltroBrillo30 from './filtroBrillo30.js';
-import FiltroSepia  from './filtroSepia.js';
-import FiltroContraste from './filtroContraste.js';
-import FiltroAzul from './filtroAzul.js';
+import Filtro from './filtros/filtro.js';
+import FiltroNegativo from './filtros/filtroNegativo.js';
+import FiltroGrises from './filtros/filtroEscalaDeGrises.js';
+import FiltroBrillo30 from './filtros/filtroBrillo30.js';
+import FiltroSepia  from './filtros/filtroSepia.js';
+import FiltroContraste from './filtros/filtroContraste.js';
+import FiltroAzul from './filtros/filtroAzul.js';
 
 
 
@@ -19,20 +19,25 @@ let ctx = canvas.getContext("2d");
 let gameWidth = canvas.width;
 let gameHeight = canvas.height;
 
+
 let imagenes = [];
 
 let image = new Image();
+let image2 = new Image();
+let image3 = new Image();
+let image4 = new Image();
+
 image.src = "img/baldur1.png";
 imagenes.push(image);
 
-image.src = "img/baldur2.png";
-imagenes.push(image);
+image2.src = "img/baldur2.png";
+imagenes.push(image2);
 
-image.src = "img/basquet.png";
-imagenes.push(image);
+image3.src = "img/basquet.png";
+imagenes.push(image3);
 
-image.src = "img/peak.jpg";
-imagenes.push(image);
+image4.src = "img/peak.jpg";
+imagenes.push(image4);
 
 
 imagenes[3].onerror = () => {
@@ -48,46 +53,41 @@ imagenes[3].onload = () => {
 
       canvas.addEventListener('contextmenu', (e) => {
             e.preventDefault();
-      }); 
-
+      });
+      rotarFiguras(figuras);
       gameLoop(figuras);
-      /* sacarFiltro(figuras); */
 };
 
 
 function dibujarFiguras(figuras) {
-      ctx.clearRect(0, 0, gameWidth, gameHeight); // Limpia el canvas
+      ctx.clearRect(0, 0, gameWidth, gameHeight);
       for (let i = 0; i < figuras.length; i++) {
             let figura = figuras[i];
             figura.rotarFigura();
       }
 }
 
-function cantidadFiguras(cantW, cantH, image, posX = 400, posY = 250) {
+function cantidadFiguras(cantW, cantH, image, espacio = 30, posX = 450, posY = 250) {
       let figuras = [];
-      let anchoFijo = image.width / cantW; // ancho de cada trozo
-      let altoFijo = image.height / cantH; // alto de cada trozo
-      const espacio = 30; // Espaciado entre trozos
+      let anchoFijo = image.width / cantW;
+      let altoFijo = image.height / cantH;
 
       for (let i = 0; i < cantW; i++) {
             for (let j = 0; j < cantH; j++) {
-                  
-                  // 1. Crear el objeto IMAGEN (el sprite/trozo)
                   const sprite = new Imagen(
                         image.src, 
-                        i * anchoFijo, // Eje X inicial (recorte)
-                        j * altoFijo,  // Eje Y inicial (recorte)
-                        anchoFijo,     // Ancho de recorte
-                        altoFijo,       // Alto de recorte
-                        seleccionarFiltro(Math.round(Math.random() * 6 + 1))
+                        i * anchoFijo,
+                        j * altoFijo,
+                        anchoFijo,
+                        altoFijo,
+                        seleccionarFiltro(Math.round(Math.random() * 3 + 1))
                   );
 
-                  // 2. Crear la FIGURA y pasarle el objeto IMAGEN
                   let figura = new Figura(
-                        posX + i * (anchoFijo + espacio), // posición en canvas (x) con espaciado
-                        posY + j * (altoFijo + espacio), // posición en canvas (y) con espaciado
-                        anchoFijo,// ancho
-                        altoFijo, // alto
+                        posX + i * (anchoFijo + espacio),
+                        posY + j * (altoFijo + espacio),
+                        anchoFijo,
+                        altoFijo,
                         "rgba(236, 195, 125, 1)",
                         sprite,
                         ctx
@@ -107,36 +107,43 @@ function gameLoop(figuras) {
 
 function eventoClick(event) {
     
-      const boton = event.button; // 0 = Izquierdo, 2 = Derecho
+      const boton = event.button;
 
       if (boton !== 0 && boton !== 2) {
             return; 
       }
 
-      // Obtener la posición del clic respecto al canvas
       const rect = canvas.getBoundingClientRect();
       const mouseX = event.clientX - rect.left;
       const mouseY = event.clientY - rect.top;
-
-
-      // Recorrer las figuras
       for (let i = figuras.length - 1; i >= 0; i--) { 
             const figura = figuras[i];
-
             if (figura.estaDentro(mouseX, mouseY)) {
             
-                  // Llama a la única función 'rotar' con el parámetro adecuado
                   if (boton === 0) {
-                        figura.rotar(-90); // Clic Izquierdo: -90 grados
+                        figura.rotar(-90);
                   } else if (boton === 2) {
-                        figura.rotar(90); // Clic Derecho: +90 grados (rotación inversa)
+                        figura.rotar(90);
                   }
                   
                   dibujarFiguras(figuras); 
+                  for(let figura of figuras){
+                        if(!figura.posicionCorrecta()){
+                              return;
+                        }
+                  }
+                  /* alert("Ganaste!"); */
+
+                  formarImagenCompleta(figuras)
                   break; 
             }
       }
+}
 
+function formarImagenCompleta(figuras) {
+      figuras = cantidadFiguras(4, 2, imagenes[3],0);
+      sacarFiltro(figuras);
+      gameLoop(figuras);
 }
 
 function seleccionarFiltro(number) {
@@ -151,7 +158,7 @@ function seleccionarFiltro(number) {
             case 3:
                   filtro = new FiltroBrillo30();
                   break;
-            case 4:
+            /* case 4:
                   filtro = new FiltroSepia();
                   break;
             case 5:
@@ -159,11 +166,27 @@ function seleccionarFiltro(number) {
                   break;
             case 6:
                   filtro = new FiltroAzul();
-                  break;
+                  break; */
             default:
-                  filtro = new Filtro(); // Filtro neutro (no cambia nada)
+                  filtro = new Filtro();
       }
       return filtro;
+}
+
+function rotarFiguras(figuras, grados = 0) {
+      let random = Math.random();
+      if(grados === 0){
+            if(random < 0.3){
+                  grados = -90;
+            }else if(random >= 0.3 && random < 0.5){
+                  grados = 90;
+            }else{
+                  grados = 180;
+            }
+      }
+      for (let figura of figuras) {
+            figura.rotar(grados);
+      }
 }
 
 
