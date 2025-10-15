@@ -8,6 +8,7 @@ import FiltroBrillo30 from './filtros/filtroBrillo30.js';
 import FiltroSepia  from './filtros/filtroSepia.js';
 import FiltroContraste from './filtros/filtroContraste.js';
 import FiltroAzul from './filtros/filtroAzul.js';
+import Contador from "./contador.js";
 
 
 
@@ -20,35 +21,15 @@ let gameWidth = canvas.width;
 let gameHeight = canvas.height;
 
 
-let imagenes = [];
-
-let image = new Image();
-let image2 = new Image();
-let image3 = new Image();
-let image4 = new Image();
-
-image.src = "img/baldur1.png";
-imagenes.push(image);
-
-image2.src = "img/baldur2.png";
-imagenes.push(image2);
-
-image3.src = "img/basquet.png";
-imagenes.push(image3);
-
-image4.src = "img/peak.jpg";
-imagenes.push(image4);
-
-
-imagenes[3].onerror = () => {
-      console.warn(`No se pudo cargar ${imagenes[3].src}. Usando imagen de fallback.`);
-      imagenes[3].src = "https://placehold.co/1400x787/38bdf8/0369a1/png?text=Algo+Salio+Mal";
-};
-
+const imagenes = [];
+let indiceImagen;
 let figuras = [];
 
-imagenes[3].onload = () => {
-      figuras = cantidadFiguras(4, 2, imagenes[3]);
+
+function iniciarNivel(index) {
+      indiceImagen = index;
+
+      figuras = cantidadFiguras(4, 2, imagenes[index]);
       canvas.addEventListener('mousedown', eventoClick);
 
       canvas.addEventListener('contextmenu', (e) => {
@@ -56,7 +37,7 @@ imagenes[3].onload = () => {
       });
       rotarFiguras(figuras);
       gameLoop(figuras);
-};
+}
 
 
 function dibujarFiguras(figuras) {
@@ -67,7 +48,7 @@ function dibujarFiguras(figuras) {
       }
 }
 
-function cantidadFiguras(cantW, cantH, image, espacio = 30, posX = 450, posY = 250) {
+function cantidadFiguras(cantW, cantH, image, espacio = 30, color = "rgba(236, 195, 125, 1)", posX = 450, posY = 250) {
       let figuras = [];
       let anchoFijo = image.width / cantW;
       let altoFijo = image.height / cantH;
@@ -88,7 +69,7 @@ function cantidadFiguras(cantW, cantH, image, espacio = 30, posX = 450, posY = 2
                         posY + j * (altoFijo + espacio),
                         anchoFijo,
                         altoFijo,
-                        "rgba(236, 195, 125, 1)",
+                        color,
                         sprite,
                         ctx
                   );
@@ -106,7 +87,6 @@ function gameLoop(figuras) {
 }
 
 function eventoClick(event) {
-    
       const boton = event.button;
 
       if (boton !== 0 && boton !== 2) {
@@ -114,8 +94,11 @@ function eventoClick(event) {
       }
 
       const rect = canvas.getBoundingClientRect();
-      const mouseX = event.clientX - rect.left;
-      const mouseY = event.clientY - rect.top;
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+
+      const mouseX = (event.clientX - rect.left) * scaleX;
+      const mouseY = (event.clientY - rect.top) * scaleY;
       for (let i = figuras.length - 1; i >= 0; i--) { 
             const figura = figuras[i];
             if (figura.estaDentro(mouseX, mouseY)) {
@@ -141,7 +124,7 @@ function eventoClick(event) {
 }
 
 function formarImagenCompleta(figuras) {
-      figuras = cantidadFiguras(4, 2, imagenes[3],0);
+      figuras = cantidadFiguras(4, 2, imagenes[indiceImagen],-1, "rgba(255, 255, 255, 0)");
       sacarFiltro(figuras);
       gameLoop(figuras);
 }
@@ -201,3 +184,81 @@ function sacarFiltro(figuras) {
             figura.getSprite().sacarFiltro();
       }
 }
+
+
+export function crearImagenes(areaJuego) {
+      const contenedorCarrusel = document.createElement("div");
+      contenedorCarrusel.classList.add("contenedor-carrusel");
+
+      const contenedorImagenes = document.createElement("div");
+      contenedorImagenes.classList.add("contenedor-imagenes");
+      
+
+      let image = new Image();
+      let image2 = new Image();
+      let image3 = new Image();
+      let image4 = new Image();
+      let image5 = new Image();
+      let image6 = new Image();
+      
+      image.src = "img/baldur1.png";
+      imagenes.push(image);
+      image2.src = "img/baldur2.png";
+      imagenes.push(image2);
+      image3.src = "img/basquet.png";
+      imagenes.push(image3);
+      image4.src = "img/peak.jpg";
+      imagenes.push(image4);
+      image5.src = "img/mgs-blocka.png";
+      imagenes.push(image5);
+      image6.src = "img/fnv-blocka3.png";
+      imagenes.push(image6);
+
+      for (let img of imagenes) {
+            let imgNew = document.createElement("img");
+            imgNew.src = img.src;
+            imgNew.classList.add("seleccionable");
+            contenedorImagenes.appendChild(imgNew);
+      }
+
+      contenedorCarrusel.appendChild(contenedorImagenes);
+      areaJuego.appendChild(contenedorCarrusel);
+      rotarCarrusel();
+}
+
+function rotarCarrusel() {
+      const contenedor = document.querySelector('.contenedor-imagenes');
+      const imagenes = document.querySelectorAll('.seleccionable');
+      let index = 0;
+
+      function centrarImagen() {
+            const anchoContenedor = document.querySelector('.contenedor-carrusel').offsetWidth;
+            const anchoImagen = imagenes[0].offsetWidth;
+            const espacio = 10;
+            const desplazamiento = (anchoImagen + espacio) * index - (anchoContenedor / 2 - anchoImagen / 2);
+
+            contenedor.style.transform = `translateX(${-desplazamiento}px)`;
+
+            imagenes.forEach(img => img.classList.remove('activa'));
+            imagenes[index].classList.add('activa');
+      }
+
+      function siguienteImagen() {
+            index++;
+            if (index >= imagenes.length) index = 0;
+                  centrarImagen();
+      }
+
+      const randomIndex = Math.round(Math.random() * imagenes.length);
+      centrarImagen();
+      for (let i = 0; i < randomIndex; i++) {
+            setTimeout(siguienteImagen, i * 1000);
+      }
+      setTimeout(() => {
+            iniciarNivel(randomIndex % imagenes.length);
+            contenedor.remove();
+      }, randomIndex * 1000);
+}
+export default crearImagenes;
+
+

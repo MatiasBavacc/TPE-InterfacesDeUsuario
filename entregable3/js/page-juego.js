@@ -1,3 +1,4 @@
+import { crearImagenes } from "./juego/blocka.js";
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () =>  {
@@ -23,6 +24,22 @@ document.addEventListener("DOMContentLoaded", () =>  {
       /* Boton Maximizar */
       const maximizar = document.querySelector(".maximizar");
       const juego = document.querySelector(".canvas-game");
+
+      const canvas = document.getElementById("canvas-game");
+      const blur = document.querySelector(".blur");
+      const btnJugar = document.querySelector(".btn-jugar");
+      const imgJuego = document.querySelector(".img-juego");
+
+      // Evento Click en Jugar
+      btnJugar.addEventListener("click", () => {
+            btnJugar.classList.add("oculto");
+            imgJuego.classList.add("oculto");
+            blur.classList.add("oculto");
+            juego.classList.add("sinFondo");
+            juego.classList.remove("canvas-game");
+            crearImagenes(juego);
+            canvas.classList.remove("oculto");
+      });
       
       /* Enviar o Cancelar Formulario de Comentarios */
       formComentario.addEventListener("submit", postComentario);

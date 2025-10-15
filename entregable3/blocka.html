@@ -10,6 +10,7 @@
       <link rel="stylesheet" href="css/juego.css">
       <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
       <script type="module" src="js/juego/blocka.js"></script>
+      <script type="module" src="js/page-juego.js"></script>
 </head>
 <body>
       <!-- HEADER -->
@@ -180,18 +181,20 @@
                   <img src="img/flechita.png" alt="Flecha de breadcrumb">
                   <a href="#">Solitario</a>
                   <img src="img/flechita.png" alt="Flecha de breadcrumb">
-                  <a href="#">Pac Solitaire</a>
+                  <a href="#">Blocka</a>
             </div>
 
             <div class="canvas-game">
-                  <!-- <div class="blur"></div>
+                  <div class="blur"></div>
                   <div class="btn-jugar"></div>
-                  <button type="button" class="maximizar"></button> -->
-                  <canvas class="a" id="canvas-game" width="1400" height="787"></canvas>
+                  <button type="button" class="maximizar"></button>
+                  <canvas class="elementoCanvas oculto" id="canvas-game" width="1400" height="787"></canvas>
+                  <img src="img/blocka.png" alt="Imagen del juego" class="img-juego">
+                  <div class="contador"></div>
             </div>
 
-            <div class="titulo"><h2>Pac Solitaire</h2></div>
-            <div class="update"><h3>Actualizado 04/06/2025</h3></div>
+            <div class="titulo"><h2>Blocka</h2></div>
+            <div class="update"><h3>Actualizado 12/06/2025</h3></div>
             <div class="btns-juego">
                   <button type="button" class="compartir" id="btnCompartir"></button>
                   <button type="button" class="favoritos" id="btnFavoritos"></button>
@@ -591,7 +594,6 @@
         </div>
     </footer>
 
-      <script src="js/page-juego.js"></script>
       <script src="js/home.js"></script>
 </body>
 </html>
