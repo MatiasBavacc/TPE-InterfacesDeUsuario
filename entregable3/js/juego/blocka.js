@@ -8,7 +8,7 @@ import FiltroBrillo30 from './filtros/filtroBrillo30.js';
 import FiltroSepia  from './filtros/filtroSepia.js';
 import FiltroContraste from './filtros/filtroContraste.js';
 import FiltroAzul from './filtros/filtroAzul.js';
-import Contador from "./contador.js";
+/* import Contador from "./contador.js"; */
 
 
 
