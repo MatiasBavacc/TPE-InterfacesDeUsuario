@@ -8,7 +8,8 @@ import FiltroBrillo30 from './filtros/filtroBrillo30.js';
 import FiltroSepia  from './filtros/filtroSepia.js';
 import FiltroContraste from './filtros/filtroContraste.js';
 import FiltroAzul from './filtros/filtroAzul.js';
-/* import Contador from "./contador.js"; */
+import Cronometro from "./cronometro/cronometro.js";
+import CuentaRegresiva from "./cronometro/cuentaRegresiva.js";
 
 
 
@@ -22,20 +23,26 @@ let gameHeight = canvas.height;
 
 
 const imagenes = [];
+const imagenesDistintas = [];
 let indiceImagen;
 let figuras = [];
+let cronometro = new Cronometro();
+const URL_API = "https://68f1750cb36f9750dee95a6b.mockapi.io/api/blockapi/Timers";
 
 
-function iniciarNivel(index) {
+function iniciarNivel(index, partes = 2, filtro) {
       indiceImagen = index;
+      
+      figuras = cantidadFiguras(partes, 2, imagenes[index], filtro);
 
-      figuras = cantidadFiguras(4, 2, imagenes[index]);
       canvas.addEventListener('mousedown', eventoClick);
 
       canvas.addEventListener('contextmenu', (e) => {
             e.preventDefault();
       });
+
       rotarFiguras(figuras);
+      cronometro.reiniciar();
       gameLoop(figuras);
 }
 
@@ -48,7 +55,7 @@ function dibujarFiguras(figuras) {
       }
 }
 
-function cantidadFiguras(cantW, cantH, image, espacio = 30, color = "rgba(236, 195, 125, 1)", posX = 450, posY = 250) {
+function cantidadFiguras(cantW, cantH, image, filtro, espacio = 30, color = "rgba(236, 195, 125, 1)", posX = 400, posY = 250) {
       let figuras = [];
       let anchoFijo = image.width / cantW;
       let altoFijo = image.height / cantH;
@@ -61,7 +68,7 @@ function cantidadFiguras(cantW, cantH, image, espacio = 30, color = "rgba(236, 1
                         j * altoFijo,
                         anchoFijo,
                         altoFijo,
-                        seleccionarFiltro(Math.round(Math.random() * 3 + 1))
+                        seleccionarFiltro(filtro)
                   );
 
                   let figura = new Figura(
@@ -83,6 +90,7 @@ function cantidadFiguras(cantW, cantH, image, espacio = 30, color = "rgba(236, 1
 
 function gameLoop(figuras) {
       dibujarFiguras(figuras);
+      cronometro.mostrarTiempo();
       requestAnimationFrame(() => gameLoop(figuras));
 }
 
@@ -115,21 +123,28 @@ function eventoClick(event) {
                               return;
                         }
                   }
-                  /* alert("Ganaste!"); */
+                  /* alert("Ganaste!");   
+                                                                        ACA VA CUANDO GANAS ELIMINAR EL ALERT
+                  */
 
-                  formarImagenCompleta(figuras)
+                  formarImagenCompleta(figuras);
+                  cronometro.pausar();
                   break; 
             }
       }
 }
 
 function formarImagenCompleta(figuras) {
-      figuras = cantidadFiguras(4, 2, imagenes[indiceImagen],-1, "rgba(255, 255, 255, 0)");
+      figuras = cantidadFiguras(4, 2, imagenes[indiceImagen],10,-1, "rgba(255, 255, 255, 0)");
       sacarFiltro(figuras);
       gameLoop(figuras);
 }
 
 function seleccionarFiltro(number) {
+      if(number === 0){
+            number = Math.round(Math.random() * 3) + 1;
+      }
+
       let filtro;
       switch (number) {
             case 1:
@@ -152,7 +167,9 @@ function seleccionarFiltro(number) {
                   break; */
             default:
                   filtro = new Filtro();
+                  break;
       }
+
       return filtro;
 }
 
@@ -178,10 +195,11 @@ function rotarFiguras(figuras, grados = 0) {
 }
 
 
-
 function sacarFiltro(figuras) {
       for (let figura of figuras) {
-            figura.getSprite().sacarFiltro();
+            figura.getSprite().cargarYAplicar().then(() => {
+                  figura.getSprite().sacarFiltro();
+            });
       }
 }
 
@@ -192,7 +210,25 @@ export function crearImagenes(areaJuego) {
 
       const contenedorImagenes = document.createElement("div");
       contenedorImagenes.classList.add("contenedor-imagenes");
-      
+      let imageRota = new Image();
+      let imageRota2 = new Image();
+      let imageRota3 = new Image();
+      let imageRota4 = new Image();
+      let imageRota5 = new Image();
+      let imageRota6 = new Image();
+
+      imageRota.src = "resourses/images/metalAuto6.png";
+      imagenesDistintas.push(imageRota);
+      imageRota2.src = "resourses/images/el-hombre-que-araña.png";
+      imagenesDistintas.push(imageRota2);
+      imageRota3.src = "resourses/images/llamado-a-don-ramon.png";
+      imagenesDistintas.push(imageRota3);
+      imageRota4.src = "img/peak.jpg";
+      imagenesDistintas.push(imageRota4);
+      imageRota5.src = "img/mgs-blocka.png";
+      imagenesDistintas.push(imageRota5);
+      imageRota6.src = "img/fnv-blocka3.png";
+      imagenesDistintas.push(imageRota6);
 
       let image = new Image();
       let image2 = new Image();
@@ -201,11 +237,11 @@ export function crearImagenes(areaJuego) {
       let image5 = new Image();
       let image6 = new Image();
       
-      image.src = "img/baldur1.png";
+      image.src = "resourses/images/gta-6.jpg";
       imagenes.push(image);
-      image2.src = "img/baldur2.png";
+      image2.src = "resourses/images/el-hombre-araña.jpg";
       imagenes.push(image2);
-      image3.src = "img/basquet.png";
+      image3.src = "resourses/images/call-of-duty.png";
       imagenes.push(image3);
       image4.src = "img/peak.jpg";
       imagenes.push(image4);
@@ -254,11 +290,52 @@ function rotarCarrusel() {
       for (let i = 0; i < randomIndex; i++) {
             setTimeout(siguienteImagen, i * 1000);
       }
+
       setTimeout(() => {
-            iniciarNivel(randomIndex % imagenes.length);
+            seleccionarDificultad("dificil", randomIndex % imagenes.length); /* ACA HAY QUE REMPALAZAR ESTE LLAMADO POR EL QUE LLAMA A SELECCIONAR LA DIFICULTAD */
             contenedor.remove();
       }, randomIndex * 1000);
 }
+
+function seleccionarDificultad(dificultad, imagen){
+      switch (dificultad) {
+            case 'facil':
+                  cronometro = new Cronometro();
+                  iniciarNivel(imagen, 2, 3);
+                  break;
+            case 'medio':
+                  cronometro = new CuentaRegresiva(60);
+                  iniciarNivel(imagen, 3, 2);
+                  break;
+            case 'dificil':
+                  cronometro = new CuentaRegresiva(30);
+                  iniciarNivel(imagen, 4, 1);
+                  break;
+            case 'enemigos':
+                  cronometro = new CuentaRegresiva(30);
+                  iniciarNivel(imagen, 4, 0);
+                  break;
+            default:
+                  cronometro = new Cronometro();
+                  iniciarNivel(imagen, 3, 2);
+                  break;
+      }
+}
+
+
+/* ACA VA LA FUNCION DE MOSTRAR EL MENU INICIAL Y SELECCIONAR LA DIFICULTAD */
+
+
+
+
+
+
+
+
+
+
+
+
 export default crearImagenes;
 
 

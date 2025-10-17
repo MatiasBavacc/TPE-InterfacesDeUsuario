@@ -9,7 +9,7 @@ class Imagen {
             this.anchoRecorte = anchoRecorte;
             this.altoRecorte = altoRecorte;
             this.filtro = filtro;
-            this.aplicarFiltro();
+            this.cargarYAplicar();
       }
 
       getImagen() { return this.image; }
@@ -40,10 +40,20 @@ class Imagen {
             );
       }
 
+      async cargarYAplicar() {
+            await this.cargarImagen();
+            this.aplicarFiltro();
+      }
+
+      cargarImagen() {
+            return new Promise((resolve) => {
+                  this.image.onload = () => resolve();
+            });
+      }
+
       aplicarFiltro() {
             const img = this.getImagen();
             if (!img.complete) return;
-
             const imageData = this.getImageDataFromImage(img);
 
             for (let y = 0; y < imageData.height; y++) {
