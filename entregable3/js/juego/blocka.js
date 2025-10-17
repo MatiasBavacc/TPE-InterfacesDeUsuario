@@ -33,7 +33,7 @@ const URL_API = "https://68f1750cb36f9750dee95a6b.mockapi.io/api/blockapi/Timers
 function iniciarNivel(index, partes = 2, filtro) {
       indiceImagen = index;
       
-      figuras = cantidadFiguras(partes, 2, imagenes[index], filtro);
+      figuras = cantidadFiguras(partes, 2, imagenesDistintas[index], filtro);
 
       canvas.addEventListener('mousedown', eventoClick);
 
@@ -91,6 +91,11 @@ function cantidadFiguras(cantW, cantH, image, filtro, espacio = 30, color = "rgb
 function gameLoop(figuras) {
       dibujarFiguras(figuras);
       cronometro.mostrarTiempo();
+      if (cronometro.finalizo()) {
+            //                                                                       ACA VA EL MENU DE PERDISTE
+            formarImagenCompleta(figuras);
+            return;
+      }
       requestAnimationFrame(() => gameLoop(figuras));
 }
 
@@ -135,9 +140,10 @@ function eventoClick(event) {
 }
 
 function formarImagenCompleta(figuras) {
-      figuras = cantidadFiguras(4, 2, imagenes[indiceImagen],10,-1, "rgba(255, 255, 255, 0)");
+      figuras = cantidadFiguras(4, 2, imagenesDistintas[indiceImagen],10,-1, "rgba(255, 255, 255, 0)");
       sacarFiltro(figuras);
       gameLoop(figuras);
+      //                                                                      ACA VA EL MENU DE GANASTE O PERDISTE
 }
 
 function seleccionarFiltro(number) {
