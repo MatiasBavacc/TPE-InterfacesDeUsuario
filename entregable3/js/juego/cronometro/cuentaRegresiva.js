@@ -36,6 +36,8 @@ export class CuentaRegresiva extends Cronometro {
             this.tiempo = this.duracion;
       }
 
+      getTiempoFinal() { return this.duracion - this.tiempo; }
+
       agregarTiempo(segundos) { this.tiempo -= segundos; }
 
       finalizo() { return this.tiempo <= 0; }

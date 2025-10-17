@@ -27,10 +27,17 @@ const imagenesDistintas = [];
 let indiceImagen;
 let figuras = [];
 let cronometro = new Cronometro();
+let dificultad = null;
+let nivel = null;
+
+let sonidoFondo = null;
+let sonidoRisa = null;
+
 const URL_API = "https://68f1750cb36f9750dee95a6b.mockapi.io/api/blockapi/Timers";
 
 
 function iniciarNivel(index, partes = 2, filtro) {
+
       indiceImagen = index;
       
       figuras = cantidadFiguras(partes, 2, imagenesDistintas[index], filtro);
@@ -43,6 +50,7 @@ function iniciarNivel(index, partes = 2, filtro) {
 
       rotarFiguras(figuras);
       cronometro.reiniciar();
+      sonidoFondo = reproducirSonido("resourses/sounds/soundtrack.mp3", true, 0.05);
       gameLoop(figuras);
 }
 
@@ -134,6 +142,7 @@ function eventoClick(event) {
 
                   formarImagenCompleta(figuras);
                   cronometro.pausar();
+                  enviarResultado();
                   break; 
             }
       }
@@ -143,12 +152,15 @@ function formarImagenCompleta(figuras) {
       figuras = cantidadFiguras(4, 2, imagenesDistintas[indiceImagen],10,-1, "rgba(255, 255, 255, 0)");
       sacarFiltro(figuras);
       gameLoop(figuras);
+      sonidoFondo.pause();
+      sonidoFondo = reproducirSonido("resourses/sounds/lobby.mp3", true, 0.1);
+      sonidoRisa = reproducirSonido("resourses/sounds/risa.mp3", false, 0.7);
       //                                                                      ACA VA EL MENU DE GANASTE O PERDISTE
 }
 
 function seleccionarFiltro(number) {
       if(number === 0){
-            number = Math.round(Math.random() * 3) + 1;
+            number = Math.round(Math.random() * 3 + 1);
       }
 
       let filtro;
@@ -298,26 +310,35 @@ function rotarCarrusel() {
       }
 
       setTimeout(() => {
-            seleccionarDificultad("dificil", randomIndex % imagenes.length); /* ACA HAY QUE REMPALAZAR ESTE LLAMADO POR EL QUE LLAMA A SELECCIONAR LA DIFICULTAD */
+            seleccionarNivel(1, randomIndex % imagenes.length); /* ACA HAY QUE REMPALAZAR ESTE LLAMADO POR EL QUE LLAMA A SELECCIONAR LA nivel ( NIVEL HARDCODEADO)*/
             contenedor.remove();
       }, randomIndex * 1000);
 }
 
-function seleccionarDificultad(dificultad, imagen){
-      switch (dificultad) {
+function seleccionarNivel(nivelSeleccionado, imagen) {
+      nivel = nivelSeleccionado;
+      seleccionarDificultad("dificil", imagen);             // DIFICULTAD HARDCODEADA, ACA VA LA DIFICULTAD QUE SELECCIONA EL USUARIO
+}
+
+function seleccionarDificultad(dificultadActual, imagen){
+      switch (dificultadActual) {
             case 'facil':
+                  dificultad = "facil";
                   cronometro = new Cronometro();
                   iniciarNivel(imagen, 2, 3);
                   break;
             case 'medio':
+                  dificultad = "medio";
                   cronometro = new CuentaRegresiva(60);
                   iniciarNivel(imagen, 3, 2);
                   break;
             case 'dificil':
+                  dificultad = "dificil";
                   cronometro = new CuentaRegresiva(30);
                   iniciarNivel(imagen, 4, 1);
                   break;
             case 'enemigos':
+                  dificultad = "enemigos";
                   cronometro = new CuentaRegresiva(30);
                   iniciarNivel(imagen, 4, 0);
                   break;
@@ -333,14 +354,89 @@ function seleccionarDificultad(dificultad, imagen){
 
 
 
+function reproducirSonido(src, loop = true, volumen = 0.1) {
+      let sonido = new Audio(src);
+      sonido.loop = loop;
+      sonido.volume = volumen;
+      sonido.play();
+      return sonido;
+}
 
+async function enviarResultado() {
+      let nivelActual = nivel;
+      let id;
+      let dificultadActual = dificultad;
+      switch (dificultadActual) {
+            case 'facil':
+                  id = nivelActual * 1;
+                  break;
+            case 'medio':
+                  id = nivelActual * 2;
+                  break;
+            case 'dificil':
+                  id = nivelActual * 3;
+                  break;
+            case 'enemigos':
+                  id = nivelActual * 4;
+                  break;
+            default:
+                  break;
+      }
+      
+      let nombre = document.getElementById("nombreJugador").textContent;
+      let tiempo = cronometro.getTiempoFinal();
+      let tiemposLocales = await getTiempos(id);
 
+      for (let i = 0; i < tiemposLocales.length; i++) {
+            if(tiemposLocales[i].tiempo > tiempo){
+                  tiemposLocales.splice(i, 0, { "nombre": nombre, "tiempo": tiempo });
+                  break;
+            }
+      }
 
+      if(tiemposLocales.length > 8){
+            tiemposLocales.pop();
+      }
 
+      tiemposLocales.sort((a, b) => a.tiempo - b.tiempo);
 
+      const resultado = {
+            "nivel": nivelActual,
+            "dificultad": dificultadActual,
+            "tiempos" : tiemposLocales
+      };
 
+      try {
+            const response = await fetch(URL_API + "/" + id, {
+                  method: "PUT",
+                  headers: {
+                        "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(resultado)
+            });
 
+            if (!response.ok) {
+                  throw new Error("Error al enviar el resultado");
+            }
 
+            const data = await response.json();
+            console.log("Resultado enviado:", data);
+      } catch (error) {
+            console.error("Error:", error);
+      }
+}
+
+async function getTiempos(id) {
+      try {
+            const response = await fetch(URL_API + "/" + id);
+            const data = await response.json();
+            data.tiempos.sort((a, b) => a.tiempo - b.tiempo);
+            return data.tiempos;
+      } catch (error) {
+            console.error("Error:", error);
+            return [];
+      }
+}
 
 export default crearImagenes;
 

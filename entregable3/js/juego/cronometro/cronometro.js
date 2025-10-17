@@ -35,6 +35,8 @@ export class Cronometro {
 
       finalizo() { return false; }
 
+      getTiempoFinal() { return this.tiempo; }
+
       mostrarTiempo() {
             const contador = document.getElementById('contador');
             if (contador) {
