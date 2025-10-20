@@ -296,3 +296,20 @@ function cerrarSesion(event) {
       window.location.href = 'index.html';
 }
 
+// Seleccionamos el botón dentro del contenedor
+const botonPremium = document.querySelector('.bton_premium button');
+const icono = botonPremium.querySelector('img');
+
+// Guardamos las rutas de ambas imágenes
+const imgNormal = 'img/icon-premium.png';
+const imgHover = 'img/icon-premium-hover2.png';
+
+// Cuando el mouse entra al botón
+botonPremium.addEventListener('mouseenter', () => {
+  icono.src = imgHover;
+});
+
+// Cuando el mouse sale del botón
+botonPremium.addEventListener('mouseleave', () => {
+  icono.src = imgNormal;
+});

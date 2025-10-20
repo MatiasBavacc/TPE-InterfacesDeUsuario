@@ -199,9 +199,7 @@ body {
     transform: scale(1.1);
 }
 
-.premium {
-    background-image: url('../img/icon-premium.png');
-}
+
 
 .favs {
     background-image: url('../img/icon-favorito.png');
@@ -211,9 +209,7 @@ body {
     background-image: url('../img/icon-perfil.png');
 }
 
-.premium:hover {
-    background-image: url('../img/icon-premium-hover2.png');
-}
+
 
 .favs:hover {
     background-image: url('../img/icon-favorito-hover.png');
@@ -1352,4 +1348,35 @@ body {
 /* Ocultos */
 .oculto {
 display: none;
+}
+
+  .bton_premium {
+  /* opcional, sirve si hay más de un botón en el contenedor */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family:'Cabin', sans-serif ;
+}
+
+.bton_premium button {
+  display: flex;              /* ← clave para alinear el ícono y el texto en fila */
+  align-items: center;        /* centra verticalmente */
+  gap: 8px;                   /* espacio entre el ícono y el texto */
+  padding: 8px 16px;
+  border: none;
+  border-radius: 50px;        /* forma de píldora */
+  background-color: var(--color-secundario-luz2);
+  cursor: pointer;
+  transition: transform 0.2s;
+  color: var(--color-acento);
+  
+}
+
+.bton_premium:hover{
+    transform: scale(1.1);
+    
+}
+
+.bton_premium button:hover{
+    color: var(--color-terciario-luz2);
 }
