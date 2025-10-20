@@ -1,4 +1,4 @@
-import { crearImagenes } from "./juego/blocka.js";
+import { inicializarJuego } from "./juego/blocka.js";
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () =>  {
@@ -23,12 +23,14 @@ document.addEventListener("DOMContentLoaded", () =>  {
 
       /* Boton Maximizar */
       const maximizar = document.querySelector(".maximizar");
-      const juego = document.querySelector(".canvas-game");
+      const juego = document.getElementById("game-container");
 
-      const canvas = document.getElementById("canvas-game");
       const blur = document.querySelector(".blur");
       const btnJugar = document.querySelector(".btn-jugar");
       const imgJuego = document.querySelector(".img-juego");
+      const mainMenu = document.getElementById("main-menu");
+
+      const canvas = document.getElementById("canvas-game");
 
       // Evento Click en Jugar
       btnJugar.addEventListener("click", () => {
@@ -37,8 +39,8 @@ document.addEventListener("DOMContentLoaded", () =>  {
             blur.classList.add("oculto");
             juego.classList.add("sinFondo");
             juego.classList.remove("canvas-game");
-            crearImagenes(juego);
-            canvas.classList.remove("oculto");
+            mainMenu.classList.remove("oculto");
+            inicializarJuego();
       });
       
       /* Enviar o Cancelar Formulario de Comentarios */
@@ -71,6 +73,13 @@ document.addEventListener("DOMContentLoaded", () =>  {
             // Si el click NO fue dentro de btnRanking
             if (!btnRanking.contains(e.target)) {
             popAppRanking.classList.add("oculto");
+            }
+
+            // Si el click fue fuera del menú desplegable en juego
+            const ingameMenu = document.getElementById("ingame-menu");
+            const ingameMenuBtn = document.getElementById("ingame-menu-button");
+            if (!ingameMenu.classList.contains("oculto") && !ingameMenu.contains(e.target) && !ingameMenuBtn.contains(e.target)) {
+                  ingameMenu.classList.add("oculto");
             }
       });
 

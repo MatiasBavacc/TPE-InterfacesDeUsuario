@@ -285,12 +285,199 @@ p {
   transition: 0.3s ease-out;
 }
 
+.menu-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(30, 16, 84, 0.9);
+  border: 3px solid var(--color-acento);
+  border-radius: 20px;
+  padding: 30px;
+  z-index: 100;
+  color: var(--color-blanco);
+  font-family: 'Cobin', sans-serif;
+  text-align: center;
+}
 
-.maximizar{
-  z-index: 10;
+.menu-container h2 {
+  color: var(--color-acento);
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 45px;
+  font-weight: bold;
+}
+
+.vertical-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 300px;
+}
+
+.grid-menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  min-width: 500px;
+}
+
+.menu-btn {
+  background-color: var(--color-terciario-luz1);
+  color: var(--color-blanco);
+  font-family: 'Cobin', sans-serif;
+  font-size: 30px;
+  font-weight: normal;
+  border: 2px solid var(--color-terciario-luz2);
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.menu-btn:hover {
+  background-color: var(--color-acento);
+  color: var(--color-primario);
+}
+
+#ranking-display {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#ranking-list {
+  text-align: left;
+  font-size: 16px;
+  font-family: 'Cobin', sans-serif;
+}
+
+/* Botones en juego (Pausa, Menu) */
+.game-control-btn {
+  background-color: var(--color-terciario-luz2);
+  border: none;
+  width: 80px; /* Más pequeños que maximizar */
+  height: 80px;
+  border-radius: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  z-index: 101;
   position: absolute;
   top: 1%;
-  right: 1%;
+  transition: 0.3s ease-out;
+}
+
+.game-control-btn:hover {
+  background-position-y: 40%;
+}
+
+#pause-button {
+  right: 110px; /* Al lado de maximizar */
+  background-image: url('../img/icon-burger.png'); /* (Deberás crear este icono) */
+  background-size: 50px;
+}
+
+#pause-button:hover {
+  background-image: url('../img/icon-pausa-hover.png'); /* (Icono hover) */
+}
+
+#ingame-menu-button {
+  right: 200px; /* Al lado de pausa */
+  background-image: url('../img/icon-menu-ingame.png'); /* (Deberás crear este icono) */
+  background-size: 50px;
+}
+
+#ingame-menu-button:hover {
+  background-image: url('../img/icon-menu-ingame-hover.png'); /* (Icono hover) */
+}
+
+/* Menú desplegable en juego */
+.ingame-menu-dropdown {
+  position: absolute;
+  top: 80px; /* Debajo del botón de menú */
+  right: 200px;
+  background-color: rgba(30, 16, 84, 0.95);
+  border: 2px solid var(--color-acento);
+  border-radius: 10px;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 5px;
+}
+
+.menu-btn-small {
+  background-color: var(--color-terciario-luz1);
+  color: var(--color-blanco);
+  font-family: 'Cobin', sans-serif;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  text-align: left;
+}
+
+.menu-btn-small:hover {
+  background-color: var(--color-acento);
+  color: var(--color-primario);
+}
+
+/* Mensajes de Victoria / Derrota */
+.game-message {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 102;
+  font-family: 'Cobin', sans-serif;
+  color: var(--color-acento);
+  text-shadow: 0 0 15px var(--color-negro);
+  pointer-events: none; /* No bloquear clics */
+}
+
+.game-message h2 {
+  font-size: 100px;
+  font-weight: bold;
+}
+
+#win-menu {
+  z-index: 103; /* Encima del mensaje de victoria */
+  top: 55%; /* Debajo del mensaje */
+}
+
+#lose-menu {
+  z-index: 103; /* Encima del mensaje de derrota */
+  top: 65%; /* Debajo del mensaje */
+}
+
+/* Overlay de Pausa */
+.pause-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 70px;
+    color: var(--color-blanco);
+    font-family: 'Cobin', sans-serif;
+    border-radius: 50px;
+}
+
+.maximizar{
+  z-index: 101;
+  position: absolute;
+  top: 1%;
+  right: 20px;
 }
 
 /* Titilo Juego */
@@ -1030,6 +1217,8 @@ footer {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .contenedor-imagenes {
@@ -1052,6 +1241,7 @@ footer {
   border: 5px solid var(--color-acento);
   transform: scale(1.1);
   filter: blur(0);
+  box-shadow: 0 0 15px var(--color-acento), 0 0 25px var(--color-acento);
 }
 
 .contador {
@@ -1064,59 +1254,68 @@ footer {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 5px 10px;
   border-radius: 20px;
+  font-family: 'Cobin', sans-serif;
 }
 
+/* --- Estilos para la Barra de Volumen --- */
 
+/* todos los navegadores */
+#volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%; /* Ajusta el ancho si es necesario */
+  height: 9px; /* Altura de la barra */
+  background: var(--color-terciario-luz1); /* Color de la barra (track) */
+  border-radius: 5px;
+  outline: none; /* Sin borde azul al hacer clic */
+}
 
+/* --- El Pulgar (la bolita que se arrastra) --- */
 
+/* Para Chrome, Safari, Opera, Edge */
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px; /* Ancho del pulgar */
+  height: 20px; /* Alto del pulgar */
+  border-radius: 50%; /* Círculo */
+  background: var(--color-acento); /* ¡Color Acento! */
+  cursor: pointer;
+  border: 2px solid var(--color-primario); /* Borde para que combine */
+}
 
+/* Para Firefox */
+#volume-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-acento); /* ¡Color Acento! */
+  cursor: pointer;
+  border: 2px solid var(--color-primario);
+}
 
+/* --- La Barra (Track) --- */
 
+/* Firefox necesita esta regla específica para el track */
+#volume-slider::-moz-range-track {
+  width: 100%;
+  height: 10px;
+  background: var(--color-terciario-luz1);
+  border-radius: 5px;
+}
 
+/* --- Efecto Hover (Opcional, pero recomendado) --- */
 
+#volume-slider:hover::-webkit-slider-thumb {
+  box-shadow: 0 0 10px var(--color-acento); /* Brillo al pasar el mouse */
+}
 
-
-
-
-
-
-
-
-
+#volume-slider:hover::-moz-range-thumb {
+  box-shadow: 0 0 10px var(--color-acento);
+}
 
 
 /* Ocultos */
   .oculto {
     display: none;
   }
-
-    .bton_premium {
-  /* opcional, sirve si hay más de un botón en el contenedor */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family:'Cabin', sans-serif ;
-}
-
-.bton_premium button {
-  display: flex;              /* ← clave para alinear el ícono y el texto en fila */
-  align-items: center;        /* centra verticalmente */
-  gap: 8px;                   /* espacio entre el ícono y el texto */
-  padding: 8px 16px;
-  border: none;
-  border-radius: 50px;        /* forma de píldora */
-  background-color: var(--color-secundario-luz2);
-  cursor: pointer;
-  transition: transform 0.2s;
-  color: var(--color-acento);
-  
-}
-
-.bton_premium:hover{
-    transform: scale(1.1);
-    
-}
-
-.bton_premium button:hover{
-    color: var(--color-terciario-luz2);
-}
