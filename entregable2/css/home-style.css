@@ -1351,6 +1351,7 @@ display: none;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family:'Cabin', sans-serif ;
 }
 
 .bton_premium button {
