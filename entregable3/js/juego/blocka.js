@@ -30,6 +30,9 @@ let ayuditaUsada = false;
 
 let sonidoFondo = null;
 let sonidoRisa = null;
+let sonidoVictoria = null;
+
+let enemigo = false;
 
 const URL_API = "https://68f1750cb36f9750dee95a6b.mockapi.io/api/blockapi/Timers";
 
@@ -181,6 +184,7 @@ function gameLoop() {
     if (gano) {
         for (let figura of figuras) { figura.resueltaConAyuda = false; }
         mostrarVictoria();
+        enemigo = false
         // envía resultado si hay un tiempo que guardar (si gano)
         if (typeof cronometro.getTiempoFinal === 'function' || typeof cronometro.getTiempoTranscurrido === 'function' || cronometro instanceof Cronometro) {
             enviarResultado();
@@ -267,6 +271,57 @@ function eventoClick(event) {
             break; // detiene el bulce para rotar una pieza
         }
     }
+
+    if(!enemigo){
+        let probabilidad = Math.random();
+        if(probabilidad < 0.3){ //30% de probabilidad de activar enemigo
+            enemigo = true;
+            enemigoRotarPiezas();
+            sonidoRisa = reproducirSonido("resourses/sounds/risa.mp3", false, 0.7);
+            mostrarEnemigo();
+        }
+    }
+}
+
+function enemigoRotarPiezas(){
+    for (let figura of figuras) {
+        if(figura.resueltaConAyuda) continue; //no rota las piezas que ya fueron resueltas con ayudita
+        figura.rotar(90);
+    }
+}
+
+function mostrarEnemigo(){
+    
+    // Cargamos la imagen del enemigo
+    const enemigoSVG = new Image();
+    enemigoSVG.src = "resourses/images/enemigo.svg";
+
+    // Variables de animación
+    let x = gameWidth / 2; // Centro horizontal
+    let y = gameHeight + 50; // Comienza fuera del canvas (abajo)
+    const velocidad = 5; // Pixeles por frame
+
+    // Cuando la imagen se haya cargado, comenzamos la animación
+    enemigoSVG.onload = function () {
+        animar();
+    };
+
+    function animar() {
+
+        // Dibujar imagen centrada (ajustamos ancho y alto)
+        const ancho1 = 50;
+        const alto1 = 50;
+        ctx.drawImage(enemigoSVG, x - ancho1 / 2, y - alto1 / 2, ancho1, alto1);
+
+        // Actualizar posición Y (sube)
+        y -= velocidad;
+
+        // Si todavía no salió por arriba, seguir animando
+        if (y + alto1 / 2 > 0) {
+            requestAnimationFrame(animar);
+        }
+    }
+
 }
 
 // --- Manejo de Estado (Pausa, Victoria, Derrota) ---
@@ -381,7 +436,7 @@ function mostrarVictoria() {
 
     // iniciar el primer frame de la animación de victoria
     animationFrameId = requestAnimationFrame(animateWin);
-    sonidoRisa = reproducirSonido("resourses/sounds/risa.mp3", false, 0.7);
+    sonidoVictoria = reproducirSonido("resourses/sounds/victory.mp3", false, 0.7);
 }
 
 function onAnimationComplete() {
@@ -406,7 +461,8 @@ function mostrarMenuPerder() {
     if (sonidoFondo) sonidoFondo.pause();
     ocultarUIJuego();
     loseMessage.classList.remove("oculto");
-    loseMenu.classList.add("oculto");
+    loseMenu.classList.remove("oculto");
+    enemigo = false;
 }
 
 /**
@@ -452,6 +508,7 @@ function volverAlMenuPrincipal() {
     canvas.classList.add("oculto");
     mainMenu.classList.remove("oculto");
     figuras = [];
+    enemigo = false;
 }
 
 // --- Lógica del Carrusel ---
