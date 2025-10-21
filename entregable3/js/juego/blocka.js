@@ -77,9 +77,9 @@ function cargarImagenes() {
         "resourses/images/metalAuto6.png",
         "resourses/images/el-hombre-que-araña.png",
         "resourses/images/llamado-a-don-ramon.png",
-        "img/peak.jpg",
-        "img/mgs-blocka.png",
-        "img/fnv-blocka3.png"
+        "resourses/images/nunca-cebollita.png",
+        "resourses/images/excla-sivilizacion.png",
+        "resourses/images/blocka.png"
     ];
 
     // creo un array de promesas, por cada ruta crea un new Image y devuelve la promesa
