@@ -376,22 +376,22 @@ p {
 
 #pause-button {
   right: 110px; /* Al lado de maximizar */
-  background-image: url('../img/icon-burger.png'); /* (Deberás crear este icono) */
+  background-image: url('../img/play.png'); /* (Deberás crear este icono) */
   background-size: 50px;
 }
 
 #pause-button:hover {
-  background-image: url('../img/icon-pausa-hover.png'); /* (Icono hover) */
+  background-image: url('../img/play-hover.png'); /* (Icono hover) */
 }
 
 #ingame-menu-button {
   right: 200px; /* Al lado de pausa */
-  background-image: url('../img/icon-menu-ingame.png'); /* (Deberás crear este icono) */
+  background-image: url('../img/icon-burger.png'); /* (Deberás crear este icono) */
   background-size: 50px;
 }
 
 #ingame-menu-button:hover {
-  background-image: url('../img/icon-menu-ingame-hover.png'); /* (Icono hover) */
+  background-image: url('../img/icon-burger-hover.png'); /* (Icono hover) */
 }
 
 /* Menú desplegable en juego */
