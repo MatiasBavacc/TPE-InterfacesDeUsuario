@@ -54,8 +54,8 @@ export class Figura {
             this.ctx.strokeRect(-this.ancho / 2, -this.alto / 2, this.ancho, this.alto);
         }
 
-            this.ctx.restore();
-        }
+        this.ctx.restore();
+    }
 
     dibujarFiguraCompleta() {
         this.dibujarFigura();

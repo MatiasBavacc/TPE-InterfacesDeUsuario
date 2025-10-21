@@ -171,6 +171,7 @@ function gameLoop() {
     for (let figura of figuras) { if (!figura.posicionCorrecta()) { gano = false; break; } }
 
     if (gano) {
+        for (let figura of figuras) { figura.resueltaConAyuda = false; }
         mostrarVictoria();
         // envía resultado si hay un tiempo que guardar
         if (typeof cronometro.getTiempoFinal === 'function' || typeof cronometro.getTiempoTranscurrido === 'function' || cronometro instanceof Cronometro) {
