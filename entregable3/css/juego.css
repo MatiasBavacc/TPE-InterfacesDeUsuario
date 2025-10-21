@@ -642,6 +642,41 @@ p {
 }
 
 
+.videoCard {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carrucel-item1,
+.carrucel-item-principal1 {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrucel-item1 {
+  width: 25%;
+  border-radius: 50px;
+  overflow: hidden;
+  background-image: url('../img/callofalgo2.png');
+}
+
+.carrucel-item1:nth-child(3) {
+  background-image: url('../img/hombrequearaña.png') ;
+}
+
+.carrucel-item-principal1 {
+  width: 50%;
+  border-radius: 50px;
+  overflow: hidden;
+  background-image: url('../img/card2-juego.png');
+}
+
+
 
 
 /* Categorias de este juego */
