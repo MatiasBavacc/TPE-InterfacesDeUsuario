@@ -60,7 +60,7 @@ const loseMenu = document.getElementById("lose-menu");
 export async function inicializarJuego() {
     try {
         await cargarImagenes(); // espera a que todas las imágenes base se carguen
-        setupMenuListeners();
+        setupMenuListeners(); //llama a setupMenuListeners para que los botones de los menu funcionen.
     } catch (error) {
         console.error("Error fatal al inicializar el juego:", error);
     }
@@ -69,7 +69,7 @@ export async function inicializarJuego() {
 /* devuelve una promise que se resuelve cuando todas las imágenes están cargadas.*/
 function cargarImagenes() {
     if (imagenesDistintas.length > 0) return Promise.resolve();
-
+    //defino las rutas de todas las imagenes de los niveles.
     const paths = [
         "resourses/images/metalAuto6.png",
         "resourses/images/el-hombre-que-araña.png",
@@ -79,6 +79,8 @@ function cargarImagenes() {
         "img/fnv-blocka3.png"
     ];
 
+    // creo un array de promesas, por cada ruta crea un new Image y devuelve la promesa
+    // cuando la imagen termina de cargar
     const promises = paths.map(src => {
         return new Promise((resolve, reject) => {
             const img = new Image();
@@ -91,14 +93,14 @@ function cargarImagenes() {
         });
     });
 
-    return Promise.all(promises).then(images => {
-        imagenesDistintas.push(...images); // agrega las imágenes cargadas al array
+    return Promise.all(promises).then(images => { //espera a que todas las imagenes terminen de cargarse
+        imagenesDistintas.push(...images); // cuando estan listas, agrega las imágenes cargadas al array
     });
 }
 
 // --- Lógica Principal del Juego ---
 
-/*es async para esperar a cantidadFiguras.*/
+/*es async para esperar a cantidadFiguras. Configura el estado del juego (cual nivel, dificultad, etc).*/
 async function iniciarNivel(index, partes = 2, filtro, tiempo = null) {
     nivel = index + 1;
     currentLevelIndex = index;
@@ -117,7 +119,8 @@ async function iniciarNivel(index, partes = 2, filtro, tiempo = null) {
         cronometro = new CuentaRegresiva(tiempo || 30);
     }
 
-    //espera a que las figuras (y sus sprites) se creen e inicialicen
+    //llama a la función que crea todas las piezas (Figura) y sus imágenes (Imagen). 
+    //espera a que todas estén creadas y con el filtro aplicado.
     figuras = await cantidadFiguras(partes, 2, imagenesDistintas[index], filtro);
 
     if (figuras.length === 0) {
@@ -131,7 +134,7 @@ async function iniciarNivel(index, partes = 2, filtro, tiempo = null) {
     canvas.addEventListener('mousedown', eventoClick);
     canvas.addEventListener('contextmenu', preventContextMenu);
 
-    rotarFiguras(figuras);
+    rotarFiguras(figuras);//desordena las piezas
 
     if (typeof cronometro.reiniciar === 'function') {
         cronometro.reiniciar();
@@ -154,38 +157,44 @@ function preventContextMenu(e) { e.preventDefault(); }
  * Bucle principal del juego
  */
 function gameLoop() {
-    if (isPaused) {
+    if (isPaused) { //si el juego esta pausado vuelve a pedirse a si misma
         animationFrameId = requestAnimationFrame(gameLoop);
         return;
     }
 
-    dibujarFiguras();
-    if (typeof cronometro.mostrarTiempo === 'function') { cronometro.mostrarTiempo(); }
+    dibujarFiguras();//limpia el lienzo y dibuja todas las piezas en su posición y rotación actual.
+    if (typeof cronometro.mostrarTiempo === 'function') { cronometro.mostrarTiempo(); }//actualiza el texto del contador
 
-    if (typeof cronometro.finalizo === 'function' && cronometro.finalizo()) {
+    if (typeof cronometro.finalizo === 'function' && cronometro.finalizo()) {//va a ser True si es cuentaRegresiva y llego a 0
         mostrarMenuPerder();
         return;
     }
 
     let gano = true;
-    for (let figura of figuras) { if (!figura.posicionCorrecta()) { gano = false; break; } }
+
+    for (let figura of figuras) { //se fija si alguna figura quedo mal, si es asi pasa a False
+        if (!figura.posicionCorrecta()) {
+            gano = false; break; 
+        } 
+    }
 
     if (gano) {
         for (let figura of figuras) { figura.resueltaConAyuda = false; }
         mostrarVictoria();
-        // envía resultado si hay un tiempo que guardar
+        // envía resultado si hay un tiempo que guardar (si gano)
         if (typeof cronometro.getTiempoFinal === 'function' || typeof cronometro.getTiempoTranscurrido === 'function' || cronometro instanceof Cronometro) {
             enviarResultado();
         }
         return;
     }
 
+    //le dice al navegador que vuelva a llamar a gameLoop en el próximo "frame" disponible. 
+    //esto es lo que crea la animación fluida.
     animationFrameId = requestAnimationFrame(gameLoop);
 }
 
-/* dibuja las figuras, aplicando el tinte verde si es necesario.
+/* limpia el canvas y dibuja las figuras, aplicando el tinte verde si es necesario.
  * la lógica del tinte verde se movió a figura.rotarFigura().*/
-
 function dibujarFiguras() {
     ctx.clearRect(0, 0, gameWidth, gameHeight);
     for (let i = 0; i < figuras.length; i++) {
@@ -209,18 +218,18 @@ async function cantidadFiguras(cantW, cantH, image, filtro, espacio = 30, color 
 
     for (let i = 0; i < cantW; i++) {
         for (let j = 0; j < cantH; j++) {
-            const sprite = new Imagen(
+            const sprite = new Imagen( //recorte de la imagen original
                 image.src, i * anchoFijo, j * altoFijo, anchoFijo, altoFijo, seleccionarFiltro(filtro)
             );
             
-            let figura = new Figura(
+            let figura = new Figura( //le da su posicion en la pantalla y le pasa el sprite (imagen)
                 posX + i * (anchoFijo + espacio), posY + j * (altoFijo + espacio),
                 anchoFijo, altoFijo, color, sprite, ctx, i, j
             );
-            // figura.resueltaConAyuda se inicializa en el constructor de Figura
             
-            figArray.push(figura);
             // agrega la promesa de inicialización del sprite al array
+            figArray.push(figura);
+            // guarda la promesa sprite.initialize() (que carga y filtra la imagen del sprite)
             spritePromises.push(sprite.initialize());
         }
     }
@@ -250,11 +259,12 @@ function eventoClick(event) {
 
     for (let i = figuras.length - 1; i >= 0; i--) {
         const figura = figuras[i];
-        if (figura.estaDentro(mouseX, mouseY)) {
+        if (figura.estaDentro(mouseX, mouseY)) { //la logica de esto esta en Figura js
             if (figura.resueltaConAyuda) return;
+            // si el click está dentro de una figura y no está bloqueada por la "ayudita" hace:
             if (boton === 0) figura.rotar(-90);
             else if (boton === 2) figura.rotar(90);
-            break;
+            break; // detiene el bulce para rotar una pieza
         }
     }
 }
@@ -334,10 +344,10 @@ function mostrarVictoria() {
     }
     
     // inicia la animación
-    const duration = 500; // 0.5 segundos de animación
+    const duration = 1000; // 1 segundo de animación
     let startTime = null;
 
-    // función de interpolación (Lerp)
+    // función de interpolación (Lerp) para mover un poquito cada figura desde su startX a su endX en cada frame
     function lerp(start, end, t) {
         return start * (1 - t) + end * t;
     }
@@ -345,10 +355,10 @@ function mostrarVictoria() {
     function animateWin(timestamp) {
         if (!startTime) startTime = timestamp;
         const elapsed = timestamp - startTime;
-        // 'progress' va de 0.0 a 1.0
+        //  calcula el progreso de la animacion, 'progress' va de 0.0 a 1.0
         const progress = Math.min(1, elapsed / duration); 
 
-        // actualiza la posición de cada figura
+        // aca se llama a lerp, actualiza la posición de cada figura
         for (const prop of animationProps) {
             const currentX = lerp(prop.startX, prop.endX, progress);
             const currentY = lerp(prop.startY, prop.endY, progress);
@@ -356,7 +366,7 @@ function mostrarVictoria() {
             prop.fig.setPosY(currentY);
         }
 
-        // volver a dibujar
+        // volver a dibujar en la nueva posicion
         dibujarFiguras(); 
 
         // continuar o terminar
@@ -375,11 +385,11 @@ function mostrarVictoria() {
 }
 
 function onAnimationComplete() {
-    // esperar 1 segundo, despues mostrar "Ganaste"
+    // espera 1 segundo, despues muestra "Ganaste"
     setTimeout(() => {
         winMessage.classList.remove("oculto");
 
-        // esperar 2 segundos más, LUEGO mostrar el menú
+        // espera 2 segundos más, despues muestra el menú
         setTimeout(() => {
             winMenu.classList.remove("oculto");
             const nextLevelBtn = document.getElementById("win-next-level");
@@ -407,13 +417,13 @@ function darAyudita() {
 
     let piezaResuelta = false;
     for (let fig of figuras) {
-        if (!fig.posicionCorrecta() && !fig.resueltaConAyuda) {
+        if (!fig.posicionCorrecta() && !fig.resueltaConAyuda) { //ecnuentra la primer pieza que no este correcta
             fig.angulo = 0; // pone la figura en el ángulo correcto (0)
             if (fig.posicionCorrecta()) { // doble check
-                fig.resueltaConAyuda = true; // la figura ahora sabe que fue resuelta
+                fig.resueltaConAyuda = true; // la marca como correcta, la pinta de verde y no se puede clicekar
                 ayuditaUsada = true;
                 piezaResuelta = true;
-                if (dificultad !== 'facil') { // penalización
+                if (dificultad !== 'facil') { // si no es facil le resta 5 segundos al cronometro
                     if (cronometro instanceof CuentaRegresiva) {
                         if (cronometro.tiempoRestante !== undefined) {
                             cronometro.tiempoRestante = Math.max(0, cronometro.tiempoRestante - 5);
@@ -501,7 +511,7 @@ function rotarCarrusel() {
 
     centrarImagen(0, false); // estado inicial
 
-    const randomIndex = Math.floor(Math.random() * imagenesDOM.length);
+    const randomIndex = Math.floor(Math.random() * imagenesDOM.length); //elige una imagen al azar
     const vueltasCompletas = imagenesDOM.length * 2;
     const indexFinalAnimacion = vueltasCompletas + randomIndex;
     let pasoActual = 0;
@@ -538,7 +548,7 @@ function rotarCarrusel() {
 }
 
 
-function iniciarCarruselDeSeleccion(difficulty) {
+function iniciarCarruselDeSeleccion(difficulty) { //se llama cuando se elige la dificultad, despues rota el carruser
     currentDifficultyString = difficulty;
     ocultarTodosLosMenus();
     crearImagenesHTML();
@@ -616,7 +626,7 @@ function setupMenuListeners() {
 }
 
 
-function seleccionarDificultad(dificultadActual, imagenIndex) {
+function seleccionarDificultad(dificultadActual, imagenIndex) { //llama a iniciarNivel con los parametros
     if (imagenIndex < 0 || imagenIndex >= imagenesDistintas.length) {
         console.error("Índice de imagen inválido:", imagenIndex); imagenIndex = 0;
     }
@@ -632,15 +642,18 @@ function seleccionarDificultad(dificultadActual, imagenIndex) {
         default: iniciarNivel(imagenIndex, 3, 2); break;
     }
 }
+
 function ocultarTodosLosMenus() {
     mainMenu.classList.add("oculto"); levelMenu.classList.add("oculto"); difficultyMenu.classList.add("oculto");
     optionsMenu.classList.add("oculto"); ingameMenu.classList.add("oculto"); winMessage.classList.add("oculto");
     winMenu.classList.add("oculto"); loseMessage.classList.add("oculto"); loseMenu.classList.add("oculto");
     pauseOverlay.classList.add("oculto"); carruselContainer.classList.add("oculto");
 }
+
 function ocultarUIJuego() {
     pauseButton.classList.add("oculto"); ingameMenuButton.classList.add("oculto"); ingameMenu.classList.add("oculto");
 }
+
 // --- Funciones Utilitarias (filtros, sonido, rotación) --- 
 function seleccionarFiltro(number) {
     if (number === 0) {
@@ -710,7 +723,7 @@ async function mostrarRanking() {
 
     try {
         for (let id = 1; id <= 24; id++) {
-            const data = await getTiempos(id);
+            const data = await getTiempos(id); //llama a getTiempos para cada ID de nivel/dificultad y construye el html para mostrar los timepos
             
             if (data && data.tiempos && data.tiempos.length > 0) {
                 rankingsHTML += `<h5>Nivel ${data.nivel || '?'} - ${data.dificultad || '?'}</h5><ul>`;
@@ -728,7 +741,7 @@ async function mostrarRanking() {
     }
 }
 
-async function enviarResultado() {
+async function enviarResultado() { //se llama al ganar
     let diffIndex = ['facil', 'medio', 'dificil', 'enemigos'].indexOf(dificultad);
     let id = (currentLevelIndex * 4) + diffIndex + 1;
     let nombre = document.getElementById("nombreJugador").textContent || "Jugador";
@@ -745,13 +758,13 @@ async function enviarResultado() {
     // asegura >= 0 y redondea
     tiempo = Math.max(0, Math.round(tiempo * 100) / 100);
 
-    let data = await getTiempos(id);
+    let data = await getTiempos(id); //llama a getTiempos para traer la lista actual
     let tiemposLocales = data.tiempos || [];
     
-    tiemposLocales.push({ "nombre": nombre, "tiempo": tiempo });
-    tiemposLocales.sort((a, b) => a.tiempo - b.tiempo);
+    tiemposLocales.push({ "nombre": nombre, "tiempo": tiempo }); //agrega el nuevo tiempo
+    tiemposLocales.sort((a, b) => a.tiempo - b.tiempo); //ordena por mejor tiempo
     
-    if (tiemposLocales.length > 8) {
+    if (tiemposLocales.length > 8) { //corta la lista para guardar el top 8
         tiemposLocales = tiemposLocales.slice(0, 8);
     }
 
@@ -780,7 +793,7 @@ async function enviarResultado() {
     }
 }
 
-async function getTiempos(id) {
+async function getTiempos(id) { //pide los tiempos a la API
     try {
         const response = await fetch(`${URL_API}/${id}`);
         

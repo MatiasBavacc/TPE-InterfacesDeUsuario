@@ -1,8 +1,6 @@
-// *** NOMBRE DE CLASE CORREGIDO ***
 export class CuentaRegresiva {
     
-    // *** LÓGICA CORREGIDA ***
-    constructor(tiempoInicial) {
+    constructor(tiempoInicial) { // guarda el tiempo inicial y establece this.tiempoRestante en ese valor
         this.tiempoInicial = tiempoInicial;
         this.tiempoRestante = tiempoInicial;
         this.intervalo = null;
@@ -10,13 +8,11 @@ export class CuentaRegresiva {
 
     iniciar() {
         if (this.intervalo) return; // Evita múltiples intervalos
-        
-        // *** LÓGICA CORREGIDA (DECREMENTO) ***
         this.intervalo = setInterval(() => {
             if (this.tiempoRestante > 0) {
                 this.tiempoRestante--;
             } else {
-                this.pausar(); // Se acabó el tiempo
+                this.pausar(); // se termino el tiempo
             }
         }, 1000);
     }
@@ -28,14 +24,12 @@ export class CuentaRegresiva {
         }
     }
 
-    // *** MÉTODO AÑADIDO ***
     reanudar() {
-        this.iniciar(); // Vuelve a iniciar el intervalo
+        this.iniciar(); //vuelve a iniciar el intervalo
     }
 
     reiniciar() {
         this.pausar();
-        // *** LÓGICA CORREGIDA ***
         this.tiempoRestante = this.tiempoInicial;
         this.iniciar();
     }
@@ -45,13 +39,12 @@ export class CuentaRegresiva {
         this.tiempoRestante = this.tiempoInicial;
     }
 
-    // *** MÉTODO AÑADIDO (para la penalización de 'ayudita') ***
+    // resta segundos y usa math.max para evitar que el tiempo sea negativo (se usa en ayudita)
     restarTiempo(segundos) {
         this.tiempoRestante = Math.max(0, this.tiempoRestante - segundos);
     }
 
-    // *** LÓGICA CORREGIDA ***
-    // Informa a blocka.js cuándo se acaba el tiempo
+    // informa a blocka.js cuándo se acaba el tiempo
     finalizo() { 
         return this.tiempoRestante <= 0; 
     }
@@ -60,11 +53,10 @@ export class CuentaRegresiva {
         return this.tiempoInicial - this.tiempoRestante;
     }
 
-    // *** LÓGICA CORREGIDA ***
     mostrarTiempo() {
         const contador = document.getElementById('contador');
         if (contador) {
-            // Muestra el tiempo restante
+            // muestra el tiempo restante
             const minutos = Math.floor(this.tiempoRestante / 60);
             const segundos = this.tiempoRestante % 60;
             contador.textContent = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
@@ -72,5 +64,4 @@ export class CuentaRegresiva {
     }
 }
 
-// *** EXPORT DEFAULT CORREGIDO ***
 export default CuentaRegresiva;

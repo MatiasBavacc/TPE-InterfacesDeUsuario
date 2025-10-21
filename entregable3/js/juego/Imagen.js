@@ -27,7 +27,7 @@ class Imagen {
     /* dibuja desde el canvas fuera de pantalla (imageFiltrada)*/
 
     dibujar(ctx, ancho, alto) {
-        if (!this.isReady) return; // no dibujar si la imagen no está procesada
+        if (!this.isReady) return; // no dibujar si la imagen no está cargada
 
         ctx.drawImage(
             this.imageFiltrada, // dibuja desde el canvas que tiene la imagen (filtrada o no)
@@ -104,7 +104,7 @@ class Imagen {
         this.ctxFiltrado.putImageData(imageData, 0, 0);
     }
 
-    /* vuelve a dibujar la imagen original en el canvas fuera de pantalla. */
+    /* vuelve a dibujar la imagen original en el canvas oculto, "borrando" la version filtrada*/
     sacarFiltro() {
         this.ctxFiltrado.drawImage(this.imageOriginal, 0, 0, this.imageFiltrada.width, this.imageFiltrada.height);
     }

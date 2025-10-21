@@ -18,10 +18,9 @@ export class Cronometro {
         }
     }
 
-    // *** MÉTODO AÑADIDO ***
-    // Esto es lo que blocka.js llama
+    // esto es lo que blocka.js llama
     reanudar() {
-        this.iniciar(); // Simplemente vuelve a iniciar el intervalo
+        this.iniciar(); // vuelve a iniciar el intervalo
     }
 
     reiniciar() {
@@ -39,7 +38,7 @@ export class Cronometro {
 
     agregarTiempo(segundos) { this.tiempo += segundos; }
 
-    // El cronómetro normal nunca finaliza por sí solo
+    // el cronómetro normal nunca finaliza por sí solo
     finalizo() { return false; } 
 
     getTiempoFinal() { return this.tiempo; }

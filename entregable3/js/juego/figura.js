@@ -14,12 +14,12 @@ export class Figura {
         this.xCorrecto = x;
         this.yCorrecto = y;
         this.anguloCorrecto = 0;
-        
-        // la figura ahora rastrea su propio estado de "ayudita"
-        this.resueltaConAyuda = false;
+
+        this.resueltaConAyuda = false; // para saber si se pinta de verde o no (ayudita)
         this.i = i; // guardo su posición en la grilla (columna)
         this.j = j; // guardo su posición en la grilla (fila)
-        this.unida = false; // stado para saber si debe dibujarse sin borde
+        //las dos anteriores para usar la animacion de victoria
+        this.unida = false; // estado para saber si debe dibujar su borde o no (usado en la animacion de victoria)
     }
 
     getPosX(){ return this.x; }
@@ -57,25 +57,25 @@ export class Figura {
         this.ctx.restore();
     }
 
-    dibujarFiguraCompleta() {
+    dibujarFiguraCompleta() { //llama a dibujarFigura y despues dibuja la imagen (this.sprite.dibujar) encima del fondo
         this.dibujarFigura();
         if (this.sprite) {
             this.sprite.dibujar(this.ctx, this.ancho, this.alto);
         }
     }
     
-    /* calcula si un clic (x, y) está dentro de la figura, incluso cuando está rotada.*/
+    /* calcula si un click (x, y) está dentro de la figura, incluso cuando está rotada.*/
 
     estaDentro(x, y) {
         // calcula el centro de la figura
         const centroX = this.x + this.ancho / 2;
         const centroY = this.y + this.alto / 2;
         
-        // transforma las coordenadas del clic al sistema de coordenadas local de la figura (moviéndolas al origen 0,0)
+        // transforma las coordenadas del click al sistema de coordenadas local de la figura (moviéndolas al origen 0,0)
         const relX = x - centroX;
         const relY = y - centroY;
 
-        // "des-rota" las coordenadas del clic usando el ángulo negativo de la figura
+        // "des-rota" las coordenadas del click usando el ángulo negativo de la figura
         const rad = -this.angulo * Math.PI / 180;
         const cos = Math.cos(rad);
         const sin = Math.sin(rad);
@@ -101,13 +101,13 @@ export class Figura {
     
     /*dibuja el tinte de "ayudita" si es necesario.*/
 
-    rotarFigura() { 
-        this.ctx.save();
+    rotarFigura() { //dibujar con rotacion
+        this.ctx.save(); //guarda el estado (que no esta rotado)
         
         const centroX = this.x + this.ancho / 2;
         const centroY = this.y + this.alto / 2;
-        this.ctx.translate(centroX, centroY);
-        this.ctx.rotate(this.angulo * Math.PI / 180);
+        this.ctx.translate(centroX, centroY); //mueve el "punto 0,0" del lienzo al centro de la figura
+        this.ctx.rotate(this.angulo * Math.PI / 180); //rota todo el lienzo alrededor de ese nuevo punto 0,0
         
         // dibuja la figura y el sprite
         this.dibujarFiguraCompleta();
@@ -121,7 +121,7 @@ export class Figura {
         this.ctx.restore();
     }
 
-    posicionCorrecta() {
+    posicionCorrecta() { //comprobacion de victoria para la pieza
         const enAngulo = this.angulo % 360 === this.anguloCorrecto % 360;
         return enAngulo;
     }
