@@ -308,59 +308,59 @@ p {
   font-weight: bold;
 }
 
-/* Contenedor del botón necesita ser relativo para posicionar el tooltip */
+/* ESTILOS PARA TOOLTIP DE DIFICULTAD (pop up)
+
+/* contenedor del botón, necesita ser relativo para posicionar el tooltip */
 .menu-container .menu-btn {
     position: relative;
-    /* Asegúrate de que no haya overflow: hidden que corte el tooltip */
 }
 
-/* Estilo base del tooltip usando el pseudo-elemento ::after */
+/* estilo base del tooltip*/
 .menu-container .menu-btn[data-tooltip]::after {
-    content: attr(data-tooltip); /* Muestra el texto del atributo data-tooltip */
+    content: attr(data-tooltip); /* muestra el texto del atributo data-tooltip */
     position: absolute;
-    left: 105%; /* Posiciona a la derecha del botón */
-    top: 50%; /* Centra verticalmente respecto al botón */
-    transform: translateY(-50%); /* Ajuste fino para centrar verticalmente */
-    background-color: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
-    color: #fff; /* Texto blanco */
-    padding: 8px 12px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    font-size: 14px; /* Tamaño de fuente */
-    line-height: 1.4; /* Espaciado entre líneas */
-    width: 180px; /* Ancho máximo o fijo */
-    text-align: left; /* Alineación del texto */
-    white-space: normal; /* Permite que el texto ocupe varias líneas */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave */
+    left: 105%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px; 
+    line-height: 1.4;
+    width: 180px; 
+    text-align: left;
+    white-space: normal; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
 
-    /* Oculto por defecto y transición */
+    /* oculto por defecto y transición */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    pointer-events: none; /* Evita que el tooltip interfiera con el ratón */
-    z-index: 100; /* Asegura que esté por encima de otros elementos */
+    pointer-events: none; /* evita que el tooltip haga quilombo con el mouse */
+    z-index: 100;
 }
 
-/* Pequeña flecha/triángulo para el tooltip (opcional) */
+/* flechita para mostrar en cual dificultad estoy parado*/
 .menu-container .menu-btn[data-tooltip]::before {
     content: '';
     position: absolute;
-    left: 100%; /* Justo donde termina el botón */
+    left: 100%;
     top: 50%;
     transform: translateY(-50%);
     border-width: 6px;
     border-style: solid;
-    /* Crea un triángulo apuntando hacia la izquierda */
     border-color: transparent rgba(0, 0, 0, 0.85) transparent transparent;
 
-    /* Oculto por defecto y transición */
+    /* oculto por defecto y transición */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     pointer-events: none;
-    z-index: 101; /* Encima del fondo del tooltip */
+    z-index: 101;
 }
 
-/* Muestra el tooltip y la flecha al hacer hover sobre el botón */
+/* muestra el tooltip y la flecha al hacer hover sobre el botón */
 .menu-container .menu-btn[data-tooltip]:hover::after,
 .menu-container .menu-btn[data-tooltip]:hover::before {
     opacity: 1;
