@@ -31,11 +31,12 @@
                   </div>
 
                   <div class="header-right">
-             <div class="bton_premium">
-                <button class="premium">
-                    <img src="img/icon-premium.png" alt="">
-                    <p>Premium</p>
-                </button>
+                        <div class="bton_premium">
+                              <button class="premium">
+                                    <img src="img/icon-premium.png" alt="">
+                                    <p>Premium</p>
+                              </button>
+                        </div>      
                         <button class="icon-btn favs" aria-label="Favoritos"></button>
                         <button class="icon-btn perfil" aria-label="Perfil"></button>
                   </div>
@@ -222,10 +223,22 @@
 
                   <div id="difficulty-menu" class="menu-container vertical-menu oculto">
                         <h2>Dificultad</h2>
-                        <button class="menu-btn" data-difficulty="facil">Fácil</button>
-                        <button class="menu-btn" data-difficulty="medio">Medio</button>
-                        <button class="menu-btn" data-difficulty="dificil">Difícil</button>
-                        <button class="menu-btn" data-difficulty="enemigos">Enemigos</button>
+                        <button class="menu-btn" data-difficulty="facil"
+                                    data-tooltip="Modo Fácil: Piezas 2x2. Sin límite de tiempo. Ideal para empezar.">
+                              Fácil
+                        </button>
+                        <button class="menu-btn" data-difficulty="medio"
+                                    data-tooltip="Modo Medio: Piezas 3x2. Tiempo limitado (60 segundos). Un desafío moderado.">
+                              Medio
+                        </button>
+                        <button class="menu-btn" data-difficulty="dificil"
+                                    data-tooltip="Modo Difícil: Piezas 4x2. Tiempo limitado (30 segundos). Para los más rápidos.">
+                              Difícil
+                        </button>
+                        <button class="menu-btn" data-difficulty="enemigos"
+                                    data-tooltip="Modo Enemigos: ¡Cuidado! Las piezas rotarán solas ocasionalmente. Piezas 4x2. Tiempo limitado (30 segundos).">
+                              Enemigos
+                        </button>
                         <button class="menu-btn" id="btn-difficulty-volver">Volver</button>
                   </div>
 

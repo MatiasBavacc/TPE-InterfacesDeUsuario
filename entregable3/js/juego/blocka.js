@@ -448,8 +448,16 @@ function onAnimationComplete() {
         setTimeout(() => {
             winMenu.classList.remove("oculto");
             const nextLevelBtn = document.getElementById("win-next-level");
-            nextLevelBtn.disabled = (currentLevelIndex >= imagenesDistintas.length - 1);
-            nextLevelBtn.innerText = nextLevelBtn.disabled ? "Fin del Juego" : "Próximo Nivel";
+            const nextDifficulty = getNextDifficulty(currentDifficultyString); // <-- CAMBIO: Comprobar la siguiente dificultad
+
+            if (nextDifficulty) {
+                 nextLevelBtn.disabled = false;
+                 // Texto más descriptivo para el botón
+                 nextLevelBtn.innerText = `Siguiente Dificultad (${nextDifficulty.charAt(0).toUpperCase() + nextDifficulty.slice(1)})`;
+            }else {
+                 nextLevelBtn.disabled = true;
+                 nextLevelBtn.innerText = "¡Dificultades Completadas!"; // <-- CAMBIO: Texto final
+            }
         }, 2000); // 2 segundos para el menú
 
     }, 1000); // 1 segundo para el mensaje "Ganaste"
@@ -619,7 +627,8 @@ function iniciarCarruselDeSeleccion(difficulty) { //se llama cuando se elige la 
 function setupMenuListeners() {
     // Menú Principal
     document.getElementById("btn-menu-jugar").addEventListener("click", () => {
-        mainMenu.classList.add("oculto"); levelMenu.classList.remove("oculto");
+        mainMenu.classList.add("oculto"); 
+        difficultyMenu.classList.remove("oculto");
     });
     document.getElementById("btn-menu-opciones").addEventListener("click", () => {
         mainMenu.classList.add("oculto"); optionsMenu.classList.remove("oculto");
@@ -633,6 +642,7 @@ function setupMenuListeners() {
             levelMenu.classList.add("oculto"); difficultyMenu.classList.remove("oculto");
         });
     });
+
     document.getElementById("btn-level-volver").addEventListener("click", () => {
         levelMenu.classList.add("oculto"); mainMenu.classList.remove("oculto");
     });
@@ -641,8 +651,10 @@ function setupMenuListeners() {
     difficultyMenu.querySelectorAll("[data-difficulty]").forEach(btn => {
         btn.addEventListener("click", (e) => iniciarCarruselDeSeleccion(e.target.dataset.difficulty));
     });
+
     document.getElementById("btn-difficulty-volver").addEventListener("click", () => {
-        difficultyMenu.classList.add("oculto"); levelMenu.classList.remove("oculto");
+        difficultyMenu.classList.add("oculto"); 
+        mainMenu.classList.remove("oculto");
     });
 
     // Menú Opciones
@@ -668,11 +680,21 @@ function setupMenuListeners() {
 
     // Menú Victoria
     document.getElementById("win-restart").addEventListener("click", () => {
-        ocultarTodosLosMenus(); seleccionarDificultad(currentDifficultyString, currentLevelIndex);
+        ocultarTodosLosMenus(); 
+        seleccionarDificultad(currentDifficultyString, currentLevelIndex);
     });
+
     document.getElementById("win-to-main").addEventListener("click", volverAlMenuPrincipal);
+
     document.getElementById("win-next-level").addEventListener("click", () => {
-        ocultarTodosLosMenus(); seleccionarDificultad(currentDifficultyString, currentLevelIndex + 1);
+        // lógica para dificultad progresiva 
+        const nextDifficulty = getNextDifficulty(currentDifficultyString);
+        if (nextDifficulty) {
+            ocultarTodosLosMenus();
+            // mantener el mismo índice de imagen (currentLevelIndex) y pasar a la siguiente dificultad
+            seleccionarDificultad(nextDifficulty, currentLevelIndex);
+        }
+        // si no hay nextDifficulty, el botón estará deshabilitado, no hace nada
     });
 
     // Menú Derrota
@@ -682,6 +704,21 @@ function setupMenuListeners() {
     document.getElementById("lose-to-main").addEventListener("click", volverAlMenuPrincipal);
 }
 
+    // --- Nueva Función Auxiliar ---
+    /**
+    Determina la siguiente dificultad en la secuencia.
+    * @param {string} currentDifficulty La dificultad actual ('facil', 'medio', 'dificil', 'enemigos').
+    * @returns {string|null} La siguiente dificultad o null si ya está en la máxima.
+    */
+function getNextDifficulty(currentDifficulty) {
+    switch (currentDifficulty) {
+        case 'facil': return 'medio';
+        case 'medio': return 'dificil';
+        case 'dificil': return 'enemigos';
+        case 'enemigos': return null; // No hay siguiente después de 'enemigos'
+        default: return 'facil'; // En caso de un valor inesperado, vuelve a fácil
+    }
+}
 
 function seleccionarDificultad(dificultadActual, imagenIndex) { //llama a iniciarNivel con los parametros
     if (imagenIndex < 0 || imagenIndex >= imagenesDistintas.length) {
@@ -708,7 +745,9 @@ function ocultarTodosLosMenus() {
 }
 
 function ocultarUIJuego() {
-    pauseButton.classList.add("oculto"); ingameMenuButton.classList.add("oculto"); ingameMenu.classList.add("oculto");
+    pauseButton.classList.add("oculto"); 
+    ingameMenuButton.classList.add("oculto"); 
+    ingameMenu.classList.add("oculto");
 }
 
 // --- Funciones Utilitarias (filtros, sonido, rotación) --- 
