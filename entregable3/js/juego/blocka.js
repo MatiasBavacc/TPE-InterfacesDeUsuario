@@ -537,7 +537,7 @@ function crearImagenesHTML() {
 
 /* Lógica del carrusel para asegurar centrado y foco final.*/
 
-function rotarCarrusel() {
+function rotarCarrusel(difficultyParaDespues) {
     carruselContainer.classList.remove("oculto");
     const imagenesDOM = carruselImagenes.querySelectorAll('.seleccionable');
     if (imagenesDOM.length === 0) { console.error("Carrusel sin imágenes DOM"); return; }
@@ -590,7 +590,7 @@ function rotarCarrusel() {
                 timeoutId = setTimeout(() => {
                     carruselContainer.classList.add("oculto");
                     carruselImagenes.style.transform = '';
-                    seleccionarDificultad(currentDifficultyString, randomIndex);
+                    seleccionarDificultad(difficultyParaDespues, randomIndex);
                 }, 1500); // 1,5 segs de pausa
             });
             return; // termina la animación
@@ -614,12 +614,13 @@ function rotarCarrusel() {
 }
 
 
-function iniciarCarruselDeSeleccion(difficulty) { //se llama cuando se elige la dificultad, despues rota el carruser
-    currentDifficultyString = difficulty;
+function iniciarCarruselParaDificultad(difficulty) { //se llama cuando se elige la dificultad, despues rota el carruser
     ocultarTodosLosMenus();
+    canvas.classList.remove("oculto");
+    ctx.clearRect(0, 0, gameWidth, gameHeight);
     crearImagenesHTML();
     requestAnimationFrame(() => {
-        requestAnimationFrame(rotarCarrusel);
+        requestAnimationFrame(() => rotarCarrusel(difficulty));
     });
 }
 
@@ -654,7 +655,9 @@ function setupMenuListeners() {
 
     // Menú Dificultad
     difficultyMenu.querySelectorAll("[data-difficulty]").forEach(btn => {
-        btn.addEventListener("click", (e) => iniciarCarruselDeSeleccion(e.target.dataset.difficulty));
+        btn.addEventListener("click", (e) => {
+            iniciarCarruselParaDificultad(e.target.dataset.difficulty);
+        });
     });
 
     document.getElementById("btn-difficulty-volver").addEventListener("click", () => {
@@ -701,7 +704,7 @@ function setupMenuListeners() {
         if (nextDifficulty) {
             ocultarTodosLosMenus();
             // mantener el mismo índice de imagen (currentLevelIndex) y pasar a la siguiente dificultad
-            seleccionarDificultad(nextDifficulty, currentLevelIndex);
+            iniciarCarruselParaDificultad(nextDifficulty);
         }
         // si no hay nextDifficulty, el botón estará deshabilitado, no hace nada
     });
