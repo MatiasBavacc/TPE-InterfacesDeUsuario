@@ -137,7 +137,7 @@ async function iniciarNivel(index, partes = 2, filtro, tiempo = null) {
     canvas.addEventListener('mousedown', eventoClick);
     canvas.addEventListener('contextmenu', preventContextMenu);
 
-    rotarFiguras(figuras);//desordena las piezas
+    inicializarRotacionFiguras(figuras);//setea el angulo inicial sin animar
 
     if (typeof cronometro.reiniciar === 'function') {
         cronometro.reiniciar();
@@ -165,6 +165,11 @@ function gameLoop() {
         return;
     }
 
+    //actualiza la animacion de figuras
+    for (let figura of figuras) {
+        figura.updateAnimation();
+    }
+
     dibujarFiguras();//limpia el lienzo y dibuja todas las piezas en su posición y rotación actual.
     if (typeof cronometro.mostrarTiempo === 'function') { cronometro.mostrarTiempo(); }//actualiza el texto del contador
 
@@ -175,8 +180,8 @@ function gameLoop() {
 
     let gano = true;
 
-    for (let figura of figuras) { //se fija si alguna figura quedo mal, si es asi pasa a False
-        if (!figura.posicionCorrecta()) {
+    for (let figura of figuras) { 
+        if (!figura.posicionCorrecta()) {//se fija si alguna figura quedo mal, si es asi pasa a False
             gano = false; break; 
         } 
     }
@@ -266,8 +271,8 @@ function eventoClick(event) {
         if (figura.estaDentro(mouseX, mouseY)) { //la logica de esto esta en Figura js
             if (figura.resueltaConAyuda) return;
             // si el click está dentro de una figura y no está bloqueada por la "ayudita" hace:
-            if (boton === 0) figura.rotar(-90);
-            else if (boton === 2) figura.rotar(90);
+            if (boton === 0) figura.iniciarRotacion(-90);
+            else if (boton === 2) figura.iniciarRotacion(90);
             break; // detiene el bulce para rotar una pieza
         }
     }
@@ -286,7 +291,7 @@ function eventoClick(event) {
 function enemigoRotarPiezas(){
     for (let figura of figuras) {
         if(figura.resueltaConAyuda) continue; //no rota las piezas que ya fueron resueltas con ayudita
-        figura.rotar(90);
+        figura.iniciarRotacion(90);
     }
 }
 
@@ -480,10 +485,11 @@ function mostrarMenuPerder() {
 function darAyudita() {
     if (isPaused || ayuditaUsada) return;
 
-    let piezaResuelta = false;
     for (let fig of figuras) {
         if (!fig.posicionCorrecta() && !fig.resueltaConAyuda) { //ecnuentra la primer pieza que no este correcta
-            fig.angulo = 0; // pone la figura en el ángulo correcto (0)
+            fig.targetAngulo = 0; //angulo objetivo
+            fig.resueltaConAyuda = true; 
+            ayuditaUsada = true;
             if (fig.posicionCorrecta()) { // doble check
                 fig.resueltaConAyuda = true; // la marca como correcta, la pinta de verde y no se puede clicekar
                 ayuditaUsada = true;
@@ -499,11 +505,36 @@ function darAyudita() {
                 }
                 ingameMenu.classList.add("oculto");
                 // no necesita redibujar aca, gameLoop lo hace
-                break;
             } else {
                 console.warn("Ayudita: Poner ángulo 0 no resolvió la figura.");
             }
+        break;   
         }
+    }
+}
+
+//funcion para inicializar angulos sin animacion
+function inicializarRotacionFiguras(figuras) {
+    let grados = 0;
+    let random = 0;
+
+    for (let figura of figuras) {
+        random = Math.round(Math.random() * 10 + 1);
+
+        if (random < 4) {
+            grados = -90;
+        } else if (random < 7) {
+            grados = 90;
+        } else {
+            grados = 180;
+        }
+
+        // normaliza los grados a 0-359
+        let anguloInicial = (grados % 360 + 360) % 360;
+
+        // establece ambos ángulos directamente para evitar la animación inicial
+        figura.anguloActual = anguloInicial;
+        figura.targetAngulo = anguloInicial;
     }
 }
 
@@ -786,7 +817,7 @@ function seleccionarFiltro(number) {
     return filtro;
 }
 
-function rotarFiguras(figuras, grados = 0) {
+/*function rotarFiguras(figuras, grados = 0) {
     let random = 0;
     let nuevoGrado = grados;
 
@@ -807,7 +838,7 @@ function rotarFiguras(figuras, grados = 0) {
         }
         figura.rotar(grados);
     }
-}
+}*/
 /* La función sacarFiltro() del sprite es síncrona.*/
 
 function sacarFiltro(figuras) {

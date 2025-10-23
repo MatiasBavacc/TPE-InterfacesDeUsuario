@@ -9,7 +9,9 @@ export class Figura {
         this.color = color;
         this.sprite = sprite; 
         this.ctx = contexto;
-        this.angulo = 0;
+        this.anguloActual = 0; // ángulo que se usa para dibujar (cambia gradualmente)
+        this.targetAngulo = 0; // ángulo al que queremos llegar
+        this.velocidadRotacion = 0.10;
 
         this.xCorrecto = x;
         this.yCorrecto = y;
@@ -76,7 +78,7 @@ export class Figura {
         const relY = y - centroY;
 
         // "des-rota" las coordenadas del click usando el ángulo negativo de la figura
-        const rad = -this.angulo * Math.PI / 180;
+        const rad = -this.anguloActual * Math.PI / 180;
         const cos = Math.cos(rad);
         const sin = Math.sin(rad);
         
@@ -91,11 +93,29 @@ export class Figura {
              unrotatedY >= -halfAlto  && unrotatedY <= halfAlto);
     }
     
-    rotar(grados) {
-        this.angulo = this.angulo + grados; 
-        this.angulo = this.angulo % 360;
-        if (this.angulo < 0) {
-            this.angulo += 360;
+    //inicia la animacion hacia un nuevo angulo
+    iniciarRotacion(grados) {
+        // calcula el nuevo ángulo objetivo sumando los grados al ángulo objetivo ACTUAL
+        this.targetAngulo += grados;
+        // normaliza el ángulo objetivo para que esté entre 0 y 359
+        this.targetAngulo = (this.targetAngulo % 360 + 360) % 360;
+    }
+
+    //actualiza el ángulo visual (anguloActual) acercándolo al ángulo objetivo (targetAngulo)
+    updateAnimation() {
+        // salcula la diferencia de ángulo, tomando el camino más corto (importante para 270 -> 0)
+        let diff = this.targetAngulo - this.anguloActual;
+        while (diff <= -180) diff += 360;
+        while (diff > 180) diff -= 360;
+
+        // si la diferencia es muy chica, ajusta al valor final
+        if (Math.abs(diff) < 0.1) {
+            this.anguloActual = this.targetAngulo;
+        } else {
+            // hace el lerp hacia el ángulo objetivo
+            this.anguloActual += diff * this.velocidadRotacion;
+            // normaliza el ángulo actual también
+            this.anguloActual = (this.anguloActual % 360 + 360) % 360;
         }
     }
     
@@ -107,7 +127,8 @@ export class Figura {
         const centroX = this.x + this.ancho / 2;
         const centroY = this.y + this.alto / 2;
         this.ctx.translate(centroX, centroY); //mueve el "punto 0,0" del lienzo al centro de la figura
-        this.ctx.rotate(this.angulo * Math.PI / 180); //rota todo el lienzo alrededor de ese nuevo punto 0,0
+        // ssa anguloActual para la rotación visual
+        this.ctx.rotate(this.anguloActual * Math.PI / 180); //rota todo el lienzo alrededor de ese nuevo punto 0,0
         
         // dibuja la figura y el sprite
         this.dibujarFiguraCompleta();
@@ -122,7 +143,7 @@ export class Figura {
     }
 
     posicionCorrecta() { //comprobacion de victoria para la pieza
-        const enAngulo = this.angulo % 360 === this.anguloCorrecto % 360;
+        const enAngulo = Math.abs(this.anguloActual - this.anguloCorrecto) < 0.1 || Math.abs(this.anguloActual - this.anguloCorrecto - 360) < 0.1 || Math.abs(this.anguloActual - this.anguloCorrecto + 360) < 0.1;
         return enAngulo;
     }
 }
