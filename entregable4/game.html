@@ -15,28 +15,28 @@
       <header class="header">
             <div class="header-content">
                   <div class="header-left">
-                  <button class="hamburger-menu" aria-label="Menú">
-                        <img src="./img/icon-burger.png" alt="Menú" class="hamburger-icon">
-                  </button>
-                  <div class="site-logo">
-                    <img src="./img/TituloLogo.png" alt="logo" srcset="">
-                  </div>
+                        <button class="hamburger-menu" aria-label="Menú">
+                              <img src="./img/icon-burger.png" alt="Menú" class="hamburger-icon">
+                        </button>
+                        <div class="site-logo">
+                              <img src="./img/TituloLogo.png" alt="logo" srcset="">
+                        </div>
                   </div>
 
                   <div class="header-center">
-                  <div class="search-form">
-                        <img src="./img/Lupa.png" alt="Buscar" class="search-icon">
-                        <input type="text" placeholder="Buscar juego" class="search-input">
-                  </div>
+                        <div class="search-form">
+                              <img src="./img/Lupa.png" alt="Buscar" class="search-icon">
+                              <input type="text" placeholder="Buscar juego" class="search-input">
+                        </div>
                   </div>
 
                   <div class="header-right">
-             <div class="bton_premium">
-                <button class="premium">
-                    <img src="img/icon-premium.png" alt="">
-                    <p>Premium</p>
-                </button>
-                </div>
+                        <div class="bton_premium">
+                              <button class="premium">
+                                    <img src="img/icon-premium.png" alt="">
+                                    <p>Premium</p>
+                              </button>
+                        </div>      
                         <button class="icon-btn favs" aria-label="Favoritos"></button>
                         <button class="icon-btn perfil" aria-label="Perfil"></button>
                   </div>
@@ -48,7 +48,7 @@
                   <div class="perfil-info">
                         <div class="img-avatar-perfile"></div>
                         <div class="nombre-usuario-perfil">
-                              <h4>Natalia Natalia</h4>
+                              <h4 id="nombreJugador">Natalia Natalia</h4>
                         </div>
                   </div>
                   <div class="perfil-acciones">
@@ -187,10 +187,15 @@
                   <a href="#">Pac Solitaire</a>
             </div>
 
-            <div class="canvas-game">
+            <div class="canvas-game" id="game-container">
                   <div class="blur"></div>
                   <div class="btn-jugar"></div>
+
                   <button type="button" class="maximizar"></button>
+                  <button type="button" id="pause-button" class="game-control-btn oculto"></button>
+                  <button type="button" id="ingame-menu-button" class="game-control-btn oculto"></button>
+
+                  <canvas class="elementoCanvas oculto" id="canvas-game" width="1400" height="787"></canvas>
             </div>
 
             <div class="titulo"><h2>Pac Solitaire</h2></div>
@@ -233,7 +238,7 @@
                   <div class="carrucel-game">
                         <div class="carrucel-item">   </div>
                         <div class="carrucel-item-principal">
-                              <video controls muted loop poster="img/card1-juego.png">
+                              <video controls muted loop poster="img/card1-juego.png" class="videoCard">
 
                                     <source src="img/card4-juego.mp4" type="video/mp4">
                                     <!-- <source src="tu-video.webm" type="video/webm"> -->
@@ -593,7 +598,7 @@
         </div>
     </footer>
 
-      <script src="js/page-juego.js"></script>
       <script src="js/home.js"></script>
+      <script type="module" src="js/pac-solitaire/game-page.js"></script>
 </body>
 </html>
