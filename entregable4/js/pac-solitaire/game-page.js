@@ -1,4 +1,4 @@
-/* import { Interfaz } from './Interfaz.js'; */
+import { TableroController } from './controller/Tablero.Controller.js';
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () =>  {
@@ -27,16 +27,19 @@ document.addEventListener("DOMContentLoaded", () =>  {
 
       const blur = document.querySelector(".blur");
       const btnJugar = document.querySelector(".btn-jugar");
+      const canvasGame = document.getElementById("canvas-game");
    
 
       // Evento Click en Jugar
       btnJugar.addEventListener("click", () => {
             btnJugar.classList.add("oculto");
-
             blur.classList.add("oculto");
             juego.classList.add("sinFondo");
             juego.classList.remove("canvas-game");
-            /* inicializarJuego(); */
+            canvasGame.classList.remove("oculto");
+            const tablero = new TableroController(canvasGame);
+            tablero.inicializar();
+            /* tablero.dibujarTablero(); */
       });
       
       /* Enviar o Cancelar Formulario de Comentarios */

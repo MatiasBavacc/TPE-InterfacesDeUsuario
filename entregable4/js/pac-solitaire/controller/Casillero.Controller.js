@@ -13,7 +13,9 @@ export class CasilleroController {
             this.alto = alto;
       }
 
-      dibujarCasilla(ctx, color = "", ficha) {
+      dibujarCasilla(ctx, color = "") {
+        ctx.save();
+
         ctx.beginPath();
         ctx.ellipse(
         this.x + this.ancho / 2,  // centro X
@@ -25,13 +27,14 @@ export class CasilleroController {
         2 * Math.PI               // ángulo fin
         );
         ctx.strokeStyle = color;
-        ctx.lineWidth = lineWidth;
+        ctx.lineWidth = 4;
         ctx.stroke();
 
-        if (ficha != null) {
+          /* if (this.ficha != null) {
             this.ficha.dibujarFicha(this.ctx, this.x, this.y);
-        }
-        }
+          } */
+        ctx.restore();
+      }
 
       marcarCasilla(ctx) {
                   this.dibujarCasilla(ctx, "green");
