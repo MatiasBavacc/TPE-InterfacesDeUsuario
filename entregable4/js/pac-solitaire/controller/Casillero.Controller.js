@@ -11,6 +11,7 @@ export class CasilleroController {
     this.y = y;
     this.ancho = ancho;
     this.alto = alto;
+    this.marcada = false;
   }
 
   getX() {
@@ -44,6 +45,10 @@ export class CasilleroController {
     return this.ficha;
   }
 
+  getMarcado() {
+    return this.marcada;
+  }
+
   setFicha(ficha) {
     this.ficha = ficha;
   }
@@ -75,6 +80,11 @@ export class CasilleroController {
 
   marcarCasilla(ctx) {
     this.dibujarCasilla(ctx, "green");
+    this.marcada = true;
+  }
+
+  desmarcarCasilla() {
+    this.marcada = false;
   }
 
   estaDentro(x, y) {

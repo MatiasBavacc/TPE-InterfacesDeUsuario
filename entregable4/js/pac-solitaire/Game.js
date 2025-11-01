@@ -33,9 +33,11 @@ export class Game {
 
       mouseDragStart(event) {
             const rect = this.canvas.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            console.log("Empezo a Arrastrar: ", x, y);
+            const scaleX = this.canvas.width / rect.width;
+            const scaleY = this.canvas.height / rect.height;
+            const x = (event.clientX - rect.left) * scaleX;
+            const y = (event.clientY - rect.top) * scaleY;
+            /* console.log("Empezo a Arrastrar: ", x, y); */
             this.arrastrando = true;
             this.casilleroSeleccionado = this.tableroController.arrastrarFicha(x, y);
             if(this.casilleroSeleccionado){
@@ -47,10 +49,12 @@ export class Game {
             if (!this.arrastrando) return;
 
             const rect = this.canvas.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
+            const scaleX = this.canvas.width / rect.width;
+            const scaleY = this.canvas.height / rect.height;
+            const x = (event.clientX - rect.left) * scaleX;
+            const y = (event.clientY - rect.top) * scaleY;
 
-            console.log("Arrastrando en: ", x, y);
+            /* console.log("Arrastrando en: ", x, y); */
 
             if(this.casilleroSeleccionado){
                   this.casilleroSeleccionado?.getFicha().setX(x - this.casilleroSeleccionado.getAncho() / 2);
@@ -64,19 +68,41 @@ export class Game {
 
       mouseDragEnd(event) {
             const rect = this.canvas.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            console.log("Arrastre terminado en: ", x, y);
+            const scaleX = this.canvas.width / rect.width;
+            const scaleY = this.canvas.height / rect.height;
+            const x = (event.clientX - rect.left) * scaleX;
+            const y = (event.clientY - rect.top) * scaleY;
+            /* console.log("Arrastre terminado en: ", x, y); */
             this.arrastrando = false;
 
-            if(this.casilleroSeleccionado){
+            let casilleroNuevo = this.tableroController.soltarArrastre(x, y);
 
+            if(casilleroNuevo && this.casilleroSeleccionado){
+                  if(casilleroNuevo.getFicha() == null && casilleroNuevo.getMarcado()){
+                        this.tableroController.soltarFicha(this.casilleroSeleccionado, casilleroNuevo);
+                        this.tableroController.dibujarFondo();
+                  }
+            }
+
+            if(this.casilleroSeleccionado){
                   if(this.casilleroSeleccionado.getFicha() != null){
                         this.casilleroSeleccionado.getFicha().setX(this.casilleroSeleccionado.getX());
                         this.casilleroSeleccionado.getFicha().setY(this.casilleroSeleccionado.getY());
                         this.tableroController.dibujarFondo();
                         this.casilleroSeleccionado.getFicha().dibujar();
+                  }else{
+                        casilleroNuevo.getFicha().setX(casilleroNuevo.getX());
+                        casilleroNuevo.getFicha().setY(casilleroNuevo.getY());
+                        this.tableroController.dibujarFondo();
+                        casilleroNuevo.getFicha().dibujar();
                   }
+            }
+
+      }
+
+      desmarcarCasilleros() {
+            if(this.casilleroSeleccionado == null){
+                  this.tableroController.desmarcarCasilleros();
             }
       }
 

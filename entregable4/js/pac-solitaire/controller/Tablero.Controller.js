@@ -23,9 +23,9 @@ export class TableroController {
             const layout = [
                   [-1, -1, 1, 1, 1, -1, -1],
                   [-1, -1, 1, 1, 1, -1, -1],
-                  [ 1,  1, 1, 1, 1,  1,  1],
+                  [ 1,  1, 0, 1, 1,  1,  1],
                   [ 1,  1, 1, 0, 1,  1,  1],
-                  [ 1,  1, 1, 1, 1,  1,  1],
+                  [ 1,  1, 1, 1, 0,  1,  1],
                   [-1, -1, 1, 1, 1, -1, -1],
                   [-1, -1, 1, 1, 1, -1, -1]
             ];
@@ -113,6 +113,14 @@ export class TableroController {
             return null;
       }
 
+      soltarArrastre(x,y){
+            for (let c of this.casilleros) {
+                  if (c.estaDentro(x, y)) {
+                        return c;
+                  }
+            }
+      }
+
       soltarFicha(casilleroActual,casilleroDestino) {
             casilleroDestino.setFicha(casilleroActual.getFicha());
             casilleroActual.setFicha(null);
@@ -138,6 +146,14 @@ export class TableroController {
                         if (casilleroMedio && casilleroMedio.getFicha() != null && c.getFicha() == null) {
                               c.marcarCasilla(this.ctx);
                         }
+                  }
+            }
+      }
+
+      desmarcarCasilleros() {
+            for (let c of this.casilleros) {
+                  if (c.marcada) {
+                        c.desmarcarCasilla();
                   }
             }
       }
