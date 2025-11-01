@@ -38,11 +38,14 @@ export class Game {
             console.log("Empezo a Arrastrar: ", x, y);
             this.arrastrando = true;
             this.casilleroSeleccionado = this.tableroController.arrastrarFicha(x, y);
-            this.tableroController.movimientosPosibles(this.casilleroSeleccionado);
+            if(this.casilleroSeleccionado){
+                  this.tableroController.movimientosPosibles(this.casilleroSeleccionado);
+            }
       }
 
       mouseDrag(event) {
             if (!this.arrastrando) return;
+
             const rect = this.canvas.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
@@ -54,6 +57,7 @@ export class Game {
                   this.casilleroSeleccionado?.getFicha().setY(y - this.casilleroSeleccionado.getAlto() / 2);
                   this.tableroController.dibujarFondo();
 
+                  this.tableroController.movimientosPosibles(this.casilleroSeleccionado);
                   this.casilleroSeleccionado?.getFicha().dibujar();
             }
       }
@@ -65,13 +69,17 @@ export class Game {
             console.log("Arrastre terminado en: ", x, y);
             this.arrastrando = false;
 
-            if(this.casilleroSeleccionado.getFicha() != null){
-                  this.casilleroSeleccionado.getFicha().setX(this.casilleroSeleccionado.getX());
-                  this.casilleroSeleccionado.getFicha().setY(this.casilleroSeleccionado.getY());
-                  this.tableroController.dibujarFondo();
-                  this.casilleroSeleccionado.getFicha().dibujar();
+            if(this.casilleroSeleccionado){
+
+                  if(this.casilleroSeleccionado.getFicha() != null){
+                        this.casilleroSeleccionado.getFicha().setX(this.casilleroSeleccionado.getX());
+                        this.casilleroSeleccionado.getFicha().setY(this.casilleroSeleccionado.getY());
+                        this.tableroController.dibujarFondo();
+                        this.casilleroSeleccionado.getFicha().dibujar();
+                  }
             }
       }
+
 }
 
 export default Game;
