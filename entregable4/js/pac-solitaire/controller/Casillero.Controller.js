@@ -38,7 +38,14 @@ export class CasilleroController {
   }
 
   getFicha() {
+    if (this.ficha == null) {
+      return null;
+    }
     return this.ficha;
+  }
+
+  setFicha(ficha) {
+    this.ficha = ficha;
   }
 
   dibujarCasilla(ctx, color = "") {

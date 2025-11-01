@@ -4,20 +4,6 @@ import CasilleroController from './Casillero.Controller.js';
 import { FichaController } from './Ficha.Controller.js';
 
 export class TableroController {
-      /* constructor(canvas) {
-            this.model = new TableroModel();
-            this.view = new TableroView(canvas);
-      }
-
-      iniciar() {
-            this.dibujarTablero();
-      }
-
-      dibujarTablero() {
-            const casilleros = this.model.obtenerCasilleros();
-            this.view.dibujarTablero(casilleros);
-      } */
-
       constructor(canvas) {
             this.casilleros = [];
             /** @type { HTMLCanvasElement} */
@@ -125,6 +111,35 @@ export class TableroController {
                   }
             }
             return null;
+      }
+
+      soltarFicha(casilleroActual,casilleroDestino) {
+            casilleroDestino.setFicha(casilleroActual.getFicha());
+            casilleroActual.setFicha(null);
+      }
+
+      movimientosPosibles(casilleroActual) {
+            console.log("Movimientos posibles para casillero en: ", casilleroActual.getX(), casilleroActual.getY());
+            const posX = casilleroActual.getX();
+            const posY = casilleroActual.getY();
+            const distanciaMedia = this.casilleroSize + 30;
+            const distancia = distanciaMedia * 2;
+
+            for (let c of this.casilleros) {
+                  const dx = c.getX() - posX;
+                  const dy = c.getY() - posY;
+
+                  if ((Math.abs(dx) === distancia && dy === 0) || (Math.abs(dy) === distancia && dx === 0)) {
+                        const midX = posX + dx / 2;
+                        const midY = posY + dy / 2;
+
+                        const casilleroMedio = this.casilleros.find(m => m.getX() === midX && m.getY() === midY);
+
+                        if (casilleroMedio && casilleroMedio.getFicha() != null && c.getFicha() == null) {
+                              c.marcarCasilla(this.ctx);
+                        }
+                  }
+            }
       }
 }
 

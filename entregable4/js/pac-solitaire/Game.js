@@ -21,7 +21,10 @@ export class Game {
             this.canvas.addEventListener('mousedown', this.mouseDragStart.bind(this));
             this.canvas.addEventListener('mousemove', this.mouseDrag.bind(this));
             this.canvas.addEventListener('mouseup', this.mouseDragEnd.bind(this));
+      }
 
+      pausar() {
+            console.log("Juego pausado");
       }
 
       finalizar() {
@@ -35,6 +38,7 @@ export class Game {
             console.log("Empezo a Arrastrar: ", x, y);
             this.arrastrando = true;
             this.casilleroSeleccionado = this.tableroController.arrastrarFicha(x, y);
+            this.tableroController.movimientosPosibles(this.casilleroSeleccionado);
       }
 
       mouseDrag(event) {
@@ -42,6 +46,8 @@ export class Game {
             const rect = this.canvas.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
+
+            console.log("Arrastrando en: ", x, y);
 
             if(this.casilleroSeleccionado){
                   this.casilleroSeleccionado?.getFicha().setX(x - this.casilleroSeleccionado.getAncho() / 2);
@@ -53,15 +59,17 @@ export class Game {
       }
 
       mouseDragEnd(event) {
-            console.log("Arrastre terminado en: ", event.clientX, event.clientY);
+            const rect = this.canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            console.log("Arrastre terminado en: ", x, y);
             this.arrastrando = false;
 
-            if(this.casilleroSeleccionado.getFicha()){
+            if(this.casilleroSeleccionado.getFicha() != null){
                   this.casilleroSeleccionado.getFicha().setX(this.casilleroSeleccionado.getX());
                   this.casilleroSeleccionado.getFicha().setY(this.casilleroSeleccionado.getY());
                   this.tableroController.dibujarFondo();
                   this.casilleroSeleccionado.getFicha().dibujar();
-                  /* this.tableroController.soltarFicha(this.casilleroSeleccionado); */
             }
       }
 }
