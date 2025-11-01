@@ -15,6 +15,8 @@ export class FichaController {
         this.y = y;
         this.ancho = ancho;
         this.alto = alto;
+        this.image = new Image();
+        this.image.src = `resourses/images/pac-solitaire/fantasma${Math.floor(Math.random() * 7) + 1}.png`;
     }
 
     /* dibujar() {
@@ -30,6 +32,7 @@ export class FichaController {
         y = y + (this.alto / 2);
         x = x + (this.ancho / 2);
         this.view.dibujarFicha(ctx, x, y, this.model);
+        this.dibujarImagen();
     }
 
     clickeada() {
@@ -54,6 +57,12 @@ export class FichaController {
 
     estaSeleccionada() {
         return this.model.seleccionada;
+    }
+
+    dibujarImagen() {
+        this.ctx.save();
+        this.ctx.drawImage(this.image, this.x, this.y - 10, this.image.width * 0.015, this.image.height * 0.015);
+        this.ctx.restore();
     }
 }
 
