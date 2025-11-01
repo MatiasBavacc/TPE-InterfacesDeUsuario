@@ -1,3 +1,4 @@
+import { Game } from './Game.js';
 import { TableroController } from './controller/Tablero.Controller.js';
 "use strict";
 
@@ -37,9 +38,9 @@ document.addEventListener("DOMContentLoaded", () =>  {
             juego.classList.add("sinFondo");
             juego.classList.remove("canvas-game");
             canvasGame.classList.remove("oculto");
-            const tablero = new TableroController(canvasGame);
-            tablero.inicializar();
-            /* tablero.dibujarTablero(); */
+            
+            const game = new Game(canvasGame);
+            game.iniciar();
       });
       
       /* Enviar o Cancelar Formulario de Comentarios */

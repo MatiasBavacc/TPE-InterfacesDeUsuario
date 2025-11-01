@@ -2,8 +2,8 @@ export class FichaView {
 
     constructor() {
         this.radius = 20;
-        this.color = '#FF0000';
-        this.colorResaltado = '#FFFF00';
+        this.color = '#FFFF00';
+        this.colorResaltado = '#ff7b00ff';
     }
 
     // ficha normal, llama a ficha model para ver si está seleccionada

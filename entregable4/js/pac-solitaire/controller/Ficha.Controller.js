@@ -3,35 +3,47 @@ import { FichaView } from "../view/Ficha.View.js";
 
 export class FichaController {
 
-    constructor(/* tableroController, casillero */ ctx, x, y, ancho, alto) {
+    constructor(ctx, x, y, ancho, alto) {
         this.model = new FichaModel();
         this.view = new FichaView();
 
-        /* this.tableroController = tableroController;
-        this.casillero = casillero; // para saber la posición */
-        
         this.ctx = ctx;
         this.x = x;
         this.y = y;
         this.ancho = ancho;
         this.alto = alto;
         this.image = new Image();
-        this.image.src = `resourses/images/pac-solitaire/fantasma${Math.floor(Math.random() * 7) + 1}.png`;
+        /* this.image.src = `resourses/images/pac-solitaire/fantasma${Math.floor(Math.random() * 7) + 1}.png`; */
     }
 
-    /* dibujar() {
+    setX(x) {
+        this.x = x;
+    }
 
-      const ctx = this.casillero.ctx;
-      const x = this.casillero.x + (this.casillero.ancho / 2);
-      const y = this.casillero.y + (this.casillero.alto / 2);
+    setY(y) {
+        this.y = y;
+    }
 
-      this.view.dibujarFicha(ctx, x, y, this.model);
-    } */
+    getAncho() {
+        return this.ancho;
+    }
 
-    dibujar(ctx, x, y) {
-        y = y + (this.alto / 2);
-        x = x + (this.ancho / 2);
-        this.view.dibujarFicha(ctx, x, y, this.model);
+    getAlto() {
+        return this.alto;
+    }
+
+    getX() {
+        return this.x;
+    }
+
+    getY() {
+        return this.y;
+    }
+
+    dibujar() {
+        const y = this.y + (this.alto / 2);
+        const x = this.x + (this.ancho / 2);
+        this.view.dibujarFicha(this.ctx, x, y, this.model);
         this.dibujarImagen();
     }
 

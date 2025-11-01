@@ -71,11 +71,40 @@ export class TableroController {
             }
       }
 
+      dibujarMarcoTablero(ctx, x, y, ancho, alto, radio = 20) {
+            // Fondo negro
+            ctx.fillStyle = "#000000"; // relleno negro
+            ctx.beginPath();
+            ctx.moveTo(x + radio, y);
+            ctx.lineTo(x + ancho - radio, y);
+            ctx.quadraticCurveTo(x + ancho, y, x + ancho, y + radio);
+            ctx.lineTo(x + ancho, y + alto - radio);
+            ctx.quadraticCurveTo(x + ancho, y + alto, x + ancho - radio, y + alto);
+            ctx.lineTo(x + radio, y + alto);
+            ctx.quadraticCurveTo(x, y + alto, x, y + alto - radio);
+            ctx.lineTo(x, y + radio);
+            ctx.quadraticCurveTo(x, y, x + radio, y);
+            ctx.closePath();
+            ctx.fill();
+
+            // Borde amarillo brillante
+            ctx.strokeStyle = "#FFD700"; // amarillo dorado
+            ctx.lineWidth = 6;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = "#FFD700";
+            ctx.stroke();
+
+            // Quitar sombra para lo siguiente
+            ctx.shadowBlur = 0;
+      }
+
 
       dibujarTablero() {
             this.ctx.save();
+            const totalSize = 7 * (this.casilleroSize + 30);
+            this.dibujarMarcoTablero(this.ctx, 400 - 40, 100 - 40, totalSize + 80, totalSize + 80);
             for (let c of this.casilleros) {
-                  c.dibujarCasilla(this.ctx, "red");
+                  c.dibujarCasilla(this.ctx, "yellow");
             }
             this.ctx.restore();
       }
@@ -87,6 +116,15 @@ export class TableroController {
 
             this.ctx.restore();
             this.dibujarTablero();
+      }
+
+      arrastrarFicha(x, y) {
+            for (let c of this.casilleros) {
+                  if (c.estaDentro(x, y) && c.ficha != null) {
+                        return c;
+                  }
+            }
+            return null;
       }
 }
 
