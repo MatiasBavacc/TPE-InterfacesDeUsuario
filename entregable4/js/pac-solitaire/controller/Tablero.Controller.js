@@ -50,7 +50,12 @@ export class TableroController {
             for (let y = 0; y < layout.length; y++) {
                   for (let x = 0; x < layout[y].length; x++) {
                         if (layout[y][x] !== -1) {
-                              const ficha = layout[y][x] === 1 ? new FichaController() : null;
+                              const ficha = layout[y][x] === 1 ? new FichaController(this.ctx,
+                                    x * (this.casilleroSize + espacio) + offsetX,
+                                    y * (this.casilleroSize + espacio) + offsetY,
+                                    this.casilleroSize,
+                                    this.casilleroSize
+                              ) : null;
                               this.casilleros.push(
                                     new CasilleroController(
                                           x * (this.casilleroSize + espacio) + offsetX,

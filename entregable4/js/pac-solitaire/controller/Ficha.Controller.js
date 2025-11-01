@@ -3,21 +3,33 @@ import { FichaView } from "../view/Ficha.View.js";
 
 export class FichaController {
 
-    constructor(tableroController, casillero) {
+    constructor(/* tableroController, casillero */ ctx, x, y, ancho, alto) {
         this.model = new FichaModel();
         this.view = new FichaView();
 
-        this.tableroController = tableroController;
-        this.casillero = casillero; // para saber la posición
+        /* this.tableroController = tableroController;
+        this.casillero = casillero; // para saber la posición */
+        
+        this.ctx = ctx;
+        this.x = x;
+        this.y = y;
+        this.ancho = ancho;
+        this.alto = alto;
     }
 
-    dibujar() {
+    /* dibujar() {
 
       const ctx = this.casillero.ctx;
       const x = this.casillero.x + (this.casillero.ancho / 2);
       const y = this.casillero.y + (this.casillero.alto / 2);
 
       this.view.dibujarFicha(ctx, x, y, this.model);
+    } */
+
+    dibujar(ctx, x, y) {
+        y = y + (this.alto / 2);
+        x = x + (this.ancho / 2);
+        this.view.dibujarFicha(ctx, x, y, this.model);
     }
 
     clickeada() {

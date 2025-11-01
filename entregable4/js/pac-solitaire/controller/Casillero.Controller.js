@@ -30,9 +30,9 @@ export class CasilleroController {
         ctx.lineWidth = 4;
         ctx.stroke();
 
-          /* if (this.ficha != null) {
-            this.ficha.dibujarFicha(this.ctx, this.x, this.y);
-          } */
+          if (this.ficha != null) {
+            this.ficha.dibujar(this.ctx, this.x, this.y);
+          }
         ctx.restore();
       }
 
