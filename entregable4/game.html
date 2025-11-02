@@ -196,6 +196,59 @@
                   <button type="button" id="ingame-menu-button" class="game-control-btn oculto"></button>
 
                   <canvas class="elementoCanvas oculto" id="canvas-game" width="1400" height="787"></canvas>
+
+                  <div class="contador" id="contador"></div> <div id="main-menu" class="menu-container vertical-menu oculto">
+                        <h2>Pac Solitaire</h2>
+                        <button class="menu-btn" id="btn-menu-jugar">Jugar</button>
+                        <button class="menu-btn" id="btn-menu-opciones">Opciones</button>
+                        <button class="menu-btn" id="btn-menu-salir">Salir</button>
+                  </div>
+
+                  <div id="difficulty-menu" class="menu-container vertical-menu oculto">
+                        <h2>Dificultad</h2>
+                        <button class="menu-btn" data-difficulty="facil">Fácil</button>
+                        <button class="menu-btn" data-difficulty="medio">Medio</button>
+                        <button class="menu-btn" id="btn-difficulty-volver">Volver</button>
+                  </div>
+
+                  <div id="options-menu" class="menu-container vertical-menu oculto">
+                        <h2>Opciones</h2>
+                        <button class="menu-btn" id="btn-options-ranking">Ranking</button>
+                        <div id="ranking-display" class="oculto">
+                        <h4>Ranking Global</h4>
+                        <div id="ranking-list">Cargando...</div>
+                        </div>
+                        <label for="volume-slider">Volumen:</label>
+                        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.1">
+                        <button class="menu-btn" id="btn-options-volver">Volver</button>
+                  </div>
+
+                  <div id="ingame-menu" class="ingame-menu-dropdown oculto">
+                        <button class="menu-btn-small" id="ingame-resume">Reanudar</button>
+                        <button class="menu-btn-small" id="ingame-to-main">Menú Principal</button>
+                        <button class="menu-btn-small" id="ingame-exit">Salir del Juego</button>
+                  </div>
+
+                  <div id="win-message" class="game-message oculto">
+                        <h2>¡GANASTE!</h2>
+                  </div>
+                  <div id="lose-message" class="game-message oculto">
+                        <h2>¡PERDISTE!</h2>
+                  </div>
+
+                  <div id="win-menu" class="menu-container vertical-menu oculto">
+                        <button class="menu-btn" id="win-restart">Repetir</button>
+                        <button class="menu-btn" id="win-to-main">Menú Principal</button>
+                  </div>
+                  <div id="lose-menu" class="menu-container vertical-menu oculto">
+                        <button class="menu-btn" id="lose-restart">Reiniciar</button>
+                        <button class="menu-btn" id="lose-to-main">Menú Principal</button>
+                  </div>
+
+                  <div id="pause-overlay" class="pause-overlay oculto">
+                        <h2>PAUSA</h2>
+                  </div>
+
             </div>
 
             <div class="titulo"><h2>Pac Solitaire</h2></div>

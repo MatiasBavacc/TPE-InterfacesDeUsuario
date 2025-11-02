@@ -4,27 +4,53 @@ export class Game {
       constructor(canvas) {
             this.canvas = canvas;
             this.tableroController = new TableroController(canvas);
-            this.interfaz = new Interfaz();
+            this.interfaz = new Interfaz(this);
+
+            this.isPaused = false;
 
             this.arrastrando = false;
             this.casilleroSeleccionado = null;
+
+            this.boundMouseDragStart = this.mouseDragStart.bind(this);
+            this.boundMouseDrag = this.mouseDrag.bind(this);
+            this.boundMouseDragEnd = this.mouseDragEnd.bind(this);
       }
 
       iniciar() {
             this.interfaz.mostrarPantallaInicio();
-            this.iniciarJuego();
       }
 
       iniciarJuego() {
             this.tableroController.inicializar();
 
-            this.canvas.addEventListener('mousedown', this.mouseDragStart.bind(this));
-            this.canvas.addEventListener('mousemove', this.mouseDrag.bind(this));
-            this.canvas.addEventListener('mouseup', this.mouseDragEnd.bind(this));
+            this.tableroController.dibujarFondo();
+
+            this.canvas.addEventListener('mousedown', this.boundMouseDragStart);
+            this.canvas.addEventListener('mousemove', this.boundMouseDrag);
+            this.canvas.addEventListener('mouseup', this.boundMouseDragEnd);
+      }
+
+      detenerJuego() {
+        console.log("Deteniendo el juego y listeners...");
+        
+        this.canvas.removeEventListener('mousedown', this.boundMouseDragStart);
+        this.canvas.removeEventListener('mousemove', this.boundMouseDrag);
+        this.canvas.removeEventListener('mouseup', this.boundMouseDragEnd);
+
+        this.arrastrando = false;
+        this.casilleroSeleccionado = null;
+
+        this.tableroController.limpiarTablero(); 
       }
 
       pausar() {
+            this.isPaused = true;
             console.log("Juego pausado");
+      }
+
+      reanudar() {
+        this.isPaused = false;
+        console.log("Juego reanudado");
       }
 
       finalizar() {
@@ -32,6 +58,7 @@ export class Game {
       }
 
       mouseDragStart(event) {
+            if (this.isPaused) return;
             const rect = this.canvas.getBoundingClientRect();
             const scaleX = this.canvas.width / rect.width;
             const scaleY = this.canvas.height / rect.height;
@@ -46,7 +73,7 @@ export class Game {
       }
 
       mouseDrag(event) {
-            if (!this.arrastrando) return;
+            if (!this.arrastrando || this.isPaused) return;
 
             const rect = this.canvas.getBoundingClientRect();
             const scaleX = this.canvas.width / rect.width;
@@ -67,37 +94,37 @@ export class Game {
       }
 
       mouseDragEnd(event) {
-            const rect = this.canvas.getBoundingClientRect();
-            const scaleX = this.canvas.width / rect.width;
-            const scaleY = this.canvas.height / rect.height;
-            const x = (event.clientX - rect.left) * scaleX;
-            const y = (event.clientY - rect.top) * scaleY;
-            /* console.log("Arrastre terminado en: ", x, y); */
-            this.arrastrando = false;
+        if (!this.arrastrando || this.isPaused) return;
+        this.arrastrando = false;
+        
+        const rect = this.canvas.getBoundingClientRect();
+        const scaleX = this.canvas.width / rect.width;
+        const scaleY = this.canvas.height / rect.height;
+        const x = (event.clientX - rect.left) * scaleX;
+        const y = (event.clientY - rect.top) * scaleY;
 
-            let casilleroNuevo = this.tableroController.soltarArrastre(x, y);
+        let casilleroNuevo = this.tableroController.soltarArrastre(x, y);
 
-            if(casilleroNuevo && this.casilleroSeleccionado){
-                  if(casilleroNuevo.getFicha() == null && casilleroNuevo.getMarcado()){
-                        this.tableroController.soltarFicha(this.casilleroSeleccionado, casilleroNuevo);
-                        this.tableroController.dibujarFondo();
-                  }
+        if (casilleroNuevo && this.casilleroSeleccionado) {
+            if (casilleroNuevo.getFicha() == null && casilleroNuevo.getMarcado()) {
+                this.tableroController.soltarFicha(this.casilleroSeleccionado, casilleroNuevo);
+                this.tableroController.dibujarFondo();
             }
+        }
 
-            if(this.casilleroSeleccionado){
-                  if(this.casilleroSeleccionado.getFicha() != null){
-                        this.casilleroSeleccionado.getFicha().setX(this.casilleroSeleccionado.getX());
-                        this.casilleroSeleccionado.getFicha().setY(this.casilleroSeleccionado.getY());
-                        this.tableroController.dibujarFondo();
-                        this.casilleroSeleccionado.getFicha().dibujar();
-                  }else{
-                        casilleroNuevo.getFicha().setX(casilleroNuevo.getX());
-                        casilleroNuevo.getFicha().setY(casilleroNuevo.getY());
-                        this.tableroController.dibujarFondo();
-                        casilleroNuevo.getFicha().dibujar();
-                  }
+        if (this.casilleroSeleccionado) {
+            if (this.casilleroSeleccionado.getFicha() != null) {
+                this.casilleroSeleccionado.getFicha().setX(this.casilleroSeleccionado.getX());
+                this.casilleroSeleccionado.getFicha().setY(this.casilleroSeleccionado.getY());
+                this.tableroController.dibujarFondo();
+                this.casilleroSeleccionado.getFicha().dibujar();
+            } else if (casilleroNuevo && casilleroNuevo.getFicha()) {
+                casilleroNuevo.getFicha().setX(casilleroNuevo.getX());
+                casilleroNuevo.getFicha().setY(casilleroNuevo.getY());
+                this.tableroController.dibujarFondo();
+                casilleroNuevo.getFicha().dibujar();
             }
-
+        }
       }
 
       desmarcarCasilleros() {

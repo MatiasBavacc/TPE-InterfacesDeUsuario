@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", () =>  {
             blur.classList.add("oculto");
             juego.classList.add("sinFondo");
             juego.classList.remove("canvas-game");
-            canvasGame.classList.remove("oculto");
             
             const game = new Game(canvasGame);
             game.iniciar();
