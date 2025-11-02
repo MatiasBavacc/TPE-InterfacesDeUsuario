@@ -248,8 +248,9 @@ export class TableroController {
             return false; // no se encontró ningún movimiento
       }
 
-
-      
+      limpiarTablero() {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      }
 
 }
 
