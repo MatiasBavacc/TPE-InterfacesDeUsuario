@@ -203,6 +203,54 @@ export class TableroController {
                   }
             }
       }
+
+      /**
+       * Verifica si queda al menos un movimiento posible en todo el tablero.
+       * Devuelve true si hay al menos uno, false si el juego terminó.
+       */
+      hayMovimientosDisponibles() {
+            const distanciaMedia = this.casilleroSize + 30;
+            const distancia = distanciaMedia * 2;
+
+            for (let origen of this.casilleros) {
+                  const ficha = origen.getFicha();
+                  if (!ficha) continue; // no hay ficha, no puede moverse
+
+                  const posX = origen.getX();
+                  const posY = origen.getY();
+
+                  // posibles direcciones (dx, dy)
+                  const direcciones = [
+                        { dx: distancia, dy: 0 },   // derecha
+                        { dx: -distancia, dy: 0 },  // izquierda
+                        { dx: 0, dy: distancia },   // abajo
+                        { dx: 0, dy: -distancia }   // arriba
+                  ];
+
+                  for (let dir of direcciones) {
+                        const midX = posX + dir.dx / 2;
+                        const midY = posY + dir.dy / 2;
+                        const destX = posX + dir.dx;
+                        const destY = posY + dir.dy;
+
+                        const casilleroMedio = this.casilleros.find(c => c.getX() === midX && c.getY() === midY);
+                        const casilleroDestino = this.casilleros.find(c => c.getX() === destX && c.getY() === destY);
+
+                        // Si ambos existen y cumplen la regla: medio ocupado, destino vacío
+                        if (casilleroMedio && casilleroDestino &&
+                            casilleroMedio.getFicha() != null &&
+                            casilleroDestino.getFicha() == null) {
+                              return true; // hay al menos un movimiento posible
+                        }
+                  }
+            }
+
+            return false; // no se encontró ningún movimiento
+      }
+
+
+      
+
 }
 
 export default TableroController;
