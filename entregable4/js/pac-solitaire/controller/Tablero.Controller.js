@@ -121,10 +121,56 @@ export class TableroController {
             }
       }
 
-      soltarFicha(casilleroActual,casilleroDestino) {
-            casilleroDestino.setFicha(casilleroActual.getFicha());
+      /**
+       * Intenta soltar la ficha desde casilleroActual en casilleroDestino.
+       * Si el movimiento es un salto válido (ortogonal, 2 casilleros),
+       * elimina la ficha intermedia y realiza el movimiento.
+       * Devuelve true si el movimiento fue aplicado, false en caso contrario.
+       */
+      soltarFicha(casilleroActual, casilleroDestino) {
+            if (!casilleroActual || !casilleroDestino) return false;
+
+            // posiciones en píxeles
+            const sx = casilleroActual.getX();
+            const sy = casilleroActual.getY();
+            const tx = casilleroDestino.getX();
+            const ty = casilleroDestino.getY();
+
+            // distancias según tu layout: tamaño casillero + 30 (espacio)
+            const distanciaMedia = this.casilleroSize + 30;
+            const distancia = distanciaMedia * 2;
+
+            const dx = tx - sx;
+            const dy = ty - sy;
+
+            // debe ser un salto ortogonal de 2 casilleros
+            const esSaltoValido = ((Math.abs(dx) === distancia && dy === 0) ||
+                                   (Math.abs(dy) === distancia && dx === 0));
+            if (!esSaltoValido) {
+                  return false;
+            }
+
+            // comprobar origen tiene ficha y destino está vacío
+            const fichaOrigen = casilleroActual.getFicha();
+            if (!fichaOrigen) return false;
+            if (casilleroDestino.getFicha() != null) return false;
+
+            // calcular casillero medio
+            const midX = sx + dx / 2;
+            const midY = sy + dy / 2;
+            const casilleroMedio = this.casilleros.find(m => m.getX() === midX && m.getY() === midY);
+
+            if (!casilleroMedio) return false;
+            if (casilleroMedio.getFicha() == null) return false;
+
+            // ejecutar movimiento: origen -> destino, y eliminar la ficha intermedia
+            casilleroDestino.setFicha(fichaOrigen);
             casilleroActual.setFicha(null);
+            casilleroMedio.setFicha(null);
+
+            return true;
       }
+
 
       movimientosPosibles(casilleroActual) {
             console.log("Movimientos posibles para casillero en: ", casilleroActual.getX(), casilleroActual.getY());

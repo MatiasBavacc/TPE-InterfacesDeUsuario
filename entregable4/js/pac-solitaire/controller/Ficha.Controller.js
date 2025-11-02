@@ -13,7 +13,7 @@ export class FichaController {
         this.ancho = ancho;
         this.alto = alto;
         this.image = new Image();
-        /* this.image.src = `resourses/images/pac-solitaire/fantasma${Math.floor(Math.random() * 7) + 1}.png`; */
+        this.image.src = `resourses/images/pac-solitaire/fantasma${Math.floor(Math.random() * 7) + 1}.png`;
     }
 
     setX(x) {
