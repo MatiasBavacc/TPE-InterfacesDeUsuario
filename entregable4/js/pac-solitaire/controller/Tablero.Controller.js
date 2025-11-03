@@ -20,6 +20,9 @@ export class TableroController {
       }
 
       inicializar() {
+
+            this.casilleros = [];
+            
             const layout = [
                   [-1, -1, 1, 1, 1, -1, -1],
                   [-1, -1, 1, 1, 1, -1, -1],
@@ -246,6 +249,10 @@ export class TableroController {
             }
 
             return false; // no se encontró ningún movimiento
+      }
+
+      contarFichasRestantes() {
+        return this.casilleros.filter(c => c.getFicha() != null).length;
       }
 
       limpiarTablero() {

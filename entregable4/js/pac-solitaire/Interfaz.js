@@ -53,10 +53,13 @@ export class Interfaz {
         // --- Botones EN JUEGO ---
         this.pauseButton.addEventListener("click", () => {
             const estaPausado = !this.pauseOverlay.classList.contains("oculto");
+            const pauseText = this.pauseOverlay.querySelector('h2');
+
             if (estaPausado) {
                 this.pauseOverlay.classList.add("oculto");
                 this.game.reanudar();
             } else {
+                if (pauseText) pauseText.classList.remove('oculto');
                 this.pauseOverlay.classList.remove("oculto");
                 this.game.pausar();
             }
@@ -80,16 +83,31 @@ export class Interfaz {
         document.getElementById("ingame-exit").addEventListener("click", () => {
             location.reload(); 
         });
+
+        document.getElementById("win-restart").addEventListener("click", () => {
+            this._iniciarPartida(); // Reinicia el juego
+        });
+        document.getElementById("win-to-main").addEventListener("click", () => {
+            this.volverAlMenuPrincipal();
+        });
+
+        // Botones de Derrota
+        document.getElementById("lose-restart").addEventListener("click", () => {
+            this._iniciarPartida(); // Reinicia el juego
+        });
+        document.getElementById("lose-to-main").addEventListener("click", () => {
+            this.volverAlMenuPrincipal();
+        });
         
     }
 
-    /**
-     * Función privada para ocultar menús e iniciar el juego.
-     */
+    //Función privada para ocultar menús e iniciar el juego
+    
     _iniciarPartida() {
         this.ocultarTodosLosMenus();
+        this.game.reanudar();
         
-        // Muestra los botones de control en-juego
+        // Muestra los botones de control en juego
         this.pauseButton.classList.remove("oculto");
         this.ingameMenuButton.classList.remove("oculto");
 
@@ -98,9 +116,6 @@ export class Interfaz {
         this.game.iniciarJuego();
     }
 
-    /**
-     * Helper para limpiar la pantalla
-     */
     ocultarTodosLosMenus() {
         if(this.mainMenu) this.mainMenu.classList.add("oculto");
         if(this.difficultyMenu) this.difficultyMenu.classList.add("oculto");
@@ -118,6 +133,8 @@ export class Interfaz {
         
         this.game.detenerJuego();
 
+        this.ocultarTodosLosMenus();
+
         this.pauseButton.classList.add("oculto");
         this.ingameMenuButton.classList.add("oculto");
         this.ingameMenu.classList.add("oculto");
@@ -126,5 +143,41 @@ export class Interfaz {
         this.canvas.classList.add("oculto");
 
         this.mainMenu.classList.remove("oculto");
+    }
+
+    mostrarVictoria() {
+        // Pausa el juego
+        this.game.pausar(); 
+        
+        // Oculta botones de pausa/menu en juego
+        this.pauseButton.classList.add("oculto");
+        this.ingameMenuButton.classList.add("oculto");
+        this.ingameMenu.classList.add("oculto");
+
+        const pauseText = this.pauseOverlay.querySelector('h2');
+        if (pauseText) pauseText.classList.add('oculto'); // Oculta el texto "PAUSA"
+        this.pauseOverlay.classList.remove('oculto');
+
+        // Muestra el mensaje y el menú de victoria
+        this.winMessage.classList.remove("oculto");
+        this.winMenu.classList.remove("oculto");
+    }
+
+    mostrarDerrota() {
+        // Pausa el juego 
+        this.game.pausar();
+
+        // Oculta botones de pausa/menu en juego
+        this.pauseButton.classList.add("oculto");
+        this.ingameMenuButton.classList.add("oculto");
+        this.ingameMenu.classList.add("oculto"); 
+
+        const pauseText = this.pauseOverlay.querySelector('h2');
+        if (pauseText) pauseText.classList.add('oculto');
+        this.pauseOverlay.classList.remove('oculto');
+
+        // Muestra el mensaje y el menú de derrota
+        this.loseMessage.classList.remove("oculto");
+        this.loseMenu.classList.remove("oculto");
     }
 }
