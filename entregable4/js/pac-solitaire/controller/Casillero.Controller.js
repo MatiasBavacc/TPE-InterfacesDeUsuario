@@ -70,10 +70,26 @@ export class CasilleroController {
     ctx.strokeStyle = color;
     ctx.lineWidth = 4;
     ctx.stroke();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.ellipse(
+      this.x + this.ancho / 2,  // centro X
+      this.y + this.alto / 2,   // centro Y
+      this.ancho / 2 - 1,           // radioX
+      this.alto / 2 - 1,            // radioY
+      0,                        // rotación
+      0,                        // ángulo inicio
+      2 * Math.PI               // ángulo fin
+    );
+    ctx.fillStyle = "#fffedaff";
+    ctx.fill();
+    ctx.closePath();
 
     if (this.ficha != null) {
       this.ficha.dibujar(this.ctx, this.x, this.y);
     }
+
 
     ctx.restore();
   }

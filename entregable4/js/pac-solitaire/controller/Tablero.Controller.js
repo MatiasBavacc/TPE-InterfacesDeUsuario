@@ -23,9 +23,9 @@ export class TableroController {
             const layout = [
                   [-1, -1, 1, 1, 1, -1, -1],
                   [-1, -1, 1, 1, 1, -1, -1],
-                  [ 1,  1, 0, 1, 1,  1,  1],
+                  [ 1,  1, 1, 1, 1,  1,  1],
                   [ 1,  1, 1, 0, 1,  1,  1],
-                  [ 1,  1, 1, 1, 0,  1,  1],
+                  [ 1,  1, 1, 1, 1,  1,  1],
                   [-1, -1, 1, 1, 1, -1, -1],
                   [-1, -1, 1, 1, 1, -1, -1]
             ];
@@ -173,7 +173,7 @@ export class TableroController {
 
 
       movimientosPosibles(casilleroActual) {
-            console.log("Movimientos posibles para casillero en: ", casilleroActual.getX(), casilleroActual.getY());
+            /* console.log("Movimientos posibles para casillero en: ", casilleroActual.getX(), casilleroActual.getY()); */
             const posX = casilleroActual.getX();
             const posY = casilleroActual.getY();
             const distanciaMedia = this.casilleroSize + 30;
@@ -191,6 +191,7 @@ export class TableroController {
 
                         if (casilleroMedio && casilleroMedio.getFicha() != null && c.getFicha() == null) {
                               c.marcarCasilla(this.ctx);
+                              casilleroMedio.getFicha().estaEnELMedio();
                         }
                   }
             }
@@ -198,9 +199,8 @@ export class TableroController {
 
       desmarcarCasilleros() {
             for (let c of this.casilleros) {
-                  if (c.marcada) {
-                        c.desmarcarCasilla();
-                  }
+                  c.desmarcarCasilla();
+                  c.getFicha()?.volverImagenOriginal();
             }
       }
 
