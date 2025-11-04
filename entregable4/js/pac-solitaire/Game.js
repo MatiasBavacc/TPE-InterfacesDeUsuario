@@ -89,7 +89,7 @@ export class Game {
          this.tableroController.dibujarFondo();
 
          this.tableroController.movimientosPosibles(this.casilleroSeleccionado);
-         /* this.casilleroSeleccionado?.getFicha().siendoArrastrado(); ACA PASA LO MISMO SE ESTA ROMPIENDO, CASI ANDA*/
+         this.casilleroSeleccionado?.getFicha().siendoArrastrado();
          this.casilleroSeleccionado?.getFicha().dibujar();
       }
    }
@@ -97,6 +97,10 @@ export class Game {
    mouseDragEnd(event) {
       if (!this.arrastrando || this.isPaused) return;
       this.arrastrando = false;
+
+      if(this.casilleroSeleccionado?.getFicha() != null){
+         this.casilleroSeleccionado?.getFicha().soltarArrastre();
+      }
       
       const rect = this.canvas.getBoundingClientRect();
       const scaleX = this.canvas.width / rect.width;
