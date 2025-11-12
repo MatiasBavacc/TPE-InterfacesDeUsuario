@@ -53,7 +53,7 @@ export class FichaController {
     dibujar() {
         const y = this.y + (this.alto / 2);
         const x = this.x + (this.ancho / 2);
-        this.view.dibujarFicha(this.ctx, x, y, this.model);
+        /* this.view.dibujarFicha(this.ctx, x, y, this.model); */
         this.dibujarImagen();
     }
 
