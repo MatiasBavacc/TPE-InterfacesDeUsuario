@@ -76,7 +76,7 @@ export class TableroController {
             const totalSize = 7 * (this.casilleroSize + 30);
             this.dibujarMarcoTablero(this.ctx, 400 - 40, 100 - 40, totalSize + 80, totalSize + 80);
             for (let c of this.casilleros) {
-                  c.dibujarCasilla(this.ctx, "yellow");
+                  c.dibujarCasilla(this.ctx);
             }
             this.ctx.restore();
       }
@@ -178,6 +178,7 @@ export class TableroController {
                         if (casilleroMedio && casilleroMedio.getFicha() != null && c.getFicha() == null) {
                               c.marcarCasilla(this.ctx);
                               casilleroMedio.getFicha().estaEnELMedio();
+                              c.iniciarAnimacionPacmanVerde();
                         }
                   }
             }
@@ -187,6 +188,7 @@ export class TableroController {
             for (let c of this.casilleros) {
                   c.desmarcarCasilla();
                   c.getFicha()?.volverImagenOriginal();
+                  c.detenerAnimacionPacmanVerde();
             }
       }
 
