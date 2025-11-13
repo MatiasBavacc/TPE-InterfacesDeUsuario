@@ -1,5 +1,7 @@
 import { TableroController } from "./controller/Tablero.Controller.js";
 import { Interfaz } from "./Interfaz.js";
+import CuentaRegresiva from "./cuentaRegresiva.js";
+
 export class Game {
    constructor(canvas) {
       this.canvas = canvas;
@@ -7,6 +9,7 @@ export class Game {
       this.interfaz = new Interfaz(this);
 
       this.isPaused = false;
+      this.timer = new CuentaRegresiva(120); // controla el tiempo
 
       this.arrastrando = false;
       this.casilleroSeleccionado = null;
@@ -25,32 +28,51 @@ export class Game {
 
       this.tableroController.dibujarFondo();
 
+      this.timer.reiniciar(); // inicia el timer
+      this._iniciarLoopTimer(); //  inicia el control del tiempo
+
       this.canvas.addEventListener('mousedown', this.boundMouseDragStart);
       this.canvas.addEventListener('mousemove', this.boundMouseDrag);
       this.canvas.addEventListener('mouseup', this.boundMouseDragEnd);
    }
 
+   _iniciarLoopTimer() {
+      this.loopTimer = setInterval(() => {
+         if (this.isPaused) return;
+         this.timer.mostrarTiempo();
+         if (this.timer.finalizo()) {
+            clearInterval(this.loopTimer);
+            this.interfaz.mostrarDerrota();
+            this._desactivarListenersJuego();
+         }
+      }, 1000);
+   }
+
    detenerJuego() {
-    console.log("Deteniendo el juego y listeners...");
-    
-    this.canvas.removeEventListener('mousedown', this.boundMouseDragStart);
-    this.canvas.removeEventListener('mousemove', this.boundMouseDrag);
-    this.canvas.removeEventListener('mouseup', this.boundMouseDragEnd);
+      console.log("Deteniendo el juego y listeners...");
+      clearInterval(this.loopTimer);
+      this.timer.detener();
 
-    this.arrastrando = false;
-    this.casilleroSeleccionado = null;
+      this.canvas.removeEventListener('mousedown', this.boundMouseDragStart);
+      this.canvas.removeEventListener('mousemove', this.boundMouseDrag);
+      this.canvas.removeEventListener('mouseup', this.boundMouseDragEnd);
 
-    this.tableroController.limpiarTablero(); 
+      this.arrastrando = false;
+      this.casilleroSeleccionado = null;
+
+      this.tableroController.limpiarTablero(); 
    }
 
    pausar() {
       this.isPaused = true;
+      this.timer.pausar();
       console.log("Juego pausado");
    }
 
    reanudar() {
-    this.isPaused = false;
-    console.log("Juego reanudado");
+      this.isPaused = false;
+      this.timer.reanudar();
+      console.log("Juego reanudado");
    }
 
    finalizar() {
@@ -127,11 +149,11 @@ export class Game {
             this.tableroController.dibujarFondo();
             this.casilleroSeleccionado.getFicha().dibujar();
          } else if (casilleroNuevo && casilleroNuevo.getFicha()) {
-                  casilleroNuevo.getFicha().setX(casilleroNuevo.getX());
-                  casilleroNuevo.getFicha().setY(casilleroNuevo.getY());
-                  this.tableroController.dibujarFondo();
-                  casilleroNuevo.getFicha().dibujar();
-            }
+            casilleroNuevo.getFicha().setX(casilleroNuevo.getX());
+            casilleroNuevo.getFicha().setY(casilleroNuevo.getY());
+            this.tableroController.dibujarFondo();
+            casilleroNuevo.getFicha().dibujar();
+         }
       }
 
       this.desmarcarCasilleros();
