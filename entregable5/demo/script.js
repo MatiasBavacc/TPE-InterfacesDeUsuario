@@ -171,12 +171,16 @@ function update() {
 
 function endGame() {
     gameOver = true;
-    
-    // Detener la generación de tuberías al perder
-    clearInterval(tuberiaSpawnInterval); 
 
-    // Pausa para reiniciar
+    clearInterval(tuberiaSpawnInterval);
+
+    const pajaro = document.getElementById("pajaro");
+
+    // Aplicar animación de muerte
+    pajaro.classList.add("muerto");
+
     setTimeout(() => {
+        pajaro.classList.remove("muerto"); // vuelve a volar al reiniciar
         resetGame();
     }, 700);
 }
