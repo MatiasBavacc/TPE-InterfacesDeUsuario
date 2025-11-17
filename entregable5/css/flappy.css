@@ -1,4 +1,4 @@
-/* --- ESTILOS DEL CONTENEDOR (de tu juego.css) --- */
+/*ESTILOS DEL CONTENEDOR (juego.css)*/
 .canvas-game {
     aspect-ratio: 16/9;
     grid-area: canvas-game;
@@ -11,7 +11,7 @@
     margin-left: 50px;
     background-color: rgba(0, 0, 0, 0.5);
     position: relative;
-    overflow: hidden; /* ¡Clave para Flappy! */
+    overflow: hidden;
 }
 
 .canvas-game .blur {
@@ -89,7 +89,7 @@
     display: none !important;
 }
 
-/* Contenedor específico de Flappy (dentro de canvas-game) */
+/* Contenedor de Flappy (dentro de canvas-game) */
 #flappy-bird-game {
     width: 100%;
     height: 100%;
@@ -97,7 +97,7 @@
     overflow: hidden;
 }
 
-/* --- ESTILOS DE FLAPPY BIRD (tu style.css) --- */
+/* --- ESTILOS DE FLAPPY BIRD --- */
 
 /* ------------ PARALLAX ------------ */
 @keyframes scroll {
@@ -112,10 +112,9 @@
     top: 0;
     left: 0;
     background-repeat: repeat-x;
-    background-size: 1920px 100%; /* Ajustado a 100% de altura */
+    background-size: 1920px 100%;
 }
 
-/* ¡ASEGÚRATE DE QUE ESTAS IMÁGENES ESTÉN EN TU CARPETA /img/! */
 .layer-7 { background-image: url("../demo/layer07_Sky.png");     animation: scroll 12s infinite linear; }
 .layer-6 { background-image: url("../demo/layer06_Rocks.png");   animation: scroll 10s infinite linear; }
 .layer-5 { background-image: url("../demo/layer05_Clouds.png");  animation: scroll 9s infinite linear; }
@@ -129,7 +128,6 @@
     position: absolute;
     width: 32px;
     height: 64px;
-    /* ¡ASEGÚRATE DE QUE ESTA IMAGEN ESTÉ EN /img/! */
     background: url("../demo/volando.png") repeat-x;
     animation: walk 0.8s steps(6) infinite;
     image-rendering: pixelated;
@@ -143,4 +141,28 @@
 @keyframes walk {
     0% { background-position: 0; }
     100% { background-position: -192px; }
+}
+
+@keyframes dead {
+    0% { background-position: 0; }
+    100% { background-position: -192px; }
+}
+
+.muerto {
+    background-image: url("../demo/muerte-pajaro.png") !important;
+    animation: dead 0.6s steps(6) forwards !important;
+    transform: scale(4) rotate(0deg) !important;
+    transform-origin: center;
+}
+
+/* ------------ TUBERÍA ------------ */
+.tuberia {
+    position: absolute;
+    width: 64px; 
+    background-image: url("../demo/pixil-frame-0.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    left: 100vw; 
+    z-index: 5;
 }

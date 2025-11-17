@@ -1,9 +1,6 @@
 "use strict";
 
-// ¡IMPORTAMOS EL NUEVO JUEGO!
-// (Asegúrate que la ruta './flappy-game.js' es correcta)
-import { resetGame, flappyKeydown } from './flappy/flappy-game.js';
-
+import {resetGame} from './flappy/flappy-game.js';
 
 document.addEventListener("DOMContentLoaded", () =>  {
     
@@ -35,9 +32,6 @@ document.addEventListener("DOMContentLoaded", () =>  {
     const imgJuego = document.querySelector(".img-juego");
     const flappyGame = document.getElementById("flappy-bird-game");
 
-    //
-    // --- ¡ESTE ES EL CAMBIO PRINCIPAL! ---
-    //
     btnJugar.addEventListener("click", () => {
         // 1. Oculta la interfaz inicial
         btnJugar.classList.add("oculto");
@@ -53,14 +47,6 @@ document.addEventListener("DOMContentLoaded", () =>  {
         // 3. Inicia el juego Flappy Bird
         resetGame();
     });
-
-    // 4. Añadimos el listener para el salto de Flappy
-    document.addEventListener("keydown", (e) => {
-        flappyKeydown(e); // Llama a la función importada
-    });
-    // --- FIN DEL CAMBIO PRINCIPAL ---
-    //
-
     
     /* Enviar o Cancelar Formulario de Comentarios */
     if(formComentario) formComentario.addEventListener("submit", postComentario);
