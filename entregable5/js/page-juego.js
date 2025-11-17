@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () =>  {
             imgJuego.classList.add("oculto");
         }
 
+        btnJugar.blur();
         // 2. Muestra el contenedor del juego Flappy Bird
         flappyGame.classList.remove("oculto");
 

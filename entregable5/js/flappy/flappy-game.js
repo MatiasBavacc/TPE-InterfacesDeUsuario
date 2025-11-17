@@ -31,6 +31,7 @@ export function resetGame() {
 export function flappyKeydown(event) {
     // Solo saltar con "Espacio"
     if (event.code === 'Space' && !gameOver) {
+        event.preventDefault();
         velocity = jump;
     }
 }
