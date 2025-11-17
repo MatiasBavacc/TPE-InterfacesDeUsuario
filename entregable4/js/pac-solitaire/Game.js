@@ -29,7 +29,7 @@ export class Game {
       this.tableroController.dibujarFondo();
 
       this.timer.reiniciar(); // inicia el timer
-      this._iniciarLoopTimer(); //  inicia el control del tiempo
+      this._iniciarLoopTimer(); //  inicia el control del tiempo para mostrar
 
       this.canvas.addEventListener('mousedown', this.boundMouseDragStart);
       this.canvas.addEventListener('mousemove', this.boundMouseDrag);

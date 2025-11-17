@@ -1,0 +1,50 @@
+/* ------------ PARALLAX ------------ */
+
+@keyframes scroll {
+    0% { background-position-x: 0px; }
+    100% { background-position-x: -1920px; }
+}
+
+.layer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-repeat: repeat-x;
+    background-size: 1920px 1080px;
+}
+
+.layer-7 { background-image: url("layer07_Sky.png");    animation: scroll 12s infinite linear; }
+.layer-6 { background-image: url("layer06_Rocks.png");  animation: scroll 10s infinite linear; }
+.layer-5 { background-image: url("layer05_Clouds.png"); animation: scroll 9s infinite linear; }
+.layer-4 { background-image: url("layer04_Hills_2.png"); animation: scroll 8s infinite linear; }
+.layer-3 { background-image: url("layer03_Hills_1.png"); animation: scroll 7s infinite linear; }
+.layer-2 { background-image: url("layer02_Trees.png");  animation: scroll 5s infinite linear; }
+.layer-1 { background-image: url("layer01_Ground.png"); animation: scroll 5s infinite linear; }
+
+/* ------------ PÁJARO ------------ */
+
+#bird {
+    position: absolute;
+    width: 32px;
+    height: 64px;
+
+    background: url("volando.png") repeat-x;
+    animation: walk 0.8s steps(6) infinite;
+    image-rendering: pixelated;
+
+    transform-origin: center;
+    transform: scale(4);
+
+    left: 120px;
+    top: 220px;
+
+    z-index: 10;
+}
+
+@keyframes walk {
+    0% { background-position: 0; }
+    100% { background-position: -192px; }
+}

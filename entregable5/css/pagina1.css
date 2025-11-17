@@ -1,0 +1,224 @@
+/* Variables CSS para reutilizar valores */
+:root {
+    --light: #D9D9D9;
+    --dark: #000000;
+    --purple: #072255;
+    --btn-purple: #395281;
+    --color-terciario: #6C60A3;
+    --radius: 50px;
+    --shadow: 30px 30px 58.4px 9px rgba(0, 0, 0, 0.7);
+    --color-danger: #D1242F;
+    --color-acento: #ECC47D;
+    --color-blanco: #FFFFFF;
+}
+
+/* Estilos generales y fondo */
+body {
+    background: url('../img/elenemigos.png') center / cover no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    margin: 0;
+    font-family: 'Cobin', sans-serif;
+}
+
+/* Contenedor del formulario */
+.form {
+    background: var(--purple);
+    border: 3px solid var(--dark);
+    box-shadow: var(--shadow);
+    border-radius: 20px;
+    padding: 0;
+    width: 700px;
+    height: 616px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título de login */
+.titulo-login {
+    color: var(--light);
+    font-size: 60px;
+    margin: 50px 138px 27px; /* Shorthand: top right/bottom left */
+    width: 500px;
+    height: 60px;
+}
+
+/* Campos de entrada */
+.campo {
+    padding: 10px;
+    margin-bottom: 5px;
+    border: none;
+    background-color: var(--light);
+    color: var(--dark); /* Corregido para visibilidad */
+    box-sizing: border-box;
+    width: 600px;
+    height: 30px;
+    border-radius: var(--radius);
+}
+
+/* Botón de inicio de sesión */
+.btn-login {
+    padding: 10px;
+    border: none;
+    border-radius: var(--radius);
+    background-color: var(--btn-purple);
+    color: var(--light);
+    margin-top: 30px;
+    height: 50px;
+    width: 300px;
+    font-size: 30px;
+}
+
+/* Texto de registro y no-cuenta */
+.registro-texto,
+.no-cuenta {
+    color: var(--light);
+    font-size: 35px;
+    text-decoration: none;
+}
+
+.no-cuenta {
+    width: 310px;
+    height: 42px;
+    margin-bottom: 40px;
+    border-radius: var(--radius);
+    background-color: var(--btn-purple);
+    text-decoration: none;
+}
+
+/* Etiquetas de campos */
+.campo-label {
+    color: var(--light);
+    font-size: 25px;
+    align-self: flex-start;
+    margin-left: 50px;
+}
+
+/* Formulario y logos */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.logos {
+    display: flex;
+    justify-content: center;
+    gap: 196px;
+    margin: 38px 0 76px;
+}
+
+.registro-texto {
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+    margin-bottom: 0;
+}
+
+.btn-login:hover, .no-cuenta:hover {
+    background-color: var(--color-terciario); /* Azul más oscuro al pasar el ratón */
+    transform: matrix(1.05, 0, 0, 1.05, 0, 0); /* Un ligero zoom */
+}
+
+
+.campo-contraseña {
+    display: flex;
+    align-items: center;
+    width: 600px;
+    position: relative;
+}
+
+.campo-contraseña .campo {
+    flex: 1;
+    width: 100%;
+    padding-right: 40px; 
+}
+
+.imagen-contraseña {
+    cursor: pointer;
+    position: absolute;
+    right: 13px;
+    bottom: 3px;
+    top: 7px;
+    width: 23px;
+    height: 17px;
+}
+
+.ojocerrado {
+    cursor: pointer;
+    position: absolute;
+    right: 13px;
+    bottom: 3px;
+    top: 3px;
+    width: 25px;
+    height: 25px;
+}
+
+
+.invalid-campo{
+    border: 2px solid var(--color-danger);
+}
+
+.danger {
+    color: var(--color-danger);
+    font-size: 15px;
+}
+
+
+.oculto {
+    display: none;
+}
+
+.check-registro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--color-acento);
+    border-radius: 20px;
+    padding: 0;
+    width: 400px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    z-index: 3; /* Asegura que esté encima de otros elementos */
+    color: var(--purple);
+    animation: mostrarMensaje 2s ease forwards;
+    gap: 10px;
+}
+
+.blur-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 2; /* Asegura que esté encima de otros elementos */
+    animation: mostrarMensaje 2s ease forwards;
+}
+
+.blur-background::backdrop {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    animation: mostrarMensaje 2s ease forwards;
+}
+
+@keyframes mostrarMensaje {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1;}
+}
+
+h4{
+    margin: 0;
+    padding: 0;
+}
