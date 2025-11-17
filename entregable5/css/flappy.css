@@ -1,0 +1,146 @@
+/* --- ESTILOS DEL CONTENEDOR (de tu juego.css) --- */
+.canvas-game {
+    aspect-ratio: 16/9;
+    grid-area: canvas-game;
+    border-radius: 50px;
+    background-image: url('../img/blocka.png'); /* Fondo inicial */
+    background-size: cover;
+    background-position: center;
+    min-width: 600px;
+    max-width: 1400px;
+    margin-left: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden; /* ¡Clave para Flappy! */
+}
+
+.canvas-game .blur {
+    aspect-ratio: 16/9;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+}
+
+.img-juego {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.btn-jugar {
+    width: 200px;
+    height: 80px;
+    background-color: var(--color-primario);
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    background-image: url('../img/btn-jugar.png');
+    background-size: 65px;
+    background-repeat: no-repeat;
+    background-position-x: 58%;
+    background-position-y: 50%;
+    transition: 0.3s ease-out;
+}
+
+.btn-jugar:hover {
+    background-color: var(--color-acento);
+    background-image: url('../img/btn-jugar-hover.png');
+}
+
+.maximizar {
+    background-color: var(--color-terciario-luz2);
+    border: none;
+    width: 80px;
+    max-width: 80px;
+    min-width: 80px;
+    height: 80px;
+    border-radius: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    z-index: 101;
+    position: absolute;
+    top: 1%;
+    right: 20px;
+    background-image: url('../img/maximizar.png');
+}
+
+.maximizar:hover {
+    background-image: url('../img/maximizar-hover.png');
+    background-position-y: 40%;
+}
+
+.oculto {
+    display: none !important;
+}
+
+/* Contenedor específico de Flappy (dentro de canvas-game) */
+#flappy-bird-game {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- ESTILOS DE FLAPPY BIRD (tu style.css) --- */
+
+/* ------------ PARALLAX ------------ */
+@keyframes scroll {
+    0% { background-position-x: 0px; }
+    100% { background-position-x: -1920px; }
+}
+
+.layer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: repeat-x;
+    background-size: 1920px 100%; /* Ajustado a 100% de altura */
+}
+
+/* ¡ASEGÚRATE DE QUE ESTAS IMÁGENES ESTÉN EN TU CARPETA /img/! */
+.layer-7 { background-image: url("../demo/layer07_Sky.png");     animation: scroll 12s infinite linear; }
+.layer-6 { background-image: url("../demo/layer06_Rocks.png");   animation: scroll 10s infinite linear; }
+.layer-5 { background-image: url("../demo/layer05_Clouds.png");  animation: scroll 9s infinite linear; }
+.layer-4 { background-image: url("../demo/layer04_Hills_2.png"); animation: scroll 8s infinite linear; }
+.layer-3 { background-image: url("../demo/layer03_Hills_1.png"); animation: scroll 7s infinite linear; }
+.layer-2 { background-image: url("../demo/layer02_Trees.png");   animation: scroll 5s infinite linear; }
+.layer-1 { background-image: url("../demo/layer01_Ground.png");  animation: scroll 5s infinite linear; }
+
+/* ------------ PÁJARO ------------ */
+#bird {
+    position: absolute;
+    width: 32px;
+    height: 64px;
+    /* ¡ASEGÚRATE DE QUE ESTA IMAGEN ESTÉ EN /img/! */
+    background: url("../demo/volando.png") repeat-x;
+    animation: walk 0.8s steps(6) infinite;
+    image-rendering: pixelated;
+    transform-origin: center;
+    transform: scale(4);
+    left: 120px;
+    top: 220px;
+    z-index: 10;
+}
+
+@keyframes walk {
+    0% { background-position: 0; }
+    100% { background-position: -192px; }
+}

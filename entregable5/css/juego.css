@@ -1,40 +1,27 @@
-
 /* Variables de colores */
 :root {
   --color-primario: #1D1054;
-
   --color-primario-luz1: #4B3D86;
   --color-primario-luz2: #6C60A3;
   --color-primario-luz3: #3C3076;
-
   --color-primario-sombra1: #13054A;
   --color-primario-sombra2: #100639;
   --color-primario-sombra3: #080220;
-
-
   --color-secundario: #350B52;
-
   --color-secundario-luz1: #643683;
   --color-secundario-luz2: #4C1E6B;
   --color-secundario-luz3: #3E0663;
-
   --color-secundario-sombra1: #310A4C;
   --color-secundario-sombra2: #220338;
   --color-secundario-sombra3: #13011F;
-
-
   --color-terciario: #0E2551;
-
   --color-terciario-luz1: #395281;
   --color-terciario-luz2: #213B6A;
   --color-terciario-luz3: #172F5C;
-
   --color-terciario-sombra1: #072255;
   --color-terciario-sombra2: #041637;
   --color-terciario-sombra3: #010C1F;
-
   --color-acento: #ECC47D;
-
   --color-contraste: #C0C0C0;
   --color-blanco: #FFFFFF;
   --color-negro: #000000;
@@ -42,30 +29,25 @@
 }
 
 *::-webkit-scrollbar {
-  width: 8px; /* Ancho de la barra */
+  width: 8px;
 }
-
 *::-webkit-scrollbar-track {
-  background: var(--color-terciario); /* Color del riel/fondo */
+  background: var(--color-terciario);
 }
-
 *::-webkit-scrollbar-thumb {
-  background: var(--color-acento); /* Color del pulgar */
+  background: var(--color-acento);
   border-radius: 4px;
 }
 
-
-
-/* Body */
+/* Estilos Generales de la Página (h1, p, body, etc.) */
 body {
   margin: 0;
   background-color: var(--color-primario);
   width: 100vw;
   height: 100vh;
-  /* Grid */
   display: grid;
-  grid-template-columns: repeat(12, 1fr); /* 12 columnas iguales */
-  grid-template-rows: auto auto 1fr auto; /* header, breadcrumb, contenido, footer */
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto auto 1fr auto;
   gap: 20px;
   grid-template-areas:
     "header header header header header header header header header header header header"
@@ -73,42 +55,21 @@ body {
     "footer footer footer footer footer footer footer footer footer footer footer footer";
 }
 
-/* HEader */
 header {
   grid-area: header;
 }
 
-h1 {
-  font-size: 40px;
-  font-family: 'Cobin', sans-serif;
-}
+h1 { font-size: 40px; font-family: 'Cobin', sans-serif; }
+h2 { font-size: 35px; font-family: 'Cobin', sans-serif; }
+h3 { font-size: 30px; font-family: 'Cobin', sans-serif; }
+h4 { font-size: 25px; font-family: 'Cobin', sans-serif; }
+p { font-size: 20px; font-family: 'Cobin', sans-serif; }
 
-h2 {
-  font-size: 35px;
-  font-family: 'Cobin', sans-serif;
-}
-
-h3 {
-  font-size: 30px;
-  font-family: 'Cobin', sans-serif;
-}
-
-h4 {
-  font-size: 25px;
-  font-family: 'Cobin', sans-serif;
-}
-
-p {
-  font-size: 20px;
-  font-family: 'Cobin', sans-serif;
-}
-
-/* Cuerpo */
 .main {
   grid-area: main;
   display: grid;
-  grid-template-columns: repeat(12, 0.5fr); /* 12 columnas iguales */
-  grid-template-rows: auto auto 1fr auto; /* header, breadcrumb, contenido, footer */
+  grid-template-columns: repeat(12, 0.5fr);
+  grid-template-rows: auto auto 1fr auto;
   gap: 20px;
   grid-template-areas:
     ". breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb ."
@@ -127,7 +88,6 @@ p {
   margin-top: 3px;
 }
 
-/* Breadcrumb */
 .breadcrumb {
   grid-area: breadcrumb;
   display: flex;
@@ -136,93 +96,51 @@ p {
   font-size: 15px;
   font-family: 'Cobin', sans-serif;
 }
-
 .breadcrumb a {
   color: var(--color-contraste);
   text-decoration: none;
 }
-
 .breadcrumb a:hover {
   color: var(--color-acento);
 }
-
 .breadcrumb img {
   width: 20px;
 }
 
-/* Juego */
-.canvas-game{
+/* --- ESTILOS DEL CONTENEDOR DEL JUEGO --- */
+.canvas-game {
   aspect-ratio: 16/9;
   grid-area: canvas-game;
   border-radius: 50px;
-  background-image: url('../img/pacSolitaire.png') ;
+
   background-size: cover;
+  background-position: center;
   min-width: 600px;
   max-width: 1400px;
   margin-left: 50px;
-  background-color:rgba(0, 0, 0, 0.5) ;
+  background-color: rgba(0, 0, 0, 0.5);
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* ¡Clave para Flappy! */
 }
 
-.sinFondo {
-  aspect-ratio: 16/9;
-  grid-area: canvas-game;
-  border-radius: 50px;
-  min-width: 600px;
-  max-width: 1400px;
-  margin-left: 50px;
-  background-color:rgba(0, 0, 0, 0.5) ;
-  position: relative;
-}
-
-.sinFondo:fullscreen {
+.canvas-game:fullscreen {
   width: 100vw;
   height: 100vh;
-  margin: 0;
-  border-radius: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.sinFondo:fullscreen canvas {
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
-}
-
-#canvas-game{
-  aspect-ratio: 16/9;
-  grid-area: canvas-game;
-  border-radius: 50px;
-  background-color:rgba(0, 0, 0, 0.7) ;
-}
-
-#canvas-game:fullscreen {
-  width: 100vw;
-  height: 100vh;
-  border-radius: 0;
-  margin: 0;
-  position: fixed; /* más estable que absolute */
-  top: 0;
-  left: 0;
+  border-radius: 0px;
+  margin-left: 0px;
 }
 
 .canvas-game .blur {
   aspect-ratio: 16/9;
   position: absolute;
-  width: clamp(600px,100%, 1400px);
+  width: 100%;
+  height: 100%;
   border-radius: 50px;
   z-index: 1;
   backdrop-filter: blur(5px);
 }
 
-.canvas-game:fullscreen, .canvas-game:fullscreen .blur{
+.canvas-game:fullscreen .blur {
   width: 100vw;
   height: 100vh;
   border-radius: 0px;
@@ -238,10 +156,9 @@ p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  pointer-events: none; /* Evita que la imagen interfiera con los clics */
+  pointer-events: none;
 }
 
-/* Boton Jugar*/
 .btn-jugar {
   width: 200px;
   height: 80px;
@@ -264,161 +181,16 @@ p {
 }
 
 .btn-jugar:hover {
-  width: 200px;
-  height: 80px;
   background-color: var(--color-acento);
-  border: none;
-  border-radius: 40px;
-  cursor: pointer;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 2;
   background-image: url('../img/btn-jugar-hover.png');
-  background-size: 65px;
-  background-repeat: no-repeat;
-  background-position-x: 58%;
-  background-position-y: 50%;
-  transition: 0.3s ease-out;
 }
 
-.menu-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--color-primario);
-  border: 5px solid var(--color-acento);
-  border-radius: 20px;
-  padding: 30px;
-  z-index: 100;
-  color: var(--color-blanco);
-  font-family: 'Cobin', sans-serif;
-  text-align: center;
-}
-
-.menu-container h2 {
-  color: var(--color-acento);
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-size: 55px;
-  font-weight: bold;
-}
-
-/* ESTILOS PARA TOOLTIP DE DIFICULTAD (pop up)
-
-/* contenedor del botón, necesita ser relativo para posicionar el tooltip */
-.menu-container .menu-btn {
-    position: relative;
-}
-
-/* estilo base del tooltip*/
-.menu-container .menu-btn[data-tooltip]::after {
-    content: attr(data-tooltip); /* muestra el texto del atributo data-tooltip */
-    position: absolute;
-    left: 105%;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.85);
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 14px; 
-    line-height: 1.4;
-    width: 180px; 
-    text-align: left;
-    white-space: normal; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
-
-    /* oculto por defecto y transición */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    pointer-events: none; /* evita que el tooltip haga quilombo con el mouse */
-    z-index: 100;
-}
-
-/* flechita para mostrar en cual dificultad estoy parado*/
-.menu-container .menu-btn[data-tooltip]::before {
-    content: '';
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    border-width: 6px;
-    border-style: solid;
-    border-color: transparent rgba(0, 0, 0, 0.85) transparent transparent;
-
-    /* oculto por defecto y transición */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    pointer-events: none;
-    z-index: 101;
-}
-
-/* muestra el tooltip y la flecha al hacer hover sobre el botón */
-.menu-container .menu-btn[data-tooltip]:hover::after,
-.menu-container .menu-btn[data-tooltip]:hover::before {
-    opacity: 1;
-    visibility: visible;
-}
-
-.vertical-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  min-width: 300px;
-}
-
-.grid-menu {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 15px;
-  min-width: 500px;
-}
-
-.menu-btn {
-  background-color: var(--color-terciario-luz1);
-  color: var(--color-blanco);
-  font-family: 'Cobin', sans-serif;
-  font-size: 30px;
-  font-weight: bold;
-  border: 5px solid var(--color-terciario-luz2);
-  border-radius: 50px;
-  padding: 15px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.menu-btn:hover {
-  background-color: var(--color-acento);
-  color: var(--color-primario);
-  border: 5px solid var(--color-terciario-luz1);
-  transform: scale(1.1);
-}
-
-#ranking-display {
-  background-color: rgba(0,0,0,0.3);
-  border-radius: 10px;
-  padding: 10px;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-#ranking-list {
-  text-align: left;
-  font-size: 16px;
-  font-family: 'Cobin', sans-serif;
-}
-
-/* Botones en juego (Pausa, Menu) */
-.game-control-btn {
+.maximizar {
   background-color: var(--color-terciario-luz2);
   border: none;
-  width: 80px; /* Más pequeños que maximizar */
+  width: 80px;
+  max-width: 80px;
+  min-width: 80px;
   height: 80px;
   border-radius: 50px;
   background-repeat: no-repeat;
@@ -427,147 +199,77 @@ p {
   z-index: 101;
   position: absolute;
   top: 1%;
-  transition: 0.3s ease-out;
+  right: 20px;
+  background-image: url('../img/maximizar.png');
 }
 
-.game-control-btn:hover {
+.maximizar:hover {
+  background-image: url('../img/maximizar-hover.png');
   background-position-y: 40%;
 }
 
-#pause-button {
-  right: 110px; /* Al lado de maximizar */
-  background-image: url('../img/play.png'); /* (Deberás crear este icono) */
-  background-size: 50px;
+/* Contenedor específico de Flappy (dentro de canvas-game) */
+#flappy-bird-game {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
-#pause-button:hover {
-  background-image: url('../img/play-hover.png'); /* (Icono hover) */
+/* --- FIN ESTILOS CONTENEDOR --- */
+
+
+/* --- ESTILOS DE FLAPPY BIRD (AÑADIDOS) --- */
+@keyframes scroll {
+  0% { background-position-x: 0px; }
+  100% { background-position-x: -1920px; }
 }
 
-#ingame-menu-button {
-  right: 200px; /* Al lado de pausa */
-  background-image: url('../img/icon-burger.png'); /* (Deberás crear este icono) */
-  background-size: 50px;
-}
-
-#ingame-menu-button:hover {
-  background-image: url('../img/icon-burger-hover.png'); /* (Icono hover) */
-}
-
-/* Menú desplegable en juego */
-#ingame-menu {
+.layer {
+  width: 100%;
+  height: 100%;
   position: absolute;
-  top: 100px; /* Debajo del botón de menú */
-  right: 165px;
-  background-color: rgba(30, 16, 84, 0.95);
-  border: 2px solid var(--color-acento);
-  border-radius: 10px;
-  z-index: 101;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  gap: 5px;
-  
-  transform: scale(1); 
-  transform-origin: top center; 
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto; /* Permitir clics cuando está visible */
-  transition: transform 0.2s ease-out, opacity 0.2s ease-out, visibility 0s linear 0s;
+  top: 0;
+  left: 0;
+  background-repeat: repeat-x;
+  background-size: 1920px 100%; /* Ajustado a 100% de altura */
 }
 
-/* Estado Oculto y Transición AL OCULTARSE */
-#ingame-menu.oculto {
-  transform: scale(0.5); 
-  opacity: 0; 
-  visibility: hidden;
-  pointer-events: none; /* No permitir clics cuando está oculto */
-  transition: transform 0.2s ease-in, opacity 0.2s ease-in, visibility 0s linear 0.2s;
-}
+/* ¡ASEGÚRATE DE QUE ESTAS IMÁGENES ESTÉN EN TU CARPETA /img/! */
+.layer-7 { background-image: url("../demo/layer07_Sky.png");     animation: scroll 12s infinite linear; }
+.layer-6 { background-image: url("../demo/layer06_Rocks.png");   animation: scroll 10s infinite linear; }
+.layer-5 { background-image: url("../demo/layer05_Clouds.png");  animation: scroll 9s infinite linear; }
+.layer-4 { background-image: url("../demo/layer04_Hills_2.png"); animation: scroll 8s infinite linear; }
+.layer-3 { background-image: url("../demo/layer03_Hills_1.png"); animation: scroll 7s infinite linear; }
+.layer-2 { background-image: url("../demo/layer02_Trees.png");   animation: scroll 5s infinite linear; }
+.layer-1 { background-image: url("../demo/layer01_Ground.png");  animation: scroll 5s infinite linear; }
 
-.menu-btn-small {
-  background-color: var(--color-terciario-luz1);
-  color: var(--color-blanco);
-  font-family: 'Cobin', sans-serif;
-  font-size: 16px;
-  font-weight: normal;
-  border: 3px solid var(--color-terciario-luz2);
-  border-radius: 50px;
-  padding: 10px;
-  cursor: pointer;
-  transition: 0.3s ease;
-  text-align: center;
-}
-
-.menu-btn-small:hover {
-  background-color: var(--color-acento);
-  color: var(--color-primario);
-  border: 3px solid var(--color-terciario-luz1);
-}
-
-/* Mensajes de Victoria / Derrota */
-.game-message {
+#bird {
   position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 102;
-  font-family: 'Cobin', sans-serif;
-  color: var(--color-acento);
-  text-shadow: 0 0 15px var(--color-negro);
-  pointer-events: none; /* No bloquear clics */
+  width: 32px;
+  height: 64px;
+  /* ¡ASEGÚRATE DE QUE ESTA IMAGEN ESTÉ EN /img/! */
+  background: url("../demo/volando.png") repeat-x;
+  animation: walk 0.8s steps(6) infinite;
+  image-rendering: pixelated;
+  transform-origin: center;
+  transform: scale(4);
+  left: 120px;
+  top: 220px;
+  z-index: 10;
 }
 
-.game-message h2 {
-  font-size: 100px;
-  font-weight: bold;
+@keyframes walk {
+  0% { background-position: 0; }
+  100% { background-position: -192px; }
 }
+/* --- FIN ESTILOS FLAPPY BIRD --- */
 
-#win-menu {
-  z-index: 103; /* Encima del mensaje de victoria */
-  top: 55%; /* Debajo del mensaje */
-}
 
-#lose-menu {
-  z-index: 103; /* Encima del mensaje de derrota */
-  top: 65%; /* Debajo del mensaje */
-}
-
-/* Overlay de Pausa */
-.pause-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 99;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 70px;
-    color: var(--color-blanco);
-    font-family: 'Cobin', sans-serif;
-    border-radius: 50px;
-}
-
-.maximizar{
-  z-index: 101;
-  position: absolute;
-  top: 1%;
-  right: 20px;
-}
-
+/* --- ESTILOS DEL RESTO DE LA PÁGINA (Sin cambios) --- */
 /* Titilo Juego */
 .titulo {
   grid-area: titulo;
-  color: var(--color-blanco);
-  white-space: nowrap;
-}
-
-/* Ultima actualizacion del juego */
-.update {
-  grid-area: update;
   color: var(--color-blanco);
   white-space: nowrap;
 }
@@ -583,7 +285,7 @@ p {
   position: relative;
 }
 
-.compartir, .favoritos, .estrella, .maximizar {
+.compartir, .favoritos, .estrella {
   background-color: var(--color-terciario-luz2);
   border: none;
   width: 80px;
@@ -595,54 +297,37 @@ p {
   background-position: center;
   cursor: pointer;
 }
-
 .compartir {
   background-image: url('../img/compartir.png');
   transition: 0.3s ease-out;
 }
-.compartir:hover, .favoritos:hover, .estrella:hover, .maximizar:hover {
+.compartir:hover, .favoritos:hover, .estrella:hover {
   transition: 0.3s ease-out;
   background-position-y: 40%;
   cursor: pointer;
 }
-
-.compartir, .favoritos, .estrella, .maximizar {
+.compartir, .favoritos, .estrella {
   transition: 0.3s ease-out;
 }
-
 .compartir:hover {
   background-image: url('../img/compartir-hover.png');
 }
-
 .favoritos {
   background-image: url('../img/favoritos.png');
 }
-
 .favoritos:hover {
   background-image: url('../img/favoritos-hover.png');
 }
-
 .estrella {
   background-image: url('../img/estrella.png');
   background-size: 50px;
 }
-
 .estrella:hover {
   background-image: url('../img/estrella-hover.png');
   background-size: 50px;
 }
 
-.maximizar {
-  background-image: url('../img/maximizar.png');
-}
-
-.maximizar:hover {
-  background-image: url('../img/maximizar-hover.png');
-}
-
 /* Secciones botones */
-
-/* Seccion Compartir */
 .section-compartir {
   position: absolute;
   top: -75%;
@@ -658,8 +343,6 @@ p {
   z-index: 10;
   height: 70px;
 }
-
-/* Seccion Ranking */
 .section-ranking {
   position: absolute;
   top: -75%;
@@ -680,7 +363,6 @@ p {
 .carrucel-game-section{
   grid-area: carrucel-game;
 }
-
 .carrucel-game {
   display: flex;
   overflow: hidden;
@@ -690,7 +372,6 @@ p {
   margin-top: 50px;
   gap: 5px;
 }
-
 .carrucel-item,
 .carrucel-item-principal {
   background-size: cover;
@@ -700,32 +381,26 @@ p {
   align-items: center;
   justify-content: center;
 }
-
 .carrucel-item {
   width: 25%;
   border-radius: 50px;
   overflow: hidden;
   background-image: url('../img/card1-juego.png');
 }
-
 .carrucel-item:nth-child(3) {
   background-image: url('../img/card3-juego.png') ;
 }
-
 .carrucel-item-principal {
   width: 50%;
   border-radius: 50px;
   overflow: hidden;
   background-image: url('../img/card2-juego.png');
 }
-
-
 .videoCard {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 .carrucel-item1,
 .carrucel-item-principal1 {
   background-size: cover;
@@ -735,27 +410,21 @@ p {
   align-items: center;
   justify-content: center;
 }
-
 .carrucel-item1 {
   width: 25%;
   border-radius: 50px;
   overflow: hidden;
   background-image: url('../img/callofalgo2.png');
 }
-
 .carrucel-item1:nth-child(3) {
   background-image: url('../img/hombrequearaña.png') ;
 }
-
 .carrucel-item-principal1 {
   width: 50%;
   border-radius: 50px;
   overflow: hidden;
   background-image: url('../img/card2-juego.png');
 }
-
-
-
 
 /* Categorias de este juego */
 .categorias {
@@ -764,16 +433,13 @@ p {
   font-family: 'Cobin', sans-serif;
   color: var(--color-blanco);
 }
-
 .categorias h3 {
   margin: 5px 0px;
 }
-
 .tags {
   display: flex;
   gap: 10px;
 }
-
 .tags .rectangulo {
   border: var(--color-terciario-luz1) 2px solid;
   border-radius: 10px;
@@ -784,7 +450,6 @@ p {
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
-
 .tags .rectangulo:hover {
   border: var(--color-acento) 2px solid;
   color: var(--color-primario);
@@ -792,22 +457,19 @@ p {
   transition: 0.3s ease-in-out;
 }
 
-/* DEscripcion del juego */
+/* Descripcion del juego */
 .descripcion {
   grid-area: descripcion;
   font-family: 'Cobin', sans-serif;
   color: var(--color-blanco);
 }
-
 .descripcion h3 {
   margin: 5px;
 }
-
 .descripcion p {
   font-size: 20px;
   margin: 0px;
 }
-
 .descripcion p::selection {
   background: var(--color-acento);
   color: var(--color-primario);
@@ -819,30 +481,27 @@ p {
   font-family: 'Cobin', sans-serif;
   color: var(--color-blanco);
 }
-
 .como-jugar h3 {
   margin: 5px;
 }
-
 .como-jugar p {
   font-size: 20px;
   margin: 0px;
 }
 
+/* Controles */
 .controles {
   grid-area: controles;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-
 .controles-divisor {
   grid-area: controles;
   display: flex;
   align-items: center;
   gap: 20px;
 }
-
 .controls {
   background-color: var(--color-terciario);
   border: var(--color-blanco) 3px solid;
@@ -855,18 +514,15 @@ p {
   background-position: center;
   background-image: url('../img/controls.png');
 }
-
 .controles .controles-divisor h3 {
   color: var(--color-blanco);
   margin: 5px;
 }
-
 .controles .image-control  {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .controles .image-control img {
   width: 67px;
   max-width: 67px;
@@ -875,54 +531,45 @@ p {
 }
 
 /* RANKING */
-
 .ranking {
   grid-area: ranking;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-
 .ranking .ranking-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: var(--color-blanco);
 }
-
 .ranking img {
   width: 32px;
 }
-
 .ranking progress {
   width: 80%;
   height: 18px;
 }
-
 .ranking progress::-webkit-progress-bar {
   background-color: var(--color-terciario-luz2);
   border-radius: 5px;
 }
-
 .ranking progress::-webkit-progress-value {
   background-color: var(--color-acento);
   border-radius: 5px;
 }
-
 .estrellas-ranking {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-
 .estrellas-ranking .estrella-colums {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 5px;
 }
-
 .estrellas-ranking .progress-colums {
   display: flex;
   justify-content: space-around;
@@ -931,7 +578,7 @@ p {
   color: var(--color-acento);
 }
 
-/*  Comentarios */
+/* Comentarios */
 .comentarios {
   grid-area: comentarios;
   color: var(--color-blanco);
@@ -944,12 +591,10 @@ p {
   padding: 15px;
   margin-top: 150px;
 }
-
 .comentar {
   display: flex;
   justify-content: space-between;
 }
-
 .user-comentario {
   display: flex;
   flex-direction: column;
@@ -957,7 +602,6 @@ p {
   gap: 2px;
   width: 100px;
 }
-
 .avatar-comentario {
   display: flex;
   flex-direction: column;
@@ -969,17 +613,13 @@ p {
   height: 80px;
   overflow: hidden;
 }
-
-
 .img-avtar-comentarios {
   width: 60px;
 }
-
 .recuadro-comentario {
   width: 90%;
   max-width: 90%;
 }
-
 .recuadro-comentar {
   font-family: 'Cobin', sans-serif;
   font-size: 20px;
@@ -992,18 +632,15 @@ p {
   height: 113px;
   resize: none;
 }
-
 .recuadro-comentar:focus {
   border: var(--color-terciario-luz1) 2px dashed;
 }
-
 .btn-comentario {
   display: flex;
   justify-content: flex-end;
   width: 95%;
   gap: 10px;
 }
-
 .btn-cancelar, .btn-comentar, .btn-cancelar-activo, .btn-comentar-activo, .btn-leer-mas, .btn-leer-menos {
   display: flex;
   justify-content: center;
@@ -1020,34 +657,27 @@ p {
   padding: 1%;
   transition: 0.3s ease-out;
 }
-
 .btn-cancelar-activo:hover, .btn-comentar-activo:hover, .btn-leer-mas:hover, .btn-leer-menos:hover {
   background-color: var(--color-acento);
   color: var(--color-primario);
   transition: 0.3s ease-out;
 }
-
 .btn-cancelar-activo, .btn-comentar-activo {
   background-color: var(--color-terciario-luz1);
 }
-
 .btn-cancelar, .btn-comentar {
   cursor: no-drop;
 }
-
-
 .img-foto-comentarios {
   width: 100%;
   height: 100%;
   object-fit: cover; 
   border-radius: 100%; 
 }
-
 .comentario {
   display: flex;
   gap: 20px;
 }
-
 .texto-comentado, .texto-comentado-activo {
   display: flex;
   flex-direction: column;
@@ -1055,45 +685,37 @@ p {
   gap: 5px;
   height: 100%;
 }
-
 .texto-comentado p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; 
 }
-
 .texto-comentado-activo p {
   white-space: normal;
   overflow: auto;
   text-overflow: clip;
 }
-
 .fecha-comentario {
   color: var(--color-primario-luz2);
   font-size: 15px;
 }
-
 .btns-comentarios {
   display: flex;
   gap: 30px;
 }
-
 .btns-comentarios p {
   font-size: 15px;
 }
-
 .item-btn-comentario {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
 }
-
 .btn-like, .btn-dislike {
   width: 30px;
   cursor: pointer;
 }
-
 .btnLike, .btnDislike {
   width: 30px;
   height: 30px;
@@ -1102,41 +724,34 @@ p {
   background-position: center;
   cursor: pointer;
 }
-
 .btnLike {
   background-image: url('../img/icon-like.png');
 }
-
 .btnDislike {
   background-image: url('../img/icon-dislike.png');
 }
-
 .btnLike-active {
   background-image: url('../img/icon-like-hover.png');
 }
 .btnDislike-active {
   background-image: url('../img/icon-dislike-hover.png');
 }
-
-
 .corazon-volador {
   position: absolute;
-  font-size: 20px; /* Ajusta el tamaño del corazón */
+  font-size: 20px;
   color: var(--color-danger);
-  pointer-events: none; /* Evita que el corazón interfiera con los clics */
-  z-index: 1000; /* Asegura que el corazón esté por encima de otros elementos */
+  pointer-events: none;
+  z-index: 1000;
 }
 
-
-/* Footer */
-
-footer {
-  grid-area: footer;
+/* Ocultos */
+.oculto {
+  display: none !important; /* Añadido !important para asegurar que funcione */
 }
 
-
+/* Estilos del Menú de Perfil y Footer (Se mantienen igual) */
+/* ... (todo el código de .menu-perfil, @media, footer, etc. que ya tenías) ... */
 /* Menu de perfil mobile*/
-
 .menu-perfil {
   display: flex;
   width: 100%;
@@ -1144,15 +759,12 @@ footer {
   align-items: center;
   justify-content: flex-start;
 }
-
 .menu-perfil-backdrop{
   display: none;
 }
-
 .perfil-info{
   display: none;
 }
-
 .perfil-acciones{
   display: flex;
   flex-direction: column;
@@ -1162,14 +774,12 @@ footer {
   width: 100%;
   margin-top: 10px;
 }
-
 .accion-texto{
   width: 60%;
   display: flex;
   white-space: nowrap;
   margin-left: 10px;
 }
-
 .acciones-perfil, .acciones-notificaciones, .acciones-preferencias, .acciones-seguridad, .acciones-cerrar-sesion{
   width: 90%;
   display: flex;
@@ -1180,8 +790,6 @@ footer {
   border: var(--color-acento) 2px solid;
   border-radius: 10px;
 }
-
-
 .icon-perfil-acciones, .icon-perfil-notificaciones, .icon-perfil-preferencias, .icon-perfil-seguridad, .icon-perfil-cerrar-sesion {
   width: 50px;
   height: 50px;
@@ -1189,32 +797,14 @@ footer {
   background-position: center;
   background-repeat: no-repeat;
 }
-.icon-perfil-acciones {
-  background-image: url('../img/icon-avatar-perfil.png');
-}
-
-.icon-perfil-notificaciones {
-  background-image: url('../img/icon-notificacion.png');
-}
-
-.icon-perfil-preferencias {
-  background-image: url('../img/icon-preferencias.png');
-}
-
-.icon-perfil-seguridad {
-  background-image: url('../img/icon-seguridad.png');
-}
-
-.icon-perfil-cerrar-sesion{
-  background-image: url('../img/icon-logout.png');
-}
-
-
-
+.icon-perfil-acciones { background-image: url('../img/icon-avatar-perfil.png'); }
+.icon-perfil-notificaciones { background-image: url('../img/icon-notificacion.png'); }
+.icon-perfil-preferencias { background-image: url('../img/icon-preferencias.png'); }
+.icon-perfil-seguridad { background-image: url('../img/icon-seguridad.png'); }
+.icon-perfil-cerrar-sesion{ background-image: url('../img/icon-logout.png'); }
 
 /* Menu de perfil desktop */
 @media screen and (min-width: 1024px) {
-    
   .menu-perfil {
     position: absolute;
     top: 100%;
@@ -1228,7 +818,6 @@ footer {
     align-items: center;
     gap: 20px;
   }
-
   .menu-perfil-backdrop{
     position: absolute;
     top: calc(100% + 6px);
@@ -1240,7 +829,6 @@ footer {
     opacity: 0.5;
     display: block;
   }
-
   .perfil-info {
     display: flex;
     flex-direction: column;
@@ -1248,7 +836,6 @@ footer {
     gap: 10px;
     margin-top: 20px;
   }
-
   .img-avatar-perfile {
     width: 200px;
     height: 200px;
@@ -1260,11 +847,9 @@ footer {
     background-position: center;
     background-repeat: no-repeat;
   }
-
   .nombre-usuario-perfil {
     color: var(--color-acento);
   }
-
   .perfil-acciones{
     display: flex;
     flex-direction: column;
@@ -1273,7 +858,6 @@ footer {
     gap: 50px;
     width: 100%;
   }
-
   .accion-texto{
     width: 60%;
     display: flex;
@@ -1281,7 +865,6 @@ footer {
     white-space: nowrap;
     margin-left: 0px;
   }
-
   .acciones-perfil, .acciones-notificaciones, .acciones-preferencias, .acciones-seguridad, .acciones-cerrar-sesion{
     width: 60%;
     display: flex;
@@ -1291,144 +874,9 @@ footer {
     transition: 0.3s ease-in-out;
     border: none;
   }
-
-  .icon-perfil-acciones, .icon-perfil-notificaciones, .icon-perfil-preferencias, .icon-perfil-seguridad, .icon-perfil-cerrar-sesion {
-    width: 50px;
-    height: 50px;
-    background-size: auto 25px;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  .icon-perfil-acciones {
-    background-image: url('../img/icon-avatar-perfil.png');
-  }
-
-  .icon-perfil-notificaciones {
-    background-image: url('../img/icon-notificacion.png');
-  }
-
-  .icon-perfil-preferencias {
-    background-image: url('../img/icon-preferencias.png');
-  }
-
-  .icon-perfil-seguridad {
-    background-image: url('../img/icon-seguridad.png');
-  }
-
-  .icon-perfil-cerrar-sesion{
-    background-image: url('../img/icon-logout.png');
-  }
-
 }
 
-.contenedor-carrusel {
-  width: 1400px;
-  overflow: hidden;
-  margin: 0 auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding-top: 30px;
-  padding-bottom: 30px;
+/* Footer */
+footer {
+  grid-area: footer;
 }
-
-.contenedor-imagenes {
-  display: flex;
-  gap: 10px;
-  transition: transform 0.5s ease-in-out;
-}
-
-.seleccionable {
-  width: 500px;
-  border-radius: 50px;
-
-  transition: transform 0.5s, border 0.5s;
-  border: 5px solid transparent;
-  margin: 0 20px;
-  filter: blur(5px);
-}
-
-.seleccionable.activa {
-  border: 5px solid var(--color-acento);
-  transform: scale(1.1);
-  filter: blur(0);
-  box-shadow: 0 0 15px var(--color-acento), 0 0 25px var(--color-acento);
-}
-
-.contador {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--color-blanco);
-  font-size: 18px;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-family: 'Cobin', sans-serif;
-}
-
-/* --- Estilos para la Barra de Volumen --- */
-
-/* todos los navegadores */
-#volume-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%; /* Ajusta el ancho si es necesario */
-  height: 9px; /* Altura de la barra */
-  background: var(--color-terciario-luz1); /* Color de la barra (track) */
-  border-radius: 5px;
-  outline: none; /* Sin borde azul al hacer clic */
-}
-
-/* --- El Pulgar (la bolita que se arrastra) --- */
-
-/* Para Chrome, Safari, Opera, Edge */
-#volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px; /* Ancho del pulgar */
-  height: 20px; /* Alto del pulgar */
-  border-radius: 50%; /* Círculo */
-  background: var(--color-acento); /* ¡Color Acento! */
-  cursor: pointer;
-  border: 2px solid var(--color-primario); /* Borde para que combine */
-}
-
-/* Para Firefox */
-#volume-slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--color-acento); /* ¡Color Acento! */
-  cursor: pointer;
-  border: 2px solid var(--color-primario);
-}
-
-/* --- La Barra (Track) --- */
-
-/* Firefox necesita esta regla específica para el track */
-#volume-slider::-moz-range-track {
-  width: 100%;
-  height: 10px;
-  background: var(--color-terciario-luz1);
-  border-radius: 5px;
-}
-
-/* --- Efecto Hover (Opcional, pero recomendado) --- */
-
-#volume-slider:hover::-webkit-slider-thumb {
-  box-shadow: 0 0 10px var(--color-acento); /* Brillo al pasar el mouse */
-}
-
-#volume-slider:hover::-moz-range-thumb {
-  box-shadow: 0 0 10px var(--color-acento);
-}
-
-
-/* Ocultos */
-  .oculto {
-    display: none;
-  }

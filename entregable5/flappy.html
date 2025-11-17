@@ -7,7 +7,7 @@
       <link rel="icon" type="image/x-icon" href="img/Logo.svg">
       <link rel="stylesheet" href="css/reset.css">
       <link rel="stylesheet" href="./css/home-style.css">
-      <link rel="stylesheet" href="css/juego.css">
+      <link rel="stylesheet" href="./css/juego.css">
       <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -190,102 +190,22 @@
             <div class="canvas-game" id="game-container">
                   <div class="blur"></div>
                   <div class="btn-jugar"></div>
-
                   <button type="button" class="maximizar"></button>
-                  <button type="button" id="pause-button" class="game-control-btn oculto"></button>
-                  <button type="button" id="ingame-menu-button" class="game-control-btn oculto"></button>
-
-                  <div class="contador" id="contador"></div>
-
-                  <div class="contenedor-carrusel oculto">
-                        <div class="contenedor-imagenes"></div>
-                  </div>
-
-                  <div id="main-menu" class="menu-container vertical-menu oculto">
-                        <h2>Menú</h2>
-                        <button class="menu-btn" id="btn-menu-jugar">Jugar</button>
-                        <button class="menu-btn" id="btn-menu-opciones">Opciones</button>
-                        <button class="menu-btn" id="btn-menu-salir">Salir</button>
-                  </div>
-
-                  <div id="level-menu" class="menu-container grid-menu oculto">
-                        <h2>Niveles</h2>
-                        <button class="menu-btn" data-level="0">Nivel 1</button>
-                        <button class="menu-btn" data-level="1">Nivel 2</button>
-                        <button class="menu-btn" data-level="2">Nivel 3</button>
-                        <button class="menu-btn" data-level="3">Nivel 4</button>
-                        <button class="menu-btn" data-level="4">Nivel 5</button>
-                        <button class="menu-btn" data-level="5">Nivel 6</button>
-                        <button class="menu-btn" id="btn-level-volver">Volver</button>
-                  </div>
-
-                  <!--use data-tooltip para que sea mas simple y eficaz-->
-                  <div id="difficulty-menu" class="menu-container vertical-menu oculto">
-                        <h2>Dificultad</h2>
-                        <button class="menu-btn" data-difficulty="facil"
-                                    data-tooltip="Modo Fácil: Piezas 2x2. Sin límite de tiempo. Ideal para empezar.">
-                              Fácil
-                        </button>
-                        <button class="menu-btn" data-difficulty="medio"
-                                    data-tooltip="Modo Medio: Piezas 3x2. Tiempo limitado (60 segundos). Un desafío moderado.">
-                              Medio
-                        </button>
-                        <button class="menu-btn" data-difficulty="dificil"
-                                    data-tooltip="Modo Difícil: Piezas 4x2. Tiempo limitado (30 segundos). Para los más rápidos.">
-                              Difícil
-                        </button>
-                        <button class="menu-btn" data-difficulty="enemigos"
-                                    data-tooltip="Modo Enemigos: ¡Cuidado! Las piezas rotarán solas ocasionalmente. Piezas 4x2. Tiempo limitado (30 segundos).">
-                              Enemigos
-                        </button>
-                        <button class="menu-btn" id="btn-difficulty-volver">Volver</button>
-                  </div>
-
-                  <div id="options-menu" class="menu-container vertical-menu oculto">
-                        <h2>Opciones</h2>
-                        <button class="menu-btn" id="btn-options-ranking">Ranking</button>
-                        <div id="ranking-display" class="oculto">
-                              <h4>Ranking Global</h4>
-                              <div id="ranking-list">Cargando...</div>
-                        </div>
-                        <label for="volume-slider">Volumen:</label>
-                        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.1">
-                        <button class="menu-btn" id="btn-options-volver">Volver</button>
-                  </div>
-
-                  <div id="ingame-menu" class="ingame-menu-dropdown oculto">
-                        <button class="menu-btn-small" id="ingame-resume">Reanudar</button>
-                        <button class="menu-btn-small" id="ingame-help">Ayudita</button>
-                        <button class="menu-btn-small" id="ingame-to-main">Menú Principal</button>
-                        <button class="menu-btn-small" id="ingame-exit">Salir del Juego</button>
-                  </div>
-
-                  <div id="win-message" class="game-message oculto">
-                        <h2>¡GANASTE!</h2>
-                  </div>
-
-                  <div id="lose-message" class="game-message oculto">
-                        <h2>¡PERDISTE!</h2>
-                  </div>
-
-                  <div id="win-menu" class="menu-container vertical-menu oculto">
-                        <button class="menu-btn" id="win-next-level">Próximo Nivel</button>
-                        <button class="menu-btn" id="win-restart">Repetir Nivel</button>
-                        <button class="menu-btn" id="win-to-main">Menú Principal</button>
-                  </div>
-
-                  <div id="lose-menu" class="menu-container vertical-menu oculto">
-                        <button class="menu-btn" id="lose-restart">Reiniciar Nivel</button>
-                        <button class="menu-btn" id="lose-to-main">Menú Principal</button>
-                  </div>
-
-                  <div id="pause-overlay" class="pause-overlay oculto">
-                        <h2>PAUSA</h2>
+                  <div id="flappy-bird-game" class="oculto">
+                        <div class="layer layer-7"></div>
+                        <div class="layer layer-6"></div>
+                        <div class="layer layer-5"></div>
+                        <div class="layer layer-4"></div>
+                        <div class="layer layer-3"></div>
+                        <div class="layer layer-2"></div>
+                        <div class="layer layer-1"></div>
+                        <div id="bird"></div>
                   </div>
 
             </div>
 
-            <div class="titulo"><h2>Blocka</h2></div>
+            <div class="titulo"><h2>Flappy Bird</h2></div>
+
             <div class="btns-juego">
                   <button type="button" class="compartir" id="btnCompartir"></button>
                   <button type="button" class="favoritos" id="btnFavoritos"></button>
@@ -697,7 +617,6 @@
     </footer>
 
       <script src="js/home.js"></script>
-      <script type="module" src="js/juego/blocka.js"></script>
       <script type="module" src="js/page-juego.js"></script>
 </body>
 </html>
