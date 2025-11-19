@@ -309,6 +309,17 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
 }
 
 
+#score {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 48px;
+  color: white;
+  font-family: "Press Start 2P", monospace;
+  z-index: 100;
+}
+
+
 
 
 

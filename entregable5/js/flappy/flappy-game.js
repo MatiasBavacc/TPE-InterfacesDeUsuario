@@ -8,6 +8,11 @@ let velocity;
 let gravity = 0.3;
 let jump = -8;
 let gameOver;
+let score = 0;
+let scoreInterval;
+const SCORE_TO_WIN = 50; // podés cambiarlo a lo que quieras
+
+
 
 let tuberiaSpawnInterval;
 let monedaSpawnInterval;
@@ -155,8 +160,11 @@ function checkCoinCollision() {
       pajaroRect.bottom > rect.top;
 
     if (overlap) {
-      moneda.remove();
-      monedas.splice(i, 1);
+ score += 5;
+  document.getElementById("score").textContent = score;
+
+  moneda.remove();
+  monedas.splice(i, 1);
     }
   }
 }
@@ -218,6 +226,18 @@ export function resetGame() {
   bird.style.transform = "scale(4) rotate(0deg)";
   bird.classList.remove("muerto");
 
+score = 0;
+document.getElementById("score").textContent = score;
+
+clearInterval(scoreInterval);
+scoreInterval = setInterval(() => {
+  if (!gameOver) {
+    score += 1;
+    document.getElementById("score").textContent = score;
+  }
+}, 1000);
+
+
   update();
 }
 
@@ -259,6 +279,13 @@ function update() {
     return endGame();
   }
 
+  // Si llegó al puntaje objetivo, termina el juego
+if (score >= SCORE_TO_WIN) {
+  endGame();
+  return;
+}
+
+
   requestAnimationFrame(update);
 }
 
@@ -268,6 +295,7 @@ function endGame() {
   if (gameOver) return;
 
   gameOver = true;
+  clearInterval(scoreInterval);
   clearInterval(tuberiaSpawnInterval);
   clearInterval(monedaSpawnInterval);
 
