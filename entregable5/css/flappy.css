@@ -158,11 +158,14 @@
 /* ------------ TUBERÍA ------------ */
 .tuberia {
     position: absolute;
-    width: 64px; 
-    background-image: url("../demo/pixil-frame-0.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    image-rendering: pixelated;
-    left: 100vw; 
-    z-index: 5;
+    width: 30px;             
+    background-image: url("../demo/pixil-frame-2.png");
+    background-size: 30px 68px; 
+    background-repeat: repeat-y;   /* 👈 SIN ESTO NO SE VE */
+}
+
+/* Tubería invertida */
+.tuberia-invertida {
+    transform: rotate(180deg);
+    transform-origin: center top;
 }

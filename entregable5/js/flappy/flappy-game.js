@@ -2,68 +2,70 @@
 
 const bird = document.getElementById("bird");
 const gameContainer = document.getElementById("game-container");
-const gameArea = document.getElementById("flappy-bird-game"); 
+const gameArea = document.getElementById("flappy-bird-game");
 
 let velocity;
 let gravity = 0.3;
 let jump = -8;
 let gameOver;
-let tuberiaSpawnInterval; 
-const tuberias = []; 
 
-// --- Configuración de Juego ---
-const tuberiaSpeed = 7; 
-const PAJARO_HEIGHT = 64; 
-const PAJARO_WIDTH = 32; 
-const TUBERIA_WIDTH = 64;
-const TUBERIA_GAP = 200; 
+let tuberiaSpawnInterval;
+let monedaSpawnInterval;
 
-// --- Configuración de Hitbox
-const PADDING_TOP = 15; 
-const PADDING_BOTTOM = 10; 
-const PADDING_SIDE = 10;
+const tuberias = [];
+const monedas = [];
 
-// === FUNCIONES DE TUBERÍAS ====
+const tuberiaSpeed = 7;
+const monedaSpeed = 7;
+
+const PAJARO_HEIGHT = 64;
+const PAJARO_WIDTH = 32;
+const TUBERIA_WIDTH = 30;
+const TUBERIA_GAP = 300;
+
+const PADDING_TOP = 80;
+const PADDING_BOTTOM = 80;
+const PADDING_SIDE = 30;
+
+const TUBERIA_PADDING_TOP = 0;
+const TUBERIA_PADDING_BOTTOM = 0;
+const TUBERIA_PADDING_SIDE = 20;
+
+/* ------------------------- TUBERÍAS ------------------------- */
 
 function createTuberiaPair() {
-
-  // 1. Calcular el punto de inicio del hueco (TOP del hueco)
-  const minTop = 50; 
+  const minTop = 50;
   const maxTop = gameContainer.clientHeight - TUBERIA_GAP - 50;
   const gapStartTop = Math.floor(Math.random() * (maxTop - minTop + 1)) + minTop;
 
-  // Posición X inicial (fuera de la pantalla)
   let xPos = gameContainer.clientWidth;
-  
-  // --- Tubería Superior ---
+
   const topTuberia = document.createElement("div");
-  const topTuberiaHeight = gapStartTop; 
-  
-  topTuberia.classList.add("tuberia");
+  const topTuberiaHeight = gapStartTop;
+
+  topTuberia.classList.add("tuberia", "tuberia-invertida");
   topTuberia.style.height = topTuberiaHeight + "px";
   topTuberia.style.left = xPos + "px";
-  topTuberia.style.top = "0px"; 
+  topTuberia.style.top = "0px";
 
   gameArea.appendChild(topTuberia);
   tuberias.push(topTuberia);
 
-  // --- Tubería Inferior ---
   const bottomTuberia = document.createElement("div");
   const bottomTuberiaTop = gapStartTop + TUBERIA_GAP;
-  const bottomTuberiaHeight = gameContainer.clientHeight - bottomTuberiaTop; 
+  const bottomTuberiaHeight = gameContainer.clientHeight - bottomTuberiaTop;
 
   bottomTuberia.classList.add("tuberia");
   bottomTuberia.style.height = bottomTuberiaHeight + "px";
   bottomTuberia.style.left = xPos + "px";
-  bottomTuberia.style.top = bottomTuberiaTop + "px"; 
+  bottomTuberia.style.top = bottomTuberiaTop + "px";
 
   gameArea.appendChild(bottomTuberia);
   tuberias.push(bottomTuberia);
 }
 
-
 function moverTuberias() {
-  for (let i = tuberias.length - 1; i >= 0; i--) { 
+  for (let i = tuberias.length - 1; i >= 0; i--) {
     const tuberia = tuberias[i];
     let x = parseFloat(tuberia.style.left);
     tuberia.style.left = (x - tuberiaSpeed) + "px";
@@ -75,21 +77,117 @@ function moverTuberias() {
   }
 }
 
+/* ------------------------- MONEDAS ------------------------- */
+
+function crearMoneda() {
+  const moneda = document.createElement("div");
+  moneda.classList.add("moneda");
+
+  const x = gameContainer.clientWidth + 40;
+
+  // Buscar el hueco de la tubería más cercana a la derecha
+  let gapTop = null;
+  let gapBottom = null;
+
+  for (let i = 0; i < tuberias.length; i += 2) {
+    const topT = tuberias[i];
+    const bottomT = tuberias[i + 1];
+
+    const topRect = topT.getBoundingClientRect();
+    const bottomRect = bottomT.getBoundingClientRect();
+
+    const tuberiaX = parseFloat(topT.style.left);
+
+    // Elegimos la tubería que está por aparecer
+    if (tuberiaX > gameContainer.clientWidth * 0.6) {
+      gapTop = topRect.height;
+      gapBottom = bottomRect.top - topRect.bottom;
+      break;
+    }
+  }
+
+  let y;
+
+  if (gapTop !== null) {
+    // Hay tubería → moneda dentro del hueco
+    const gapSpaceTop = gapTop + 40;
+    const gapSpaceBottom = gapTop + TUBERIA_GAP - 40;
+    y = Math.random() * (gapSpaceBottom - gapSpaceTop) + gapSpaceTop;
+  } else {
+    // No hay tuberías todavía → posición segura
+    const safeTop = 120;
+    const safeBottom = gameContainer.clientHeight - 160;
+    y = Math.random() * (safeBottom - safeTop) + safeTop;
+  }
+
+  moneda.style.left = x + "px";
+  moneda.style.top = y + "px";
+
+  gameArea.appendChild(moneda);
+  monedas.push(moneda);
+}
+
+
+function moverMonedas() {
+  for (let i = monedas.length - 1; i >= 0; i--) {
+    const moneda = monedas[i];
+    let x = parseFloat(moneda.style.left);
+    moneda.style.left = (x - monedaSpeed) + "px";
+
+    if (x < -30) {
+      moneda.remove();
+      monedas.splice(i, 1);
+    }
+  }
+}
+
+function checkCoinCollision() {
+  const pajaroRect = bird.getBoundingClientRect();
+
+  for (let i = monedas.length - 1; i >= 0; i--) {
+    const moneda = monedas[i];
+    const rect = moneda.getBoundingClientRect();
+
+    const overlap =
+      pajaroRect.left < rect.right &&
+      pajaroRect.right > rect.left &&
+      pajaroRect.top < rect.bottom &&
+      pajaroRect.bottom > rect.top;
+
+    if (overlap) {
+      moneda.remove();
+      monedas.splice(i, 1);
+    }
+  }
+}
+
+/* ------------------------- COLISIÓN PÁJARO–TUBERÍAS ------------------------- */
 
 function checkCollision() {
-  const pajaroRect = bird.getBoundingClientRect(); 
+  const pajaroRect = bird.getBoundingClientRect();
   const pajaroHitbox = {
-    top: pajaroRect.top + PADDING_TOP, 
-    bottom: pajaroRect.bottom - PADDING_BOTTOM, 
+    top: pajaroRect.top + PADDING_TOP,
+    bottom: pajaroRect.bottom - PADDING_BOTTOM,
     left: pajaroRect.left + PADDING_SIDE,
     right: pajaroRect.right - PADDING_SIDE,
   };
 
   for (const tuberia of tuberias) {
-    const tuberiaRect = tuberia.getBoundingClientRect(); 
-    
-    const collisionX = pajaroHitbox.left < tuberiaRect.right && pajaroHitbox.right > tuberiaRect.left;
-    const collisionY = pajaroHitbox.top < tuberiaRect.bottom && pajaroHitbox.bottom > tuberiaRect.top;
+    const rect = tuberia.getBoundingClientRect();
+    const tuberiaHitbox = {
+      top: rect.top + TUBERIA_PADDING_TOP,
+      bottom: rect.bottom - TUBERIA_PADDING_BOTTOM,
+      left: rect.left + TUBERIA_PADDING_SIDE,
+      right: rect.right - TUBERIA_PADDING_SIDE
+    };
+
+    const collisionX =
+      pajaroHitbox.left < tuberiaHitbox.right &&
+      pajaroHitbox.right > tuberiaHitbox.left;
+
+    const collisionY =
+      pajaroHitbox.top < tuberiaHitbox.bottom &&
+      pajaroHitbox.bottom > tuberiaHitbox.top;
 
     if (collisionX && collisionY) {
       endGame();
@@ -99,79 +197,84 @@ function checkCollision() {
   return false;
 }
 
-/*Inicia o resetea el juego Flappy*/
-export function resetGame() { 
-  // Detener la generación y eliminar tuberías
-  clearInterval(tuberiaSpawnInterval); 
-  tuberias.forEach(p => p.remove());
-  tuberias.length = 0; 
-  
-  // Iniciar la generación de tuberías (cada 2 segundos)
-  tuberiaSpawnInterval = setInterval(createTuberiaPair, 2000); 
+/* ------------------------- RESET ------------------------- */
 
-  // Resetear variables y posición del pájaro
+export function resetGame() {
+  clearInterval(tuberiaSpawnInterval);
+  clearInterval(monedaSpawnInterval);
+
+  tuberias.forEach(p => p.remove());
+  monedas.forEach(m => m.remove());
+
+  tuberias.length = 0;
+  monedas.length = 0;
+
+  tuberiaSpawnInterval = setInterval(createTuberiaPair, 2000);
+  monedaSpawnInterval = setInterval(crearMoneda, 1500);
+
   velocity = 0;
   gameOver = false;
-  bird.style.top = (gameContainer.clientHeight / 2) - (PAJARO_HEIGHT / 2) + "px"; 
+  bird.style.top = (gameContainer.clientHeight / 2) - (PAJARO_HEIGHT / 2) + "px";
   bird.style.transform = "scale(4) rotate(0deg)";
-    bird.classList.remove("muerto");
+  bird.classList.remove("muerto");
 
-  // Iniciar loop
   update();
 }
 
-/* Maneja el salto del pájaro*/
+/* ------------------------- INPUT ------------------------- */
+
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
-    e.preventDefault(); 
+    e.preventDefault();
   }
-  
+
   if (!gameOver && (e.code === "Space" || e.repeat === false)) {
     velocity = jump;
   }
 });
 
-/*Bucle principal del juego Flappy Bird*/
+/* ------------------------- LOOP ------------------------- */
+
 function update() {
   if (gameOver) return;
 
-  // 1. Mover tuberías y detectar colisión con ellas
   moverTuberias();
-  if (checkCollision()) {
-    return; 
-  }
+  moverMonedas();
 
-  // 2. Física del pájaro
+  if (checkCollision()) return;
+  checkCoinCollision();
+
   velocity += gravity;
   let y = parseFloat(getComputedStyle(bird).top);
   bird.style.top = (y + velocity) + "px";
 
-  // 3. Rotación
   let tilt = velocity * 3;
   if (tilt > 60) tilt = 60;
   if (tilt < -30) tilt = -30;
   bird.style.transform = `scale(4) rotate(${tilt}deg)`;
 
-  // 4. Colisión con suelo y techo (Usa la posición visual)
-  const floor = gameContainer.clientHeight - (PAJARO_HEIGHT * 4 * 0.7); // 0.7 es un ajuste por el padding
+  const floor = gameContainer.clientHeight - (PAJARO_HEIGHT * 4 * 0.7);
 
   if (y <= 0 || y >= floor) {
     return endGame();
   }
-  
+
   requestAnimationFrame(update);
 }
 
-/*Termina el juego y lo reinicia*/
+/* ------------------------- GAME OVER ------------------------- */
+
 function endGame() {
-    if (gameOver) return; // Evita que se llame múltiples veces
+  if (gameOver) return;
+
   gameOver = true;
   clearInterval(tuberiaSpawnInterval);
-  // Aplicar animación de muerte
+  clearInterval(monedaSpawnInterval);
+
   bird.classList.add("muerto");
 
   setTimeout(() => {
-    bird.classList.remove("muerto"); // vuelve a volar al reiniciar
+    bird.classList.remove("muerto");
     resetGame();
   }, 700);
 }
