@@ -232,6 +232,11 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
 .layer-2 { background-image: url("../demo/layer02_Trees.png");   animation: scroll 5s infinite linear; }
 .layer-1 { background-image: url("../demo/layer01_Ground.png");  animation: scroll 5s infinite linear; }
 
+.pausa {
+  animation-play-state: paused !important;
+}
+
+
 #bird {
   position: absolute;
   width: 32px;
@@ -291,6 +296,21 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
   z-index: 12;
 }
 
+.moneda-bonus {
+  position: absolute;
+  width: 16px;              /* ancho de cada frame */
+  height: 16px;             /* alto de cada frame */
+  background-image: url("../img/spinning\ coin\ bonus.png");
+  background-size: 128px 16px; /* tamaño total del sprite */
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+
+  animation: giroMoneda 0.6s steps(8) infinite;
+  transform: scale(3);      /* agrandar visualmente */
+  transform-origin: center;
+  z-index: 12;
+}
+
 @keyframes giroMoneda {
   from { background-position-x: 0; }
   to   { background-position-x: -128px; } /* 8 frames × 16px */
@@ -307,6 +327,23 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
   z-index: 100;
 }
 
+
+.fantasma {
+  width: 15px;
+  height: 15px;
+  background-image: url("../img/Arcade - Pac-Man - Miscellaneous - General Sprites.png");
+  background-repeat: no-repeat;
+  background-size: 31px 15px; /* tamaño total del sprite */
+  image-rendering: pixelated;
+  animation: ghostAnim 0.1s steps(2) infinite;
+  transform: scale(3);
+  z-index: 9999;
+}
+
+@keyframes ghostAnim {
+  from { background-position-x: calc(-Xpx); }
+  to   { background-position-x: calc(-Xpx - 30px); } /* X + (15px * 2) */
+}
 
 
 

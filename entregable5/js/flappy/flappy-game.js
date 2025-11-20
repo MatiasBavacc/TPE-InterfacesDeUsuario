@@ -1,59 +1,138 @@
-// flappy-game.js
+// flappy-game.js (versión con comentarios y constantes en español)
 "use strict";
 
 /* ------------------------- ELEMENTOS ------------------------- */
-const bird = document.getElementById("bird");
-const gameContainer = document.getElementById("game-container");
-const gameArea = document.getElementById("flappy-bird-game");
+const bird = document.getElementById("bird"); // el pájaro
+const gameContainer = document.getElementById("game-container"); // contenedor del juego
+const gameArea = document.getElementById("flappy-bird-game"); // área de juego
 
 /* ------------------------- VARIABLES ------------------------- */
-let paused = false;
-let pauseCallback = null; 
-let velocity = 0;
-const gravity = 0.3;
-const jump = -8;
+let paused = false;       // pausado
+let velocity = 0;         // velocidad vertical
+const gravity = 0.3;      // gravedad
+const jump = -8;          // impulso del salto
 
-export let gameOver = false;
-let score = 0;
-let scoreInterval;
+export let gameOver = false; // fin del juego
+let score = 0;               // puntaje
+let scoreInterval = null;    // intervalo que suma puntos
 
-const SCORE_TO_WIN = 50;
+// puntaje necesario para ganar
+const SCORE_TO_WIN = 200;
 
-let tuberiaSpawnInterval;
-let monedaSpawnInterval;
+// intervalos de aparición
+let tuberiaSpawnInterval = null;
+let monedaSpawnInterval = null;
+let monedaBonusSpawnInterval = null;
+let fantasmaSpawnInterval = null;
 
+let rafId = null; // id del requestAnimationFrame
+
+// colecciones de objetos
 const tuberias = [];
 const monedas = [];
 
+// velocidades
 const tuberiaSpeed = 7;
 const monedaSpeed = 7;
 
+// tamaños del pájaro y tuberías
 const PAJARO_HEIGHT = 64;
 const PAJARO_WIDTH = 32;
 const TUBERIA_WIDTH = 30;
 const TUBERIA_GAP = 300;
 
+// ajustes de hitbox del pájaro
 const PADDING_TOP = 80;
 const PADDING_BOTTOM = 80;
 const PADDING_SIDE = 30;
 
+// ajustes de hitbox de tuberías
 const TUBERIA_PADDING_TOP = 0;
 const TUBERIA_PADDING_BOTTOM = 0;
 const TUBERIA_PADDING_SIDE = 20;
 
+// reduce la hitbox de la moneda (en px por cada lado)
+const MONEDA_HITBOX_PADDING = 50;
+
+// colección de fantasmas (se mueven como tuberías)
+const fantasmas = [];
+
+// velocidad / ancho si querés variables específicas (si querés cambiarlo después)
+const fantasmaSpeed = 15; 
+const FANTASMA_WIDTH = 15; // ancho del fotograma (antes de scale)
+const FANTASMA_HEIGHT = 15;
+
+
+
+
+/* ------------------------- ESTADO ------------------------- */
 export function isGameOver() {
     return gameOver;
 }
 
+/* ------------------------- UTILIDADES DE INTERVALOS ------------------------- */
+// limpia todos los intervalos activos
+function limpiarIntervalos() {
+    clearInterval(tuberiaSpawnInterval);
+    clearInterval(monedaSpawnInterval);
+    clearInterval(monedaBonusSpawnInterval);
+    clearInterval(scoreInterval);
+    clearInterval(fantasmaSpawnInterval);
+
+    fantasmaSpawnInterval = null;
+    tuberiaSpawnInterval = null;
+    monedaSpawnInterval = null;
+    monedaBonusSpawnInterval = null;
+    scoreInterval = null;
+}
+
+// activa los intervalos si no están activos ya
+function iniciarIntervalos() {
+    if (!tuberiaSpawnInterval) tuberiaSpawnInterval = setInterval(createTuberiaPair, 2000);
+    if (!monedaSpawnInterval) monedaSpawnInterval = setInterval(crearMoneda, 1500);
+    if (!monedaBonusSpawnInterval) monedaBonusSpawnInterval = setInterval(crearMonedaBonus, 8000);
+    if (!fantasmaSpawnInterval) fantasmaSpawnInterval = setInterval(crearFantasma, 2000);
+
+    if (!scoreInterval) {
+        scoreInterval = setInterval(() => {
+            if (!gameOver && !paused) {
+                score += 1;
+                const el = document.getElementById("score");
+                if (el) el.textContent = score;
+            }
+        }, 1000);
+    }
+}
+
+
+/*-------------------------FONDO ------------------------------*/
+function pausarFondos() {
+    document.querySelectorAll(".layer").forEach(layer => {
+        layer.classList.add("pausa");
+    });
+}
+
+function reanudarFondos() {
+    document.querySelectorAll(".layer").forEach(layer => {
+        layer.classList.remove("pausa");
+    });
+}
+
+
+
 
 /* ------------------------- TUBERÍAS ------------------------- */
+// crea un par de tuberías (arriba y abajo)
 function createTuberiaPair() {
+    if (gameOver || paused) return;
+
     const minTop = 50;
     const maxTop = gameContainer.clientHeight - TUBERIA_GAP - 50;
     const gapStartTop = Math.floor(Math.random() * (maxTop - minTop + 1)) + minTop;
 
-    let xPos = gameContainer.clientWidth;
+    const xPos = gameContainer.clientWidth;
 
+    // tubería superior
     const topTuberia = document.createElement("div");
     topTuberia.classList.add("tuberia", "tuberia-invertida");
     topTuberia.style.height = gapStartTop + "px";
@@ -63,6 +142,7 @@ function createTuberiaPair() {
     gameArea.appendChild(topTuberia);
     tuberias.push(topTuberia);
 
+    // tubería inferior
     const bottomTuberia = document.createElement("div");
     bottomTuberia.classList.add("tuberia");
     bottomTuberia.style.height = (gameContainer.clientHeight - (gapStartTop + TUBERIA_GAP)) + "px";
@@ -73,10 +153,11 @@ function createTuberiaPair() {
     tuberias.push(bottomTuberia);
 }
 
+// mueve las tuberías hacia la izquierda
 function moverTuberias() {
     for (let i = tuberias.length - 1; i >= 0; i--) {
         const tuberia = tuberias[i];
-        let x = parseFloat(tuberia.style.left);
+        const x = parseFloat(tuberia.style.left);
         tuberia.style.left = (x - tuberiaSpeed) + "px";
 
         if (x + TUBERIA_WIDTH < 0) {
@@ -86,35 +167,41 @@ function moverTuberias() {
     }
 }
 
-
 /* ------------------------- MONEDAS ------------------------- */
+// calcula el próximo hueco entre tuberías
+function obtenerGapProximo() {
+    for (let i = 0; i < tuberias.length; i += 2) {
+        const topT = tuberias[i];
+        const x = parseFloat(topT.style.left);
+        if (x > gameContainer.clientWidth * 0.6) {
+            return topT.getBoundingClientRect().height;
+        }
+    }
+    return null;
+}
+
+// crea una moneda normal
 function crearMoneda() {
+    if (gameOver || paused) return;
+
     const moneda = document.createElement("div");
     moneda.classList.add("moneda");
 
     const x = gameContainer.clientWidth + 40;
 
     let gapTop = null;
-    let gapBottom = null;
-
     for (let i = 0; i < tuberias.length; i += 2) {
         const topT = tuberias[i];
-        const bottomT = tuberias[i + 1];
-
         const topRect = topT.getBoundingClientRect();
-        const bottomRect = bottomT.getBoundingClientRect();
-
         const tuberiaX = parseFloat(topT.style.left);
 
         if (tuberiaX > gameContainer.clientWidth * 0.6) {
             gapTop = topRect.height;
-            gapBottom = bottomRect.top - topRect.bottom;
             break;
         }
     }
 
     let y;
-
     if (gapTop !== null) {
         const gapSpaceTop = gapTop + 40;
         const gapSpaceBottom = gapTop + TUBERIA_GAP - 40;
@@ -132,10 +219,37 @@ function crearMoneda() {
     monedas.push(moneda);
 }
 
+// crea una moneda bonus
+function crearMonedaBonus() {
+    if (gameOver || paused) return;
+
+    const moneda = document.createElement("div");
+    moneda.classList.add("moneda-bonus");
+
+    const x = gameContainer.clientWidth + 40;
+    const gapTop = obtenerGapProximo();
+
+    let y;
+    if (gapTop !== null) {
+        const min = gapTop + 40;
+        const max = gapTop + TUBERIA_GAP - 40;
+        y = Math.random() * (max - min) + min;
+    } else {
+        y = Math.random() * (gameContainer.clientHeight - 200) + 120;
+    }
+
+    moneda.style.left = x + "px";
+    moneda.style.top = y + "px";
+
+    gameArea.appendChild(moneda);
+    monedas.push(moneda);
+}
+
+// mueve las monedas hacia la izquierda
 function moverMonedas() {
     for (let i = monedas.length - 1; i >= 0; i--) {
         const moneda = monedas[i];
-        let x = parseFloat(moneda.style.left);
+        const x = parseFloat(moneda.style.left);
         moneda.style.left = (x - monedaSpeed) + "px";
 
         if (x < -30) {
@@ -145,12 +259,92 @@ function moverMonedas() {
     }
 }
 
-function checkCoinCollision() {
+
+/*------------------------------ fantasmas-------------------------------------*/
+
+
+function crearFantasma() {
+    if (gameOver || paused) return;
+
+    const fantasma = document.createElement("div");
+    fantasma.classList.add("fantasma");
+
+    const x = gameContainer.clientWidth + 40;
+    const y = Math.random() * (gameContainer.clientHeight - 120) + 60;
+
+    fantasma.style.left = x + "px";
+    fantasma.style.top = y + "px";
+    fantasma.style.position = "absolute";   // 👈 NECESARIO
+
+    gameArea.appendChild(fantasma);
+    fantasmas.push(fantasma);
+}
+
+
+
+function moverFantasmas() {
+    for (let i = fantasmas.length - 1; i >= 0; i--) {
+        const f = fantasmas[i];
+        const x = parseFloat(f.style.left);
+        f.style.left = (x - fantasmaSpeed) + "px";
+
+        if (x + FANTASMA_WIDTH < 0) {
+            f.remove();
+            fantasmas.splice(i, 1);
+        }
+    }
+}
+
+function checkfantasmaCollision() {
     const pajaroRect = bird.getBoundingClientRect();
 
-    for (let i = monedas.length - 1; i >= 0; i--) {
-        const moneda = monedas[i];
-        const rect = moneda.getBoundingClientRect();
+    for (let i = fantasmas.length - 1; i >= 0; i--) {
+        const fant = fantasmas[i];
+        const rect = fant.getBoundingClientRect();
+
+        // Opcional: achicar hitbox del fantasma si lo querés menos permisivo
+        const padding = 50; // reduce o subí este valor según quieras
+        const fantHitbox = {
+            top: rect.top + padding,
+            bottom: rect.bottom - padding,
+            left: rect.left + padding,
+            right: rect.right - padding
+        };
+
+        const overlap =
+            pajaroRect.left < fantHitbox.right &&
+            pajaroRect.right > fantHitbox.left &&
+            pajaroRect.top < fantHitbox.bottom &&
+            pajaroRect.bottom > fantHitbox.top;
+
+        if (overlap) {
+            // choca con fantasma -> perder
+            endGame();
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+
+/* ------------------------- COLISIÓN CON MONEDAS ------------------------- */
+// detecta si el pájaro recoge una moneda
+function checkCoinCollision() {
+    const pajaroRect = bird.getBoundingClientRect();
+    const monedas = document.querySelectorAll('.moneda, .moneda-bonus');
+
+    monedas.forEach(moneda => {
+        const rectOriginal = moneda.getBoundingClientRect();
+
+        const rect = {
+            top: rectOriginal.top + MONEDA_HITBOX_PADDING,
+            bottom: rectOriginal.bottom - MONEDA_HITBOX_PADDING,
+            left: rectOriginal.left + MONEDA_HITBOX_PADDING,
+            right: rectOriginal.right - MONEDA_HITBOX_PADDING
+        };
 
         const overlap =
             pajaroRect.left < rect.right &&
@@ -159,17 +353,17 @@ function checkCoinCollision() {
             pajaroRect.bottom > rect.top;
 
         if (overlap) {
-            score += 5;
-            document.getElementById("score").textContent = score;
-
+            if (moneda.classList.contains('moneda-bonus')) {
+                score += 5;
+            } else {
+                score++;
+            }
             moneda.remove();
-            monedas.splice(i, 1);
         }
-    }
+    });
 }
 
-
-/* ------------------------- COLISIONES ------------------------- */
+/* ------------------------- COLISIONES CON TUBERÍAS ------------------------- */
 function checkCollision() {
     const pajaroRect = bird.getBoundingClientRect();
     const pajaroHitbox = {
@@ -205,74 +399,65 @@ function checkCollision() {
     return false;
 }
 
+/* ------------------------- PAUSA ------------------------- */
 export function pauseGame() {
+    if (paused) return;
     paused = true;
-    clearInterval(tuberiaSpawnInterval);
-    clearInterval(monedaSpawnInterval);
-    clearInterval(scoreInterval);
+    limpiarIntervalos();
+    if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+    }
+
+    pausarFondos();
 }
 
+/* ------------------------- REANUDAR ------------------------- */
 export function resumeGame() {
-    if (!paused) return;
-
+    if (!paused || gameOver) return;
     paused = false;
 
-    // limpiar intervalos previos antes de crear nuevos
-    clearInterval(tuberiaSpawnInterval);
-    clearInterval(monedaSpawnInterval);
-    clearInterval(scoreInterval);
+    limpiarIntervalos();
+    iniciarIntervalos();
 
-    // reactivar timers
-    tuberiaSpawnInterval = setInterval(createTuberiaPair, 2000);
-    monedaSpawnInterval = setInterval(crearMoneda, 1500);
+    reanudarFondos();
 
-    scoreInterval = setInterval(() => {
-        if (!gameOver && !paused) {
-            score += 1;
-            document.getElementById("score").textContent = score;
-        }
-    }, 1000);
-
-    requestAnimationFrame(update);
+    if (!rafId) {
+        rafId = requestAnimationFrame(update);
+    }
 }
-/* ------------------------- RESET ------------------------- */
-export function resetGame() {
-    paused = false;  
-    gameOver = false;   
 
-    clearInterval(tuberiaSpawnInterval);
-    clearInterval(monedaSpawnInterval);
+/* ------------------------- REINICIAR ------------------------- */
+export function resetGame() {
+    paused = false;
+    gameOver = false;
+
+    reanudarFondos();
+
+    limpiarIntervalos();
 
     tuberias.forEach(p => p.remove());
     monedas.forEach(m => m.remove());
+    fantasmas.forEach(f => f.remove());
 
+    fantasmas.length = 0;
     tuberias.length = 0;
     monedas.length = 0;
 
-    tuberiaSpawnInterval = setInterval(createTuberiaPair, 2000);
-    monedaSpawnInterval = setInterval(crearMoneda, 1500);
+    iniciarIntervalos();
 
     velocity = 0;
-    gameOver = false;
 
     bird.style.top = (gameContainer.clientHeight / 2) - (PAJARO_HEIGHT / 2) + "px";
     bird.style.transform = "scale(4) rotate(0deg)";
     bird.classList.remove("muerto");
 
     score = 0;
-    document.getElementById("score").textContent = score;
+    const scoreEl = document.getElementById("score");
+    if (scoreEl) scoreEl.textContent = score;
 
-    clearInterval(scoreInterval);
-    scoreInterval = setInterval(() => {
-        if (!gameOver) {
-            score += 1;
-            document.getElementById("score").textContent = score;
-        }
-    }, 1000);
-
-    update();
+    if (!rafId) rafId = requestAnimationFrame(update);
 }
-
 
 /* ------------------------- INPUT ------------------------- */
 document.addEventListener("keydown", (e) => {
@@ -282,15 +467,17 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-
-/* ------------------------- LOOP ------------------------- */
+/* ------------------------- LOOP PRINCIPAL ------------------------- */
 function update() {
+    rafId = null;
     if (gameOver || paused) return;
 
     moverTuberias();
     moverMonedas();
+    moverFantasmas();
 
     if (checkCollision()) return;
+    if (checkfantasmaCollision()) return;
     checkCoinCollision();
 
     velocity += gravity;
@@ -307,34 +494,33 @@ function update() {
     }
 
     if (score >= SCORE_TO_WIN) {
-        endGame();
-        return;
+        return endGame();
     }
 
-    requestAnimationFrame(update);
+    if (!rafId) rafId = requestAnimationFrame(update);
 }
 
-
-/* ------------------------- GAME OVER ------------------------- */
+/* ------------------------- FIN DEL JUEGO ------------------------- */
 function endGame() {
     if (gameOver) return;
     gameOver = true;
 
-    clearInterval(scoreInterval);
-    clearInterval(tuberiaSpawnInterval);
-    clearInterval(monedaSpawnInterval);
+    limpiarIntervalos();
+
+    if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+    }
+
+    pausarFondos();
 
     bird.classList.add("muerto");
 
     if (score >= SCORE_TO_WIN) {
         const gameWinMenu = document.getElementById("game-win-menu");
-        if (gameWinMenu) {
-            gameWinMenu.classList.remove("oculto");
-        }
+        if (gameWinMenu) gameWinMenu.classList.remove("oculto");
     } else {
         const gameOverMenu = document.getElementById("game-over-menu");
-        if (gameOverMenu) {
-            gameOverMenu.classList.remove("oculto");
-        }
+        if (gameOverMenu) gameOverMenu.classList.remove("oculto");
     }
 }
