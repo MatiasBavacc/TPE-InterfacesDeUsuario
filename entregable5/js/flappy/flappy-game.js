@@ -259,6 +259,19 @@ function moverMonedas() {
     }
 }
 
+function pausarMonedas() {
+    document.querySelectorAll(".moneda, .moneda-bonus").forEach(m => {
+        m.classList.add("pausa");
+    });
+}
+
+function reanudarMonedas() {
+    document.querySelectorAll(".moneda, .moneda-bonus").forEach(m => {
+        m.classList.remove("pausa");
+    });
+}
+
+
 
 /*------------------------------ fantasmas-------------------------------------*/
 
@@ -410,6 +423,8 @@ export function pauseGame() {
     }
 
     pausarFondos();
+    pausarMonedas();
+
 }
 
 /* ------------------------- REANUDAR ------------------------- */
@@ -421,6 +436,8 @@ export function resumeGame() {
     iniciarIntervalos();
 
     reanudarFondos();
+    reanudarMonedas();
+
 
     if (!rafId) {
         rafId = requestAnimationFrame(update);
@@ -433,6 +450,8 @@ export function resetGame() {
     gameOver = false;
 
     reanudarFondos();
+    reanudarMonedas();
+
 
     limpiarIntervalos();
 
@@ -513,6 +532,8 @@ function endGame() {
     }
 
     pausarFondos();
+    pausarMonedas();
+
 
     bird.classList.add("muerto");
 

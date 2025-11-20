@@ -337,7 +337,6 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
   image-rendering: pixelated;
   animation: ghostAnim 0.1s steps(2) infinite;
   transform: scale(3);
-  z-index: 9999;
 }
 
 @keyframes ghostAnim {
