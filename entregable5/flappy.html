@@ -184,30 +184,60 @@
                   <img src="img/flechita.png" alt="Flecha de breadcrumb">
                   <a href="#">Solitario</a>
                   <img src="img/flechita.png" alt="Flecha de breadcrumb">
-                  <a href="#">Blocka</a>
+                  <a href="#">Flappy Fire</a>
             </div>
 
             <div class="canvas-game" id="game-container">
                   <div class="blur"></div>
-                  <div class="btn-jugar"></div>
-                  <button type="button" class="maximizar"></button>
-                  <div id="flappy-bird-game" class="oculto">
-                        <div class="layer layer-7"></div>
-                        <div class="layer layer-6"></div>
-                        <div class="layer layer-5"></div>
-                        <div class="layer layer-4"></div>
-                        <div class="layer layer-3"></div>
-                        <div class="layer layer-2"></div>
-                        <div class="layer layer-1"></div>
+                        <div class="btn-jugar"></div>
                         
-                        <div id="score">0</div>
-                        <div id="bird"></div>
-                        <div id="coin-container"></div>
+                        <div id="main-menu" class="menu-container oculto">
+                              <h2>FLAPPY FIRE</h2>
+                              <button id="main-menu-jugar" class="menu-btn">Jugar</button>
+                              <button id="main-menu-salir" class="menu-btn">Salir</button>
+                        </div>
+
+                        <div id="ingame-controls" class="oculto">
+                              <button id="ingame-pause-button" class="icon-control-btn pause-btn"></button>
+                              <button id="ingame-menu-button" class="icon-control-btn menu-btn-icon"></button>
+                              <button id="ingame-fullscreen-button" class="icon-control-btn fullscreen-btn"></button>
+                        </div>
+
+                        <div id="ingame-menu" class="menu-container dropdown-menu oculto">
+                              <h3>Menú</h3>
+                              <button id="ingame-menu-reanudar" class="menu-btn">Reanudar</button>
+                              <button id="ingame-menu-reiniciar" class="menu-btn">Reiniciar Juego</button>
+                              <button id="ingame-menu-volver" class="menu-btn">Menú Principal</button>
+                        </div>
+
+                        <div id="game-over-menu" class="menu-container oculto">
+                              <h2>¡PERDISTE!</h2>
+                              <button id="game-over-reiniciar" class="menu-btn">Reiniciar</button>
+                              <button id="game-over-volver" class="menu-btn">Menú Principal</button>
+                        </div>
+
+                        <div id="game-win-menu" class="menu-container oculto">
+                              <h2>¡GANASTE!</h2>
+                              <button id="game-win-reiniciar" class="menu-btn">Reiniciar</button>
+                              <button id="game-win-volver" class="menu-btn">Menú Principal</button>
+                        </div>
+
+                        <div id="flappy-bird-game" class="oculto">
+                              <div class="layer layer-7"></div>
+                              <div class="layer layer-6"></div>
+                              <div class="layer layer-5"></div>
+                              <div class="layer layer-4"></div>
+                              <div class="layer layer-3"></div>
+                              <div class="layer layer-2"></div>
+                              <div class="layer layer-1"></div>
+                              
+                              <div id="score">0</div>
+                              <div id="bird"></div>
+                              <div id="coin-container"></div>
+                        </div>
                   </div>
 
-            </div>
-
-            <div class="titulo"><h2>Flappy Bird</h2></div>
+            <div class="titulo"><h2>Flappy Fire</h2></div>
 
             <div class="btns-juego">
                   <button type="button" class="compartir" id="btnCompartir"></button>

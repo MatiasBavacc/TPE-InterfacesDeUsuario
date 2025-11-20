@@ -1,180 +1,286 @@
 "use strict";
 
-import {resetGame} from './flappy/flappy-game.js';
+import { pauseGame, resumeGame, resetGame, isGameOver } from "./flappy/flappy-game.js";
 
-document.addEventListener("DOMContentLoaded", () =>  {
-    
-    /** Formulario de Comentarios */
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* ========================================
+       ELEMENTOS GENERALES DEL DOM
+    ======================================== */
     const formComentario = document.getElementById("comentar");
-    const textareaComentario = formComentario.querySelector("textarea");
-    const btnCancelar = formComentario.querySelector(".btn-cancelar");
-    
-    /* Botones de Leer Mas y Leer Menos */
+    const textareaComentario = formComentario?.querySelector("textarea");
+    const btnCancelar = formComentario?.querySelector(".btn-cancelar");
+
     const btnLeerMas = document.querySelector(".btn-leer-mas");
     const btnLeerMenos = document.querySelector(".btn-leer-menos");
 
-    /* Contadores de Likes y Dislikes */
     const botonesLike = document.querySelectorAll(".btn-like");
     const botonesDislike = document.querySelectorAll(".btn-dislike");
-    
-    /* PopApp Compartir y Ranking */
+
     const btnCompartir = document.getElementById("btnCompartir");
     const btnRanking = document.getElementById("btnRanking");
     const popAppCompartir = document.querySelector(".section-compartir");
     const popAppRanking = document.querySelector(".section-ranking");
 
-    /* Boton Maximizar */
-    const maximizar = document.querySelector(".maximizar");
-    const juego = document.getElementById("game-container");
-
+    const btnFullscreen = document.getElementById("ingame-fullscreen-button");
     const blur = document.querySelector(".blur");
-    const btnJugar = document.querySelector(".btn-jugar");
+    const btnJugarPagina = document.querySelector(".btn-jugar");
     const imgJuego = document.querySelector(".img-juego");
+
+    /* ========================================
+       ELEMENTOS DEL JUEGO
+    ======================================== */
+    const mainMenu = document.getElementById("main-menu");
+    const mainBtnJugar = document.getElementById("main-menu-jugar");
+    const mainBtnOpciones = document.getElementById("main-menu-opciones");
+    const mainBtnSalir = document.getElementById("main-menu-salir");
+
+    const ingameControls = document.getElementById("ingame-controls");
+    const ingameMenu = document.getElementById("ingame-menu");
+    const btnPausa = document.getElementById("ingame-pause-button");
+    const btnMenu = document.getElementById("ingame-menu-button");
+
+    const btnReanudar = document.getElementById("ingame-menu-reanudar");
+    const btnReiniciar = document.getElementById("ingame-menu-reiniciar");
+    const btnVolver = document.getElementById("ingame-menu-volver");
+
+    const gameOverMenu = document.getElementById("game-over-menu");
+    const gameOverReiniciar = document.getElementById("game-over-reiniciar");
+    const gameOverVolver = document.getElementById("game-over-volver");
+
+    const gameWinMenu = document.getElementById("game-win-menu");
+    const gameWinReiniciar = document.getElementById("game-win-reiniciar");
+    const gameWinVolver = document.getElementById("game-win-volver");
+
+    gameOverReiniciar?.addEventListener("click", () => {
+    // Ocultar ambos menús por si acaso
+    gameOverMenu.classList.add("oculto");
+    gameWinMenu.classList.add("oculto");
+
+    startGameMode(); // reinicia el juego correctamente
+});
+
+gameWinReiniciar?.addEventListener("click", () => {
+    // Ocultar ambos menús por si acaso
+    gameWinMenu.classList.add("oculto");
+    gameOverMenu.classList.add("oculto");
+
+    startGameMode(); // reinicia el juego correctamente
+});
+    
+
     const flappyGame = document.getElementById("flappy-bird-game");
 
-    btnJugar.addEventListener("click", () => {
-        // 1. Oculta la interfaz inicial
-        btnJugar.classList.add("oculto");
-        blur.classList.add("oculto");
-        if (imgJuego) {
-            imgJuego.classList.add("oculto");
-        }
+    /* ========================================
+       FUNCIONES DEL JUEGO
+    ======================================== */
 
-        btnJugar.blur();
-        // 2. Muestra el contenedor del juego Flappy Bird
+    function startGameMode() {
+        mainMenu?.classList.add("oculto");
+        ingameMenu?.classList.add("oculto");
+
         flappyGame.classList.remove("oculto");
+        ingameControls.classList.remove("oculto");
 
-        // 3. Inicia el juego Flappy Bird
-        resetGame();
+        resetGame(); // inicia el juego limpio
+    }
+
+    function goBackToStartScreen() {
+        flappyGame.classList.add("oculto");
+        ingameControls.classList.add("oculto");
+        mainMenu.classList.add("oculto");
+        ingameMenu.classList.add("oculto");
+
+        blur.classList.remove("oculto");
+        btnJugarPagina.classList.remove("oculto");
+        imgJuego?.classList.remove("oculto");
+    }
+
+    function goBackToMainMenu() {
+        flappyGame.classList.add("oculto");
+        ingameControls.classList.add("oculto");
+        ingameMenu.classList.add("oculto");
+
+        mainMenu.classList.remove("oculto");
+    }
+
+    /* ========================================
+       EVENTOS PANTALLA INICIAL
+    ======================================== */
+
+    btnJugarPagina?.addEventListener("click", () => {
+        btnJugarPagina.classList.add("oculto");
+        blur.classList.add("oculto");
+        imgJuego?.classList.add("oculto");
+
+        mainMenu.classList.remove("oculto");
     });
-    
-    /* Enviar o Cancelar Formulario de Comentarios */
-    if(formComentario) formComentario.addEventListener("submit", postComentario);
-    if(btnCancelar) btnCancelar.addEventListener("click", vaciarFormulario);
-    if(textareaComentario) textareaComentario.addEventListener("input", activarBotones);
 
-    /* Botones de Leer Mas y Leer Menos */
-    if(btnLeerMas) btnLeerMas.addEventListener("click", toggleLeerMas);
-    if(btnLeerMenos) btnLeerMenos.addEventListener("click", toggleLeerMas);
+    /* ========================================
+       EVENTOS MENÚ PRINCIPAL DEL JUEGO
+    ======================================== */
 
-    /* Contadores de Likes y Dislikes */
-    botonesLike.forEach(boton => {
-        boton.addEventListener("click", botonLikeDislike);
-    });
-    botonesDislike.forEach(boton => {
-        boton.addEventListener("click", botonLikeDislike);
+    mainBtnJugar?.addEventListener("click", startGameMode);
+
+    mainBtnSalir?.addEventListener("click", goBackToStartScreen);
+
+    mainBtnOpciones?.addEventListener("click", () => {
+        alert("Opciones no implementadas aún.");
     });
 
-    /* Mostrar u Ocultar PopApp Compartir y Ranking */
-    if(btnCompartir) btnCompartir.addEventListener("click", tooglePopApp);
-    if(btnRanking) btnRanking.addEventListener("click", tooglePopApp);
+    /* ========================================
+       CONTROLES IN-GAME
+    ======================================== */
+
+    btnPausa.addEventListener("click", () => {
+        if (isGameOver()) return;
+        ingameMenu.classList.remove("oculto");
+        pauseGame();
+    });
+
+    btnMenu?.addEventListener("click", () => {
+        ingameMenu.classList.toggle("oculto");
+    });
+
+    /* ========================================
+       MENÚ IN-GAME
+    ======================================== */
+
+    btnReanudar?.addEventListener("click", () => {
+        ingameMenu.classList.add("oculto");
+        resumeGame();
+    });
+
+    btnReiniciar?.addEventListener("click", () => {
+        ingameMenu.classList.add("oculto");
+        startGameMode();
+    });
+
+    btnVolver?.addEventListener("click", () => {
+        goBackToMainMenu();
+    });
+
+    document.addEventListener("gameOver", () => {
+        ingameMenu.classList.add("oculto");
+        ingameControls.classList.add("oculto");
+        gameOverMenu.classList.remove("oculto");
+    });
+
+    /* ========================================
+       FORMULARIO DE COMENTARIOS
+    ======================================== */
+
+    formComentario?.addEventListener("submit", postComentario);
+    btnCancelar?.addEventListener("click", vaciarFormulario);
+    textareaComentario?.addEventListener("input", activarBotones);
+
+    btnLeerMas?.addEventListener("click", toggleLeerMas);
+    btnLeerMenos?.addEventListener("click", toggleLeerMas);
+
+    botonesLike.forEach(boton => boton.addEventListener("click", botonLikeDislike));
+    botonesDislike.forEach(boton => boton.addEventListener("click", botonLikeDislike));
+
+    btnCompartir?.addEventListener("click", tooglePopApp);
+    btnRanking?.addEventListener("click", tooglePopApp);
 
     document.addEventListener("click", (e) => {
-        if(popAppCompartir && !btnCompartir.contains(e.target)) {
+        if (popAppCompartir && !btnCompartir.contains(e.target)) {
             popAppCompartir.classList.add("oculto");
         }
-        if(popAppRanking && !btnRanking.contains(e.target)) {
+        if (popAppRanking && !btnRanking.contains(e.target)) {
             popAppRanking.classList.add("oculto");
         }
     });
 
+    /* ========================================
+       ANIMACIÓN CORAZÓN (FAVORITOS)
+    ======================================== */
 
-    const btnFavoritos = document.getElementById('btnFavoritos');
-    const favsIconBtn = document.querySelector('.header-right .icon-btn.favs');
+    const btnFavoritos = document.getElementById("btnFavoritos");
+    const favsIconBtn = document.querySelector(".header-right .icon-btn.favs");
 
-    if (btnFavoritos && favsIconBtn) {
-        btnFavoritos.addEventListener('click', () => {
+    btnFavoritos?.addEventListener("click", () => {
+        if (btnFavoritos && favsIconBtn) {
             crearCorazonVolador(btnFavoritos, favsIconBtn);
-        });
-    }
+        }
+    });
 
-    function crearCorazonVolador(origen, destino) {
-        // ... (Tu función crearCorazonVolador sin cambios) ...
-        const corazon = document.createElement('div');
-        corazon.innerHTML = '<img src="img/icon-favorito.png" alt="Corazón">';
-        corazon.classList.add('corazon-volador');
-        document.body.appendChild(corazon);
-        const origenRect = origen.getBoundingClientRect();
-        const origenTop = origenRect.top + window.scrollY;
-        const origenLeft = origenRect.left + window.scrollX;
-        const origenCenterX = origenLeft + origenRect.width / 2;
-        const origenCenterY = origenTop + origenRect.height / 2;
-        corazon.style.left = (origenCenterX - 10) + 'px';
-        corazon.style.top = (origenCenterY - 10) + 'px';
-        const destinoRect = destino.getBoundingClientRect();
-        const destinoTop = destinoRect.top + window.scrollY;
-        const destinoLeft = destinoRect.left + window.scrollX;
-        const destinoCenterX = destinoLeft + destinoRect.width / 2;
-        const destinoCenterY = destinoTop + destinoRect.height / 2;
-        corazon.animate([
-            { transform: `translate(0, 0)`, opacity: 1 },
-            { transform: `translate(${destinoCenterX - origenCenterX}px, ${destinoCenterY - origenCenterY}px)`, opacity: 0 }
-        ], {
-            duration: 1000,
-            easing: 'ease-in-out',
-            fill: 'forwards'
-        }).finished.then(() => {
-            corazon.remove();
-        });
-    }
+    /* ========================================
+       FULLSCREEN
+    ======================================== */
 
-    /* Boton Maximizar (se mantiene) */
-    if(maximizar) maximizar.addEventListener("click", () => {
+    btnFullscreen?.addEventListener("click", () => {
         if (!document.fullscreenElement) {
-            juego.requestFullscreen();
+            document.getElementById("game-container").requestFullscreen();
         } else {
             document.exitFullscreen();
         }
     });
 });
 
+/* ===========================
+   RESTO DE FUNCIONES ORIGINALES
+=========================== */
+
 function tooglePopApp(event) {
-    // ... (Tu función tooglePopApp sin cambios) ...
     const btn = event.currentTarget;
     let popApp;
-    if(btn.classList.contains("compartir")){
+
+    if (btn.classList.contains("compartir")) {
         popApp = document.querySelector(".section-compartir");
-    }else{
+    } else {
         popApp = document.querySelector(".section-ranking");
     }
+
     popApp.classList.toggle("oculto");
 }
 
 function toggleLeerMas(event) {
-    // ... (Tu función toggleLeerMas sin cambios) ...
     let btnLeerMasEl = event.target;
-    const comentario = btnLeerMasEl.closest(`.comentario`);
+    const comentario = btnLeerMasEl.closest(".comentario");
+
     const btnLeerMenos = comentario.querySelector(".btn-leer-menos");
     const btnLeerMas = comentario.querySelector(".btn-leer-mas");
     const textoComentado = comentario.querySelector(".texto-comentado");
+
     textoComentado.classList.toggle("texto-comentado-activo");
     btnLeerMas.classList.toggle("oculto");
     btnLeerMenos.classList.toggle("oculto");
 }
 
 function postComentario(event) {
-    // ... (Tu función postComentario sin cambios) ...
-    event.preventDefault(); 
+    event.preventDefault();
+
     const formComentario = document.getElementById("comentar");
     const textarea = formComentario.querySelector("textarea");
-    if( textarea.value.trim() !== ""){
+
+    if (textarea.value.trim() !== "") {
         const nombreUsuario = document.querySelector(".comentar .nombre-usuario h4").textContent;
         const avatarSrc = document.querySelector(".comentar .avatar-comentario img").src;
+
         const nuevoComentarioTexto = textarea.value;
-        const fechaActual = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-        const seccionComentarios = document.querySelector('.comentarios');
-        const divOculto = seccionComentarios.querySelector('.comentario.oculto');
+
+        const fechaActual = new Date().toLocaleDateString("es-ES", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+        });
+
+        const seccionComentarios = document.querySelector(".comentarios");
+        const divOculto = seccionComentarios.querySelector(".comentario.oculto");
+
         crearYAgregarComentario(nuevoComentarioTexto, nombreUsuario, avatarSrc, fechaActual, 0, 0, divOculto);
+
         formComentario.reset();
-        activarBotones({target: textarea});
+        activarBotones({ target: textarea });
     }
 }
 
 function activarBotones(event) {
-    // ... (Tu función activarBotones sin cambios) ...
     const textarea = event.target;
     const btnCancelar = document.querySelector(".btn-cancelar, .btn-cancelar-activo");
     const btnComentar = document.querySelector(".btn-comentar, .btn-comentar-activo");
+
     if (textarea.value.trim() !== "") {
         btnCancelar.classList.add("btn-cancelar-activo");
         btnComentar.classList.add("btn-comentar-activo");
@@ -189,157 +295,189 @@ function activarBotones(event) {
 }
 
 function vaciarFormulario(event) {
-    // ... (Tu función vaciarFormulario sin cambios) ...
-    event.preventDefault(); 
+    event.preventDefault();
+
     const formComentario = document.getElementById("comentar");
     const textarea = formComentario.querySelector("textarea");
-    if( textarea.value.trim() !== ""){
+
+    if (textarea.value.trim() !== "") {
         formComentario.reset();
-        activarBotones({target: textarea});
+        activarBotones({ target: textarea });
     }
 }
 
 function botonLikeDislike(event) {
-    // ... (Tu función botonLikeDislike sin cambios, con las correcciones de la última vez) ...
-    let btnLike = event.currentTarget;
-    const comentario = btnLike.closest(`.comentario`);
+    let btn = event.currentTarget;
+
+    const comentario = btn.closest(".comentario");
+
     let contador;
     let otroContador;
-    let imgbtnLike = comentario.querySelector(".btnLike");
-    let imgbtnDislike = comentario.querySelector(".btnDislike");
 
-    if(btnLike.classList.contains("btn-like")){
+    let imgLike = comentario.querySelector(".btnLike");
+    let imgDislike = comentario.querySelector(".btnDislike");
+
+    if (btn.classList.contains("btn-like")) {
         contador = comentario.querySelector(".cont-like");
         otroContador = comentario.querySelector(".cont-dislike");
-        if(contador.dataset.value === "active"){
+
+        if (contador.dataset.value === "active") {
             manejarContadorMenos(contador);
             contador.dataset.value = "inactive";
-            actualizarEstadoBoton(imgbtnLike);
-        }else{
+            imgLike.classList.toggle("btnLike-active");
+        } else {
             manejarContadorMas(contador);
             contador.dataset.value = "active";
-            if(otroContador.dataset.value === "active"){
+
+            if (otroContador.dataset.value === "active") {
                 manejarContadorMenos(otroContador);
                 otroContador.dataset.value = "inactive";
-                actualizarEstadoBoton(imgbtnDislike); 
+                imgDislike.classList.toggle("btnDislike-active");
             }
-            actualizarEstadoBoton(imgbtnLike); 
+
+            imgLike.classList.toggle("btnLike-active");
         }
-    }else{
+    } else {
         contador = comentario.querySelector(".cont-dislike");
         otroContador = comentario.querySelector(".cont-like");
-        if(contador.dataset.value === "active"){
+
+        if (contador.dataset.value === "active") {
             manejarContadorMenos(contador);
             contador.dataset.value = "inactive";
-            actualizarEstadoBoton(imgbtnDislike);
-        }else{
+            imgDislike.classList.toggle("btnDislike-active");
+        } else {
             manejarContadorMas(contador);
             contador.dataset.value = "active";
-            if(otroContador.dataset.value === "active"){
-                manejarContadorMenos(otroContador); 
+
+            if (otroContador.dataset.value === "active") {
+                manejarContadorMenos(otroContador);
                 otroContador.dataset.value = "inactive";
-                actualizarEstadoBoton(imgbtnLike); 
+                imgLike.classList.toggle("btnLike-active");
             }
-            actualizarEstadoBoton(imgbtnDislike); 
+
+            imgDislike.classList.toggle("btnDislike-active");
         }
     }
-    
-    function actualizarEstadoBoton(imgBtn) {
-        if(imgBtn.classList.contains("btnLike")){
-            imgBtn.classList.toggle("btnLike-active");
-        }else{
-            imgBtn.classList.toggle("btnDislike-active");
-        }
+
+    function manejarContadorMas(cont) {
+        if (cont.textContent === "") cont.textContent = 1;
+        else cont.textContent = parseInt(cont.textContent) + 1;
     }
-    function manejarContadorMas(contador){
-        if(contador.textContent === ""){ contador.textContent = 1; }
-        else{ contador.textContent = parseInt(contador.textContent) + 1; }
-    }
-    function manejarContadorMenos(contador){
-        let valor = parseInt(contador.textContent);
-        if(valor === 1){ contador.textContent = ""; } 
-        else if (valor > 1){ contador.textContent = valor - 1; }
+
+    function manejarContadorMenos(cont) {
+        let valor = parseInt(cont.textContent);
+        if (valor === 1) cont.textContent = "";
+        else if (valor > 1) cont.textContent = valor - 1;
     }
 }
 
 function crearYAgregarComentario(texto, nombre, avatar, fecha, likesIniciales = 0, dislikesIniciales = 0, divOculto) {
-    // ... (Tu función crearYAgregarComentario sin cambios) ...
     const MAX_CARACTERES = 130;
     const necesitaLeerMas = texto.length > MAX_CARACTERES;
-    const comentarioDiv = document.createElement('div');
-    comentarioDiv.className = 'comentario';
-    const userComentarioDiv = document.createElement('div');
-    userComentarioDiv.className = 'user-comentario';
-    const avatarComentarioDiv = document.createElement('div');
-    avatarComentarioDiv.className = 'avatar-comentario';
-    const imgAvatar = document.createElement('img');
+
+    const comentarioDiv = document.createElement("div");
+    comentarioDiv.className = "comentario";
+
+    const userComentarioDiv = document.createElement("div");
+    userComentarioDiv.className = "user-comentario";
+
+    const avatarComentarioDiv = document.createElement("div");
+    avatarComentarioDiv.className = "avatar-comentario";
+
+    const imgAvatar = document.createElement("img");
     imgAvatar.src = avatar;
-    imgAvatar.alt = 'Imagen de usuario';
-    imgAvatar.className = 'img-foto-comentarios';
+    imgAvatar.alt = "Imagen de usuario";
+    imgAvatar.className = "img-foto-comentarios";
+
     avatarComentarioDiv.appendChild(imgAvatar);
-    const nombreUsuarioDiv = document.createElement('div');
-    nombreUsuarioDiv.className = 'nombre-usuario';
-    const h4Nombre = document.createElement('h4');
+
+    const nombreUsuarioDiv = document.createElement("div");
+    nombreUsuarioDiv.className = "nombre-usuario";
+
+    const h4Nombre = document.createElement("h4");
     h4Nombre.textContent = nombre;
+
     nombreUsuarioDiv.appendChild(h4Nombre);
+
     userComentarioDiv.appendChild(avatarComentarioDiv);
     userComentarioDiv.appendChild(nombreUsuarioDiv);
-    const recuadroComentarioDiv = document.createElement('div');
-    recuadroComentarioDiv.className = 'recuadro-comentario';
-    const textoComentadoDiv = document.createElement('div');
-    textoComentadoDiv.className = 'texto-comentado';
+
+    const recuadroComentarioDiv = document.createElement("div");
+    recuadroComentarioDiv.className = "recuadro-comentario";
+
+    const textoComentadoDiv = document.createElement("div");
+    textoComentadoDiv.className = "texto-comentado";
+
     if (!necesitaLeerMas) {
         textoComentadoDiv.classList.add("texto-comentado-activo");
     }
-    const pTexto = document.createElement('p');
+
+    const pTexto = document.createElement("p");
     pTexto.textContent = texto;
-    const pFecha = document.createElement('p');
-    pFecha.className = 'fecha-comentario';
+
+    const pFecha = document.createElement("p");
+    pFecha.className = "fecha-comentario";
     pFecha.textContent = fecha;
-    const btnsComentariosDiv = document.createElement('div');
-    btnsComentariosDiv.className = 'btns-comentarios';
+
+    const btnsComentariosDiv = document.createElement("div");
+    btnsComentariosDiv.className = "btns-comentarios";
 
     function crearBotonContador(tipo, count) {
-        const itemBtnDiv = document.createElement('div');
-        itemBtnDiv.className = 'item-btn-comentario';
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = tipo === 'like' ? 'btn-like' : 'btn-dislike';
-        btn.addEventListener('click', botonLikeDislike); 
-        const img = document.createElement('div');
-        img.className = tipo === 'like' ? 'btnLike' : 'btnDislike';
+        const itemBtnDiv = document.createElement("div");
+        itemBtnDiv.className = "item-btn-comentario";
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = tipo === "like" ? "btn-like" : "btn-dislike";
+        btn.addEventListener("click", botonLikeDislike);
+
+        const img = document.createElement("div");
+        img.className = tipo === "like" ? "btnLike" : "btnDislike";
+
         btn.appendChild(img);
-        const pContador = document.createElement('p');
-        pContador.className = tipo === 'like' ? 'cont-like' : 'cont-dislike';
-        pContador.textContent = count > 0 ? count : '';
-        pContador.dataset.value = "inactive"; 
+
+        const pCont = document.createElement("p");
+        pCont.className = tipo === "like" ? "cont-like" : "cont-dislike";
+        pCont.textContent = count > 0 ? count : "";
+        pCont.dataset.value = "inactive";
+
         itemBtnDiv.appendChild(btn);
-        itemBtnDiv.appendChild(pContador);
+        itemBtnDiv.appendChild(pCont);
+
         return itemBtnDiv;
     }
-    
-    btnsComentariosDiv.appendChild(crearBotonContador('like', likesIniciales));
-    btnsComentariosDiv.appendChild(crearBotonContador('dislike', dislikesIniciales));
+
+    btnsComentariosDiv.appendChild(crearBotonContador("like", likesIniciales));
+    btnsComentariosDiv.appendChild(crearBotonContador("dislike", dislikesIniciales));
+
     textoComentadoDiv.appendChild(pTexto);
-    if(necesitaLeerMas) {
-        const btnComentarioDiv = document.createElement('div');
-        btnComentarioDiv.className = 'btn-comentario';
-        const btnLeerMas = document.createElement('button');
-        btnLeerMas.className = 'btn-leer-mas';
-        btnLeerMas.textContent = 'Leer más';
-        btnLeerMas.addEventListener('click', toggleLeerMas); 
-        const btnLeerMenos = document.createElement('button');
-        btnLeerMenos.className = 'btn-leer-menos oculto';
-        btnLeerMenos.textContent = 'Leer menos';
-        btnLeerMenos.addEventListener('click', toggleLeerMas); 
+
+    if (necesitaLeerMas) {
+        const btnComentarioDiv = document.createElement("div");
+        btnComentarioDiv.className = "btn-comentario";
+
+        const btnLeerMas = document.createElement("button");
+        btnLeerMas.className = "btn-leer-mas";
+        btnLeerMas.textContent = "Leer más";
+        btnLeerMas.addEventListener("click", toggleLeerMas);
+
+        const btnLeerMenos = document.createElement("button");
+        btnLeerMenos.className = "btn-leer-menos oculto";
+        btnLeerMenos.textContent = "Leer menos";
+        btnLeerMenos.addEventListener("click", toggleLeerMas);
+
         btnComentarioDiv.appendChild(btnLeerMas);
         btnComentarioDiv.appendChild(btnLeerMenos);
+
         textoComentadoDiv.appendChild(btnComentarioDiv);
     }
+
     textoComentadoDiv.appendChild(pFecha);
     textoComentadoDiv.appendChild(btnsComentariosDiv);
+
     recuadroComentarioDiv.appendChild(textoComentadoDiv);
     comentarioDiv.appendChild(userComentarioDiv);
     comentarioDiv.appendChild(recuadroComentarioDiv);
+
     divOculto.parentNode.insertBefore(comentarioDiv, divOculto.nextSibling);
 }

@@ -112,7 +112,7 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
   aspect-ratio: 16/9;
   grid-area: canvas-game;
   border-radius: 50px;
-
+  background-image: url('../img/flappyfire.jpg');
   background-size: cover;
   background-position: center;
   min-width: 600px;
@@ -137,7 +137,7 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
   height: 100%;
   border-radius: 50px;
   z-index: 1;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(4px);
 }
 
 .canvas-game:fullscreen .blur {
@@ -185,27 +185,15 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
   background-image: url('../img/btn-jugar-hover.png');
 }
 
-.maximizar {
-  background-color: var(--color-terciario-luz2);
-  border: none;
-  width: 80px;
-  max-width: 80px;
-  min-width: 80px;
-  height: 80px;
-  border-radius: 50px;
-  background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
-  z-index: 101;
-  position: absolute;
-  top: 1%;
-  right: 20px;
-  background-image: url('../img/maximizar.png');
+/* Botón de maximizar unificado */
+.fullscreen-btn {
+    background-image: url('../img/maximizar.png');
+    background-size: 30px;
 }
 
-.maximizar:hover {
-  background-image: url('../img/maximizar-hover.png');
-  background-position-y: 40%;
+.fullscreen-btn:hover {
+    background-image: url('../img/maximizar-hover.png');
+    background-position-y: 40%;
 }
 
 /* Contenedor específico de Flappy (dentro de canvas-game) */
@@ -807,6 +795,7 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
 /* Ocultos */
 .oculto {
   display: none !important; /* Añadido !important para asegurar que funcione */
+  pointer-events: none !important;
 }
 
 /* Estilos del Menú de Perfil y Footer (Se mantienen igual) */
@@ -939,4 +928,116 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
 /* Footer */
 footer {
   grid-area: footer;
+}
+
+/* --- ESTILOS DE MENÚS (NUEVOS) --- */
+.menu-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 500;
+    padding: 40px 60px;
+    border-radius: 20px;
+    background-color: var(--color-secundario);
+    border: 5px solid var(--color-acento);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.menu-container h2, .menu-container h3 {
+    font-weight: bold;
+    font-family: 'Cobin', sans-serif;
+    color: var(--color-acento);
+    margin-top: 0;
+}
+
+.menu-btn {
+    width: 200px;
+    height: 60px;
+    background-color: var(--color-terciario-luz2);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 24px;
+    transition: 0.3s ease-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.menu-btn:hover {
+    background-color: var(--color-acento);
+    color: var(--color-primario);
+}
+
+/* Controles in-game (parte superior derecha) */
+#ingame-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+.icon-control-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--color-terciario-luz2);
+    border: none;
+    cursor: pointer;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: 0.3s;
+}
+
+.pause-btn {
+    background-image: url('../img/play.png'); /* Debes tener estos iconos */
+    background-size: 30px;
+}
+
+.pause-btn:hover {
+    background-image: url('../img/play-hover.png');
+    background-position-y: 40%;
+}
+
+.menu-btn-icon {
+    background-image: url('../img/icon-burger.png'); /* Debes tener este icono */
+    background-size: 30px;
+}
+
+.menu-btn-icon:hover {
+    background-image: url('../img/icon-burger-hover.png');
+    background-position-y: 40%;
+}
+
+/* Menú Desplegable In-Game */
+.dropdown-menu {
+    top: 100px; /* Posicionamiento para que aparezca desde el botón de menú */
+    left: auto;
+    right: 20px;
+    transform: none;
+    padding: 20px;
+    gap: 10px;
+}
+
+.dropdown-menu .menu-btn {
+    width: 180px;
+    height: 40px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.dropdown-menu h3 {
+    margin-bottom: 10px;
 }
