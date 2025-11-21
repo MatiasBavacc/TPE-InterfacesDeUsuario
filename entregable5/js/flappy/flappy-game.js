@@ -271,6 +271,18 @@ function reanudarMonedas() {
     });
 }
 
+function pausarPajaro() {
+    document.querySelectorAll("#bird").forEach(m => {
+        m.classList.add("pausa");
+    });
+}
+
+function reanudarPajaro() {
+    document.querySelectorAll("#bird").forEach(m => {
+        m.classList.remove("pausa");
+    });
+}
+
 
 
 /*------------------------------ fantasmas-------------------------------------*/
@@ -424,6 +436,7 @@ export function pauseGame() {
 
     pausarFondos();
     pausarMonedas();
+    pausarPajaro();
 
 }
 
@@ -437,6 +450,7 @@ export function resumeGame() {
 
     reanudarFondos();
     reanudarMonedas();
+    reanudarPajaro();
 
 
     if (!rafId) {
