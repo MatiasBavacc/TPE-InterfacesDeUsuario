@@ -52,6 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const gameWinReiniciar = document.getElementById("game-win-reiniciar");
     const gameWinVolver = document.getElementById("game-win-volver");
 
+    const flappyGame = document.getElementById("flappy-bird-game");
+
     gameOverReiniciar?.addEventListener("click", () => {
     // Ocultar ambos menús por si acaso
     gameOverMenu.classList.add("oculto");
@@ -67,9 +69,30 @@ gameWinReiniciar?.addEventListener("click", () => {
 
     startGameMode(); // reinicia el juego correctamente
 });
-    
 
-    const flappyGame = document.getElementById("flappy-bird-game");
+gameOverVolver?.addEventListener("click", () => {
+    // Oculto todos los menús del juego
+    gameOverMenu.classList.add("oculto");
+    gameWinMenu.classList.add("oculto");
+    ingameMenu.classList.add("oculto");
+    ingameControls.classList.add("oculto");
+    flappyGame.classList.add("oculto");
+
+    // Muestro el menú principal
+    mainMenu.classList.remove("oculto");
+});
+
+gameWinVolver?.addEventListener("click", () => {
+    // Oculto todos los menús del juego
+    gameWinMenu.classList.add("oculto");
+    gameOverMenu.classList.add("oculto");
+    ingameMenu.classList.add("oculto");
+    ingameControls.classList.add("oculto");
+    flappyGame.classList.add("oculto");
+
+    // Muestro el menú principal
+    mainMenu.classList.remove("oculto");
+});
 
     /* ========================================
        FUNCIONES DEL JUEGO
