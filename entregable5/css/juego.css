@@ -196,7 +196,7 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
     background-position-y: 40%;
 }
 
-/* Contenedor específico de Flappy (dentro de canvas-game) */
+
 #flappy-bird-game {
   width: 100%;
   height: 100%;
@@ -204,10 +204,8 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
   overflow: hidden;
 }
 
-/* --- FIN ESTILOS CONTENEDOR --- */
 
 
-/* --- ESTILOS DE FLAPPY BIRD (AÑADIDOS) --- */
 @keyframes scroll {
   0% { background-position-x: 0px; }
   100% { background-position-x: -1920px; }
@@ -220,10 +218,9 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
   top: 0;
   left: 0;
   background-repeat: repeat-x;
-  background-size: 1920px 100%; /* Ajustado a 100% de altura */
+  background-size: 1920px 100%;
 }
 
-/* ¡ASEGÚRATE DE QUE ESTAS IMÁGENES ESTÉN EN TU CARPETA /img/! */
 .layer-7 { background-image: url("../demo/layer07_Sky.png");     animation: scroll 12s infinite linear; }
 .layer-6 { background-image: url("../demo/layer06_Rocks.png");   animation: scroll 10s infinite linear; }
 .layer-5 { background-image: url("../demo/layer05_Clouds.png");  animation: scroll 9s infinite linear; }
@@ -268,7 +265,7 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
     transform-origin: center;
 }
 
-/* ------------ TUBERÍA CORREGIDA (Versión Final) ------------ */
+
 .tuberia {
     position: absolute;
     width: 64px; 
@@ -280,40 +277,40 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
     z-index: 5;
 }
 
-/* ------------- moneda ---------- */
+
 .moneda {
   position: absolute;
-  width: 16px;              /* ancho de cada frame */
-  height: 16px;             /* alto de cada frame */
+  width: 16px;             
+  height: 16px;           
   background-image: url("../img/spinning coin.png");
-  background-size: 128px 16px; /* tamaño total del sprite */
+  background-size: 128px 16px; 
   background-repeat: no-repeat;
   image-rendering: pixelated;
 
   animation: giroMoneda 0.6s steps(8) infinite;
-  transform: scale(3);      /* agrandar visualmente */
+  transform: scale(3);   
   transform-origin: center;
   z-index: 12;
 }
 
 .moneda-bonus {
   position: absolute;
-  width: 16px;              /* ancho de cada frame */
-  height: 16px;             /* alto de cada frame */
+  width: 16px;       
+  height: 16px;         
   background-image: url("../img/spinning\ coin\ bonus.png");
-  background-size: 128px 16px; /* tamaño total del sprite */
+  background-size: 128px 16px;
   background-repeat: no-repeat;
   image-rendering: pixelated;
 
   animation: giroMoneda 0.6s steps(8) infinite;
-  transform: scale(3);      /* agrandar visualmente */
+  transform: scale(3);     
   transform-origin: center;
   z-index: 12;
 }
 
 @keyframes giroMoneda {
   from { background-position-x: 0; }
-  to   { background-position-x: -128px; } /* 8 frames × 16px */
+  to   { background-position-x: -128px; }
 }
 
 
@@ -333,7 +330,7 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
   height: 15px;
   background-image: url("../img/Arcade - Pac-Man - Miscellaneous - General Sprites.png");
   background-repeat: no-repeat;
-  background-size: 31px 15px; /* tamaño total del sprite */
+  background-size: 31px 15px; 
   image-rendering: pixelated;
   animation: ghostAnim 0.1s steps(2) infinite;
   transform: scale(3);
@@ -346,11 +343,6 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
 
 
 
-
-/* --- FIN ESTILOS FLAPPY BIRD --- */
-
-
-/* --- ESTILOS DEL RESTO DE LA PÁGINA (Sin cambios) --- */
 /* Titilo Juego */
 .titulo {
   grid-area: titulo;

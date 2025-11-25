@@ -1,10 +1,9 @@
-// flappy-game.js (versión con comentarios y constantes en español)
 "use strict";
 
 /* ------------------------- ELEMENTOS ------------------------- */
-const bird = document.getElementById("bird"); // el pájaro
-const gameContainer = document.getElementById("game-container"); // contenedor del juego
-const gameArea = document.getElementById("flappy-bird-game"); // área de juego
+const bird = document.getElementById("bird"); 
+const gameContainer = document.getElementById("game-container"); 
+const gameArea = document.getElementById("flappy-bird-game");
 
 /* ------------------------- VARIABLES ------------------------- */
 let paused = false;       // pausado
@@ -51,15 +50,15 @@ const TUBERIA_PADDING_TOP = 0;
 const TUBERIA_PADDING_BOTTOM = 0;
 const TUBERIA_PADDING_SIDE = 20;
 
-// reduce la hitbox de la moneda (en px por cada lado)
+// reduce la hitbox de la moneda
 const MONEDA_HITBOX_PADDING = 50;
 
-// colección de fantasmas (se mueven como tuberías)
+// colección de fantasmas
 const fantasmas = [];
 
-// velocidad / ancho si querés variables específicas (si querés cambiarlo después)
+// velocidad fantasma
 const fantasmaSpeed = 15; 
-const FANTASMA_WIDTH = 15; // ancho del fotograma (antes de scale)
+const FANTASMA_WIDTH = 15; 
 const FANTASMA_HEIGHT = 15;
 
 
@@ -299,7 +298,7 @@ function crearFantasma() {
 
     fantasma.style.left = x + "px";
     fantasma.style.top = y + "px";
-    fantasma.style.position = "absolute";   // 👈 NECESARIO
+    fantasma.style.position = "absolute";
 
     gameArea.appendChild(fantasma);
     fantasmas.push(fantasma);
@@ -327,8 +326,7 @@ function checkfantasmaCollision() {
         const fant = fantasmas[i];
         const rect = fant.getBoundingClientRect();
 
-        // Opcional: achicar hitbox del fantasma si lo querés menos permisivo
-        const padding = 50; // reduce o subí este valor según quieras
+        const padding = 50;
         const fantHitbox = {
             top: rect.top + padding,
             bottom: rect.bottom - padding,
@@ -343,7 +341,6 @@ function checkfantasmaCollision() {
             pajaroRect.bottom > fantHitbox.top;
 
         if (overlap) {
-            // choca con fantasma -> perder
             endGame();
             return true;
         }
