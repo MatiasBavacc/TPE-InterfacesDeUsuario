@@ -498,10 +498,10 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
   width: 25%;
   border-radius: 50px;
   overflow: hidden;
-  background-image: url('../img/callofalgo2.png');
+  background-image: url('../img/flappyfire.jpg');
 }
 .carrucel-item1:nth-child(3) {
-  background-image: url('../img/hombrequearaña.png') ;
+  background-image: url('../img/flappy-fire-game.png') ;
 }
 .carrucel-item-principal1 {
   width: 50%;
@@ -608,10 +608,10 @@ p { font-size: 20px; font-family: 'Cobin', sans-serif; }
   align-items: center;
 }
 .controles .image-control img {
-  width: 67px;
-  max-width: 67px;
-  min-width: 67px;
-  height: 84px;
+  width: 79px;
+  max-width: 79px;
+  min-width: 79px;
+  height: 58px;
 }
 
 /* RANKING */
