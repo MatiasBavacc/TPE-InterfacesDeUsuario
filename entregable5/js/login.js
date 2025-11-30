@@ -3,7 +3,6 @@ const toggleImg1 = document.getElementById('togglePassword');
 const login = document.querySelector('.login-form');
 const nombreCampo = document.getElementById('nombre-campo');
 const contrasenaCampo = document.getElementById('contrasena-campo');
-const contAvisor = document.querySelector('.avisor-contador');
 
 nombreCampo.addEventListener('blur', ()=>{validarCamposRegistro(nombreCampo)});
 contrasenaCampo.addEventListener('blur', ()=>{validarCamposRegistro(contrasenaCampo)});
@@ -49,7 +48,6 @@ function validarCamposRegistro(campo) {
                   dangerSpan.classList.add('oculto');
             }
       }
-  
 }
 
 function cuentaRegresiva() {
@@ -57,7 +55,6 @@ function cuentaRegresiva() {
 
       const intervalo = setInterval(() => {
             if (contador > 0) {
-                  contAvisor.textContent = contador;
                   contador--;
             } else {
                   clearInterval(intervalo);
